@@ -1,10 +1,22 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>UniTest Index</title>
+<meta charset="UTF-8"> 
+<title>Uniway</title>
+<link rel="stylesheet" type="text/css" href="resources/styles.css">
 </head>
 <body>
-	<h1> UniTest </h1>
+   <jsp:include page="_header.jsp" />
+   <jsp:include page="_menu.jsp" /> 
+   <div class="page-title">Exams</div>  
+   <div class="demo-container">
+   <h3>Demo content</h3>
+   <ul>
+      <li>Join</li>
+      <li>Create</li>
+      <li>Reports</li>
+   </ul>
+   </div>   
+   <jsp:include page="_footer.jsp" /> 
 </body>
 </html>
