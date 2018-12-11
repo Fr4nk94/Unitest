@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "AUTHORITIES")
-public class Authorities {
+public class Role {
 
 	@Id
 	@Column(name = "AUTHORITY")

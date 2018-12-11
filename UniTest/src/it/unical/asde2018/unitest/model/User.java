@@ -30,7 +30,7 @@ public class User {
 	private boolean enabled;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch=FetchType.EAGER)
-	private Set<Authorities> authorities = new HashSet<>();
+	private Set<Role> roles = new HashSet<>();
 
 	public long getId() {
 		return id;
@@ -64,21 +64,21 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Set<Authorities> getAuthorities() {
-		return authorities;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setAuthorities(Set<Authorities> authorities) {
-		this.authorities = authorities;
+	public void setRoles(Set<Role> authorities) {
+		this.roles = authorities;
 	}
 
-	public User(long id, String username, String password, boolean enabled, Set<Authorities> authorities) {
+	public User(long id, String username, String password, boolean enabled, Set<Role> authorities) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-		this.authorities = authorities;
+		this.roles = authorities;
 	}
 
 	public User() {

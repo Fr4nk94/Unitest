@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Welcome - LogIn</title>
+<title>UniTest - LogIn</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"
@@ -42,6 +42,10 @@
 <body>
 
 	<div class="container">
+		<div class="row text-center">
+			<h1>UNITEST</h1>
+			<h3>A description of the product</h3>
+		</div>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<div class="login-panel panel panel-default">
@@ -59,11 +63,11 @@
 									<input class="form-control" placeholder="Password"
 										name="password" type="password" value="">
 								</div>
-								<div class="checkbox">
+								<!-- <div class="checkbox">
 									<label> <input name="remember" type="checkbox"
 										value="Remember Me">Remember Me
 									</label>
-								</div>
+								</div>-->
 								<!-- Change this to a button or input when using this as a form -->
 								<input type="submit" class="btn btn-lg btn-success btn-block"
 									value="Login" />

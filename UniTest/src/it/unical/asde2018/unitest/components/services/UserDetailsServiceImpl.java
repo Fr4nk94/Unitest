@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import it.unical.asde2018.unitest.components.persistence.UserDetailsDao;
-import it.unical.asde2018.unitest.model.Authorities;
+import it.unical.asde2018.unitest.model.Role;
 import it.unical.asde2018.unitest.model.User;
 
 @Service("userDetailsService")
@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			builder = org.springframework.security.core.userdetails.User.withUsername(username);
 			builder.disabled(!user.isEnabled());
 			builder.password(user.getPassword());
-			String[] authorities = user.getAuthorities().stream().map(a -> a.getAuthority()).toArray(String[]::new);
+			String[] authorities = user.getRoles().stream().map(a -> a.getAuthority()).toArray(String[]::new);
 
 			builder.authorities(authorities);
 		} else {
@@ -48,11 +48,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		a.setPassword(encoded);
 		a.setUsername("mano");
 
-		Authorities au = new Authorities();
+		Role au = new Role();
 		au.setAuthority("ROLE_Student");
-		Set<Authorities> authorities = new HashSet<>();
+		Set<Role> authorities = new HashSet<>();
 		authorities.add(au);
-		a.setAuthorities(authorities);
+		a.setRoles(authorities);
 		au.setUser(a);
 		
 		userDetailsDao.save(a);
