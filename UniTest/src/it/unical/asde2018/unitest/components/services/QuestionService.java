@@ -57,7 +57,7 @@ public class QuestionService {
 		lista4.add(ans8);
 		lista4.add(ans9);
 		lista4.add(ans10);
-		Question q4= new Question(3,"cazz e domanda è?",lista4,"multipleCorrect");
+		Question q4= new Question(3,"cazz e domanda è?",lista4,"open");
 		questions.add(q4);
 	}
 }

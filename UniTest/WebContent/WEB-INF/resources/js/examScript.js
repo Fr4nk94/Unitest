@@ -8,6 +8,7 @@ function submitExam() {
 			function() {
 				map[$(this).attr("id")] = $(this).siblings(".answerList").find(
 						"input:checked").val();
+
 			});
 	$(".multipleQuestionCorrect").each(function() {
 		$(':checkbox:checked').each(function(i) {
@@ -21,7 +22,6 @@ function submitExam() {
 				map[$(this).attr("id")] = $(this).siblings(".form-group").find(
 						"textarea").val();
 			});
-
 	for ( var key in map) {
 		// check if the property/key is defined in the object itself, not in
 		// parent
@@ -48,7 +48,7 @@ function submitExam() {
 
 function timer() {
 	// Set the date we're counting down to
-	var countDownDate = new Date("Dec 11, 2018 15:10:45").getTime();
+	var countDownDate = new Date("Dec 11, 2018 16:03:45").getTime();
 
 	// Update the count down every 1 second
 	var x = setInterval(function() {
@@ -76,4 +76,20 @@ function timer() {
 			// submitExam();
 		}
 	}, 1000);
+}
+
+window.onbeforeunload = function() {
+	$(".openQuestion").each(
+			function() {
+				localStorage.setItem($(this).attr("id"), $(this).siblings(
+						".form-group").find("textarea").val());
+
+			});
+}
+
+window.onload = function() {
+	$(".openQuestion").each(function() {
+		var name = localStorage.getItem($(this).attr("id"));
+		$(this).siblings(".form-group").find("textarea").val(name);
+	});
 }
