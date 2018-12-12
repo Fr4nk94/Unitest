@@ -2,9 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>UniTest Index</title>
+<title>Create Exam</title>
 </head>
 <body>
-	<h1> UniTest </h1>
+	<form action="openAnswer" method="POST">
+		<button type="submit">Create Open Answer Exam</button>
+	</form>
+	
+	<form action="SingleChoiseAnswer" method="POST">
+		<button type="submit">Create Single Choise Answers Exam</button>
+	</form>
 </body>
 </html>

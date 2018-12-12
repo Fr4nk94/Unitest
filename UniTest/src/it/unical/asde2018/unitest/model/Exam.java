@@ -9,25 +9,22 @@ public class Exam {
 	private String name;					//The name of the exam
 	private Exam_Type examType;				//The type of exam
 	private List<Question> questions;		//A list of questions present in the exam 
-	private List<Answer> answers;			//A list of answer present in the exam
 	private Date creationDate;				//The date of the creation of the exam
 	private boolean isAvailable;			//This field shows if the exam is available to one student or not
 	
-	public Exam(int id, String name, Exam_Type examType, List<Question> questions, List<Answer> answers,
+	public Exam(int id, String name, Exam_Type examType, List<Question> questions, 
 			Date creationDate, boolean isAvailable) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.examType = examType;
 		this.questions = questions;
-		this.answers = answers;
 		this.creationDate = creationDate;
 		this.isAvailable = isAvailable;
 	}
 
 	public Exam() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -62,14 +59,6 @@ public class Exam {
 		this.questions = questions;
 	}
 
-	public List<Answer> getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
-	}
-
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -84,6 +73,16 @@ public class Exam {
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+	
+	public void addQuestion(Question q) {
+		questions.add(q);
+	}
+
+	@Override
+	public String toString() {
+		return "Exam [id=" + id + ", name=" + name + ", examType=" + examType + ", questions=" + questions
+				+ ", creationDate=" + creationDate + ", isAvailable=" + isAvailable + "]";
 	}
 	
 }

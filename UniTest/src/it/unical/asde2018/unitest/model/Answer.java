@@ -7,6 +7,17 @@ public class Answer {
 		private boolean isCorrect;			//This value shows if this answer is correct or not
 		private String answer_content;		//This is the content of the answer, showed to the student
 		
+		
+		
+		//TODO done for testing purposes 
+//		public Answer(int id, boolean isCorrect, String answer_content) {
+//			super();
+//			this.id = id;
+//			this.isCorrect = isCorrect;
+//			this.answer_content = answer_content;
+//		}
+		
+		
 		public Answer(int questionID, int id, boolean isCorrect, String answer_content) {
 			super();
 			this.questionID = questionID;
@@ -17,7 +28,6 @@ public class Answer {
 
 		public Answer() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 
 		public int getQuestionID() {
@@ -50,6 +60,13 @@ public class Answer {
 
 		public void setAnswer_content(String answer_content) {
 			this.answer_content = answer_content;
+		}
+
+
+		@Override
+		public String toString() {
+			return "Answer [questionID=" + questionID + ", id=" + id + ", isCorrect=" + isCorrect + ", answer_content="
+					+ answer_content + "]";
 		}
 		
 }
