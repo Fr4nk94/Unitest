@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,29 +22,38 @@ import javax.persistence.Transient;
 @Table(name = "exam")
 public class Exam {
 
+//	ID of the Exam
 	@Id
 	@Column(name = "examID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long ExamID;
 
+//	Name of the Exam
 	@Column(nullable = false)
 	private String name;
 
+//	Date of creation
 	@Temporal(TemporalType.DATE)
 	private Date creation_date;
 
+//	An Exam is available whether it can be choosed by students
 	@Transient
 	private boolean available = false;
 
+//	The professor that creates the Exam
+	@Transient
+	private User user;
+
+//	An Exam contains a list of Questions
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "examID")
 	private List<Question> questions;
 
 	public Exam() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Exam(long ID, String name, Date date) {
-		ExamID = ID;
+	public Exam(User user, String name, Date date) {
+		this.user = user;
 		this.name = name;
 		creation_date = date;
 		questions = new ArrayList<>();

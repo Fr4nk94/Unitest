@@ -19,10 +19,11 @@ import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
+import it.unical.asde2018.unitest.model.User;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	ExamService examService;
 
@@ -33,7 +34,7 @@ public class HomeController {
 				System.out.println(grant.getAuthority());
 			});
 		}
-		if(model!=null && principal!=null) {
+		if (model != null && principal != null) {
 			model.addAttribute("message", "You are logged in as " + principal.getName());
 		}
 		return "index";
@@ -48,32 +49,32 @@ public class HomeController {
 	@ResponseBody
 	public String saveExam(HttpSession session, Model model) {
 		System.out.println("saveExam CONTROLLER");
-		Exam exam = new Exam(1, "myExam", new Date());
-		
-		Question q = new Question(1, "q1", Question_Type.MULTIPLE_CHOICE);
+		Exam exam = new Exam((User) session.getAttribute("user"), "myExam", new Date());
+
+		Question q = new Question("q1", Question_Type.MULTIPLE_CHOICE);
 		q.addAnswer(new Answer("A", true));
 		q.addAnswer(new Answer("B", false));
 		q.addAnswer(new Answer("C", false));
-		
-		Question q2 = new Question(2, "q2", Question_Type.MULTIPLE_CHOICE);
+
+		Question q2 = new Question("q2", Question_Type.MULTIPLE_CHOICE);
 		q2.addAnswer(new Answer("D", false));
 		q2.addAnswer(new Answer("E", true));
 		q2.addAnswer(new Answer("F", false));
-		
+
 		exam.addQuestion(q);
 		exam.addQuestion(q2);
-		
+
 		examService.insertExam(exam);
 		return "OK";
 	}
-	
+
 	@GetMapping("/listExam")
 	@ResponseBody
 	public String listExam(HttpSession session, Model model) {
 		System.out.println("list Exam Function");
-		
+
 		List<Exam> exams = examService.getAllExams();
-		
+
 		for (Exam exam : exams) {
 			System.out.println("Exam " + exam.getExamID());
 			for (Question q : exam.getQuestions()) {
@@ -83,7 +84,7 @@ public class HomeController {
 				}
 			}
 		}
-		
+
 		return "ExamList";
 	}
 }

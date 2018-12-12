@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +22,9 @@ import javax.persistence.Transient;
 @Table(name = "question")
 public class Question {
 
+//	ID of the question
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "questionID")
 	private long questionID;
 
@@ -28,9 +32,11 @@ public class Question {
 	@Column(name = "type")
 	private Question_Type type;
 
+//	The question body is the argument
 	@Column(name = "question_body")
 	private String question_body;
 
+//	A Question contains a list of Answers (handling of different answer is not supported yet)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "questionID")
 	private List<Answer> answers;
@@ -42,10 +48,9 @@ public class Question {
 		super();
 	}
 
-	public Question(long id, String question_body, Question_Type type) {
+	public Question(String question_body, Question_Type type) {
 		super();
 		this.answers = new ArrayList<>();
-		this.questionID = id;
 		this.question_body = question_body;
 		this.type = type;
 	}
