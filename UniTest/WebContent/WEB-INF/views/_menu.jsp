@@ -6,7 +6,8 @@
 <div class="menu-container">
   
    <a href="${pageContext.request.contextPath}/">Home</a>
-   <c:if test="${role == 'Student'}"> 
+   
+   <c:if test="${user.role == 'Student'}"> 
    |
    <a href="${pageContext.request.contextPath}/courseList">
       Course List
@@ -17,7 +18,7 @@
    </a>
    |
    </c:if>
-   <c:if test="${role == 'Professor'}"> 
+   <c:if test="${user.role == 'Professor'}"> 
    |   
    <a href="${pageContext.request.contextPath}/myCourses">
       My Created Courses
@@ -28,7 +29,5 @@
    </a>
    |
    </c:if>
-   
-
-  
+     
 </div>

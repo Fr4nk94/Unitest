@@ -18,8 +18,6 @@ public class AdminController {
 	@Autowired
 	private LoginService loginService;
 
-	// private String usr;
-
 	// GET: Show Login Page
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public String login(Model model) {
@@ -29,33 +27,17 @@ public class AdminController {
 	@RequestMapping("/loginAttempt")
 	public String loginAttempt(@RequestParam String userName, @RequestParam String password, HttpSession session,
 			Model model) {
-		if (loginService.login(userName, password) == "student") {
-			session.setAttribute("username", userName);
-			session.setAttribute("role", "Student");
 
-			model.addAttribute("name", loginService.getSudentName(userName));
-			model.addAttribute("surname", loginService.getStudentSurname(userName));
-			model.addAttribute("email", loginService.getStudentEmail(userName));
-			model.addAttribute("address", loginService.getStudentAddress(userName));
-			model.addAttribute("phone", loginService.getStudentPhone(userName));
-			System.out.println("login");
+		if (loginService.login(userName, password)) {
+			session.setAttribute("username", userName);
+			session.setAttribute("user", loginService.getUser(userName));
+
+			// session.setAttribute("users", loginService.getUsers());
+			// System.out.println("login");
 
 			return "accountInfo";
 		}
-		if (loginService.login(userName, password) == "professor") {
-			session.setAttribute("username", userName);
-			session.setAttribute("role", "Professor");
-			/*
-			 * model.addAttribute("name", loginService.getSudentName(userName));
-			 * model.addAttribute("surname", loginService.getStudentSurname(userName));
-			 * model.addAttribute("email", loginService.getStudentEmail(userName));
-			 * model.addAttribute("address", loginService.getStudentAddress(userName));
-			 * model.addAttribute("phone", loginService.getStudentPhone(userName));
-			 * System.out.println("login");
-			 */
-			return "accountInfo";
-		}
-		// session.setAttribute("user", userName);
+
 		model.addAttribute("error", "Wrong credentials!");
 		return "login";
 	}
@@ -67,31 +49,28 @@ public class AdminController {
 		return "login";
 	}
 
-	// GET: Enter customer information.
 	@RequestMapping(value = { "/editInfo" }, method = RequestMethod.GET)
 	public String shoppingCartCustomerForm(HttpServletRequest request, Model model) {
-		// Redirect to edit page. "redirect:/edit"
 		return "edit";
 	}
 
-	// GET: Show Login Page
 	@RequestMapping("/edit")
 	public String editInformation(@RequestParam String name, @RequestParam String surname, @RequestParam String email,
 			@RequestParam String address, @RequestParam String phone, HttpSession session, Model model) {
 
 		String username = (String) session.getAttribute("username");
 		System.out.println(username);
-		loginService.setStudentName(username, name);
-		loginService.setStudentSurname(username, surname);
-		loginService.setStudentEmail(username, email);
-		loginService.setStudentAddress(username, address);
-		loginService.setStudentPhone(username, phone);
+		// loginService.setStudentName(username, name);
+		// loginService.setStudentSurname(username, surname);
+		// loginService.setStudentEmail(username, email);
+		// loginService.setStudentAddress(username, address);
+		// loginService.setStudentPhone(username, phone);
 
-		model.addAttribute("name", loginService.getSudentName(username));
-		model.addAttribute("surname", loginService.getStudentSurname(username));
-		model.addAttribute("email", loginService.getStudentEmail(username));
-		model.addAttribute("address", loginService.getStudentAddress(username));
-		model.addAttribute("phone", loginService.getStudentPhone(username));
+		// model.addAttribute("name", loginService.getSudentName(username));
+		// model.addAttribute("surname", loginService.getStudentSurname(username));
+		// model.addAttribute("email", loginService.getStudentEmail(username));
+		// model.addAttribute("address", loginService.getStudentAddress(username));
+		// model.addAttribute("phone", loginService.getStudentPhone(username));
 		/*
 		 * model.addAttribute("name", loginService.getSudentName(username));
 		 * model.addAttribute("surname", loginService.getStudentSurname(username));

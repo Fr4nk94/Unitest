@@ -8,7 +8,7 @@
 	         <a href="${pageContext.request.contextPath}/login">Login</a>
        </c:if>
 	   <c:if test="${username != null}">
-	 Hello ${username} (${role}) | <a href="${pageContext.request.contextPath}/logout">Logout</a>
+	 Hello ${username} (${user.role}) | <a href="${pageContext.request.contextPath}/logout">Logout</a>
 	   </c:if>	            
     </div>
 </div>

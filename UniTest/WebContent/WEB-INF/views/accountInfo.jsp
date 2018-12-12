@@ -8,19 +8,35 @@
 </head>
 <body>
     <jsp:include page="_header.jsp" />
-   <jsp:include page="_menu.jsp" /> 
-   <div class="page-title">Account Info</div> 
-   <div class="account-container">
-        <ul>
-      		<li>Role: ${role}</li>
-	        <li>Name: ${name}</li>
-	        <li>Surname: ${surname}</li>
-	        <li>E-mail: ${email}</li>
-	        <li>Address: ${address}</li>
-	        <li>Phone: ${phone}</li>
-	        <li>UserName: ${username}</li>
-       </ul>
-   </div>
+	<jsp:include page="_menu.jsp" />
+	<div class="page-title">Account Info</div>
+	<div class="account-container">
+		<ul>
+			<li>Role: ${user.role}</li>
+			<li>Name: ${user.firstName}</li>
+			<li>Surname: ${user.lastName}</li>
+			<li>E-mail: ${user.email}</li>
+			<li>UserName: ${user.username}</li>
+			<li>Password: ${user.password}</li>
+		</ul>
+	</div>
+	
+<%-- 	<c:forEach items="${users}" var="user">
+		<div class="product-preview-container">
+			<ul>
+				<!--li><img src="resources/AceQ.png" height="65" width="65" alt="${product.name}"></li!-->
+						
+				<li>Role: ${user.role}</li>
+				<li>Name: ${user.firstName}</li>
+				<li>Surname: ${user.lastName}</li>
+				<li>E-mail: ${user.email}</li>
+				<li>UserName: ${user.username}</li>
+				<li>Password: ${user.password}</li>
+				
+			</ul>
+		</div>
+	</c:forEach> --%>
+	
  	<!-- Edit Customer Info -->
   	<a class="navi-item"
       href="${pageContext.request.contextPath}/editInfo">Edit Customer Info</a>

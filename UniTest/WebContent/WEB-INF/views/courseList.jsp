@@ -15,9 +15,10 @@
 		<div class="product-preview-container">
 			<ul>
 				<!--li><img src="resources/AceQ.png" height="65" width="65" alt="${product.name}"></li!-->
-				<li>Name: ${course.name}</li>
 				<li>Code: ${course.code}</li>
-				<li>Credits:  ${course.code}</li>
+				<li>Name: ${course.name}</li>
+				<li>Creation Date: ${course.creationDate}</li>
+				<li>Type: ${course.examType}</li>
 				<li><a href="${pageContext.request.contextPath}/joinCourse?courseName=${course.name}&courseCode=${course.code}&courseCredits=${course.code}">
 					Join Now</a></li>
 			</ul>

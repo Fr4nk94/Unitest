@@ -9,22 +9,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import it.unical.asde2018.unitest.components.services.CourseService;
-import it.unical.asde2018.unitest.components.services.LoginService;
+import it.unical.asde2018.unitest.components.services.ExamService;
 
 @Controller
-public class CourseController {
+public class ExamController {
 
 	@Autowired
-	private CourseService courseService;
-	@Autowired
-	private LoginService loginService;
+	private ExamService examService;
 
 	private String username;
 
 	@RequestMapping("/courseList")
 	public String courseList(HttpSession session, Model model) {
-		model.addAttribute("courses", courseService.getCourses());
+		// session.setAttribute("users", loginService.getUsers());
+
+		model.addAttribute("courses", examService.getExams());
 		return "courseList";
 	}
 
@@ -40,12 +39,12 @@ public class CourseController {
 		}
 		System.out.println(courseName + courseCode + courseCredits);
 
-		loginService.addCourse(username, courseName, courseCode, courseCredits);
+		// loginService.addCourse(username, courseName, courseCode, courseCredits);
 		// model.addAttribute("courseCode", courseCode);
 
-		model.addAttribute("myCourses", loginService.getJoinedCourses(username));
+		// model.addAttribute("myCourses", loginService.getJoinedCourses(username));
 
-		System.out.println(loginService.getJoinedCourses(username));
+		// System.out.println(loginService.getJoinedCourses(username));
 
 		// model.addAttribute("posts", blogService.getAllPosts());
 
