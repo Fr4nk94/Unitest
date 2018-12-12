@@ -1,12 +1,15 @@
 package it.unical.asde2018.unitest.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +32,10 @@ public class Exam {
 	private boolean isAvailable;
 
 	private Exam_Type examType; // The type of exam
-
-	// private List<Question> questions; // A list of questions present in the exam
+	// @OneToMany(fetch = FetchType.EAGER, mappedBy = "id", cascade =
+	// CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "exam")
+	private List<Question> questions; // A list of questions present in the exam
 
 	public Exam() {
 		id = 0;
@@ -98,19 +103,12 @@ public class Exam {
 		this.examType = examType;
 	}
 
-//	public List<Question> getQuestions() {
-//		return questions;
-//	}
-//
-//	public void setQuestions(List<Question> questions) {
-//		this.questions = questions;
-//	}
+	public List<Question> getQuestions() {
+		return questions;
+	}
 
-	/*
-	 * public boolean isAvailable() { return isAvailable; }
-	 * 
-	 * public void setAvailable(boolean isAvailable) { this.isAvailable =
-	 * isAvailable; }
-	 */
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
 
 }

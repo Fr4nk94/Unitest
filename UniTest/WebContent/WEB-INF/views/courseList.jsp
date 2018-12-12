@@ -19,8 +19,11 @@
 				<li>Name: ${course.name}</li>
 				<li>Creation Date: ${course.creationDate}</li>
 				<li>Type: ${course.examType}</li>
-				<li><a href="${pageContext.request.contextPath}/joinCourse?courseName=${course.name}&courseCode=${course.code}&courseCredits=${course.code}">
-					Join Now</a></li>
+				<c:forEach items="${course.questions}" var="question">
+				<li>Type: ${question.id}</li>
+					</c:forEach>
+			<li><a href="${pageContext.request.contextPath}/joinCourse?courseName=${course.name}&courseCode=${course.code}&courseCredits=${course.code}">
+					Join Now</a></li> 
 			</ul>
 		</div>
 	</c:forEach>
