@@ -44,7 +44,8 @@ public abstract class AbstractBaseDAO<T, X extends Serializable> {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			session.persist(object);
+//			session.persist(object);
+			session.save(object);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,11 +9,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-
+<jsp:include page="commons/bottomInclude.jsp"></jsp:include>
 <title>Unitest - LogIn</title>
 
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
-
+<script type="text/javascript" src="resources/assets/unitest/js/examScript.js"></script>
 </head>
 
 <body>
@@ -27,8 +27,9 @@
 		<div id="page-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-lg-12">
+					<div id = "main-container" class="col-lg-12">
 						<h1 class="page-header">Dashboard</h1>
+						
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -40,10 +41,6 @@
 
 	</div>
 	<!-- /#wrapper -->
-
-
-
-	<jsp:include page="commons/bottomInclude.jsp"></jsp:include>
 
 </body>
 
