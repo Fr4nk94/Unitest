@@ -56,22 +56,25 @@ public class ExamController {
 		{
 			return "createSingleChoiseAnswerExam";
 		}
+		else if(Exam_Type.valueOf(examType).equals(Exam_Type.MULTIPLE_CHOISE))
+		{
+			return "createMultipleChoiseAnswerExam";
+		}
 		return "index";
 	}
 	
 
 	@PostMapping("addQuestionAndAnswers")
 	@ResponseBody
-	public void addQuestionAndAnswers(@RequestParam String exam_ID, @RequestParam String questionTitle, @RequestParam String correctScore, @RequestParam String wrongScore, @RequestParam String answer, @RequestParam String isCorrect) {
+	public void addQuestionAndAnswers(@RequestParam String exam_ID, @RequestParam String questionTitle, @RequestParam String correctScore, @RequestParam String wrongScore, @RequestParam String answer, @RequestParam String isCorrect, @RequestParam String questionType) {
 		System.out.println("L'ESAME E' "+exam_ID);
 		System.out.println("DOMANDA "+questionTitle);
 		System.out.println("CORRECT SCORE "+correctScore);
 		System.out.println("WRONG SCORE "+wrongScore);
 		System.out.println("ANSWER "+answer);
 
-		int correct = Integer.parseInt(isCorrect.split("-")[1]);
-		System.out.println("LA RISPOSTA CORRETTA E'"+correct );
 		int i=0;
+		
 			
 		int examID = Integer.parseInt(exam_ID);
 		Exam e = examService.getExamByID(examID);
@@ -79,12 +82,48 @@ public class ExamController {
 		String[] ans = answer.split(",");
 		List<Answer> answers = new ArrayList<>();
 		
-		Question question = new Question(e.getQuestions().size(), questionTitle, Question_Type.SINGLE_CHOISE, Integer.parseInt(correctScore), 0, answers);
+		Question question = new Question(e.getQuestions().size(), questionTitle, Question_Type.valueOf(questionType), Integer.parseInt(correctScore), 0, answers);
 		
-		for(String s : ans) {
-			answers.add(new Answer(question.getId(), i, (correct == i ? true : false), s));
-			i++;
+		
+		if(Question_Type.SINGLE_CHOISE == Question_Type.valueOf(questionType)) {
+				
+				int correct = Integer.parseInt(isCorrect.split("-")[1]);
+				System.out.println("LA RISPOSTA CORRETTA E'"+correct );
+				
+				for(String s : ans) {
+					answers.add(new Answer(question.getId(), i, (correct == i ? true : false), s));
+					i++;
+				}
+				
+				
+			}
+		
+		else if(Question_Type.MULTIPLE_CHOISE == Question_Type.valueOf(questionType)) {
+			String[] tmp = isCorrect.split(",");
+			
+			int[] corrects = new int[tmp.length];
+			int j = 0;
+			
+			for(String s : tmp) {
+				corrects[j] = Integer.parseInt(s.split("-")[1]);
+				j++;
+			}
+			
+			for(String s : ans) {
+				boolean corr = false;
+				
+				for(int x : corrects) {
+					if(x == i) {
+						corr=true;
+						break;
+						}
+				}
+				answers.add(new Answer(question.getId(), i, corr, s));
+				i++;
+			}
+			
 		}
+		
 
 		question.setAnswers(answers);
 		
