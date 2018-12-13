@@ -18,7 +18,6 @@
 
 <body>
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<jsp:include page="commons/navbar.jsp"></jsp:include>
 
