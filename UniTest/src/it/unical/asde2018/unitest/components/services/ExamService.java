@@ -69,5 +69,4 @@ public class ExamService {
 	public Exam getExamByID(int examID) {
 		return exams.get(examID);
 	}
-	
 }

@@ -36,6 +36,7 @@ public class Question {
 	@Column(name = "question_body")
 	private String question_body;
 
+
 // 	The score given if the answer is correct 	
 	@Column(name = "correct_score")
 	private float correctScore;
