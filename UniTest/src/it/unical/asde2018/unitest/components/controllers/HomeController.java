@@ -20,6 +20,7 @@ import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
 import it.unical.asde2018.unitest.model.User;
+import it.unical.asde2018.unitest.model.security.UserPrincipal;
 
 @Controller
 public class HomeController {
@@ -28,14 +29,16 @@ public class HomeController {
 	ExamService examService;
 
 	@GetMapping("/")
-	public String index(Model model, Principal principal, Authentication authentication) {
+	public String index(Model model, Principal principal, Authentication authentication, HttpSession session) {
 		if (authentication != null) {
 			authentication.getAuthorities().forEach(grant -> {
 				System.out.println(grant.getAuthority());
 			});
+			session.setAttribute("aUser", ((UserPrincipal) authentication.getPrincipal()).getUser());
 		}
 		if (model != null && principal != null) {
-			model.addAttribute("message", "You are logged in as " + principal.getName());
+			model.addAttribute("message",
+					"You are logged in as " + ((UserPrincipal) authentication.getPrincipal()).getUser().getUsername());
 		}
 		return "index";
 	}
