@@ -28,7 +28,7 @@ public class ExamController {
 	
 	
 	//TODO method created only for testing purposes
-	@GetMapping("/")
+	@GetMapping("/createExam")
 	public String home() {
 		
 		return "createExam";
@@ -73,15 +73,46 @@ public class ExamController {
 	
 	@PostMapping("insertQuestions")
 	@ResponseBody
-	public String insertQuestion(HttpSession session, @RequestParam String exam_ID, @RequestParam String questionTitle, @RequestParam String questionType, @RequestParam String maxScore) {
+	public String insertQuestion(HttpSession session, @RequestParam String exam_ID, @RequestParam String questionTitle, @RequestParam String questionType, @RequestParam String correctScore, @RequestParam String wrongScore, @RequestParam String answers, @RequestParam String isCorrect) {
 	
 		
-		System.out.println("INSERT QUESTION exam_ID ="+exam_ID+" question title = "+questionTitle+" max score = "+maxScore);
+		System.out.println("INSERT QUESTION exam_ID ="+exam_ID+" question title = "+questionTitle+" max score = "+correctScore);
 		
 		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
-		Question question = new Question(questionTitle, Question_Type.valueOf(questionType), Integer.parseInt(maxScore), 0); //Wrong score = 0 because it's open answer
+		Question question = new Question(questionTitle, Question_Type.valueOf(questionType), Integer.parseInt(correctScore), Integer.parseInt(wrongScore)); 
 		question.setInternalID(e.getQuestions().size());
 		
+		if(Question_Type.valueOf(questionType).equals(Question_Type.SINGLE_CHOICE)) {
+			
+			String[] ans = answers.split(",");
+			int idCorr = Integer.parseInt(isCorrect.split("-")[1]);
+			int k = 0;
+			for( String s : ans) {
+				question.addAnswer(new Answer(s, (idCorr == k ? true : false)));
+				k++;
+			}
+			
+		}
+		
+		else if(Question_Type.valueOf(questionType).equals(Question_Type.MULTIPLE_CHOICE)) {
+			
+			String[] ans = answers.split(",");
+			String[] tmp = isCorrect.split(",");
+			List<Integer> idCorr = new ArrayList<>();
+			int k = 0;
+
+			for(String s : tmp) {
+				idCorr.add(Integer.parseInt(tmp[k].split("-")[1]));
+				k++;
+			}
+			
+			k = 0;
+			for( String s : ans) {
+				question.addAnswer(new Answer(s, (idCorr.contains(k) ? true : false)));
+				k++;
+			}
+			
+		}
 		
 		e.addQuestion(question);
 		

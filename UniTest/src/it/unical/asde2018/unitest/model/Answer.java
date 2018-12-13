@@ -58,5 +58,11 @@ public class Answer {
 		this.correct = correct;
 	}
 
+	@Override
+	public String toString() {
+		return "Answer [answerID=" + answerID + ", answer_body=" + answer_body + ", correct=" + correct + "]";
+	}
+	
+
 }
 
