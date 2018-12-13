@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import it.unical.asde2018.unitest.components.persistence.global.ExamDAO;
 import it.unical.asde2018.unitest.components.persistence.impl.ExamDAOImpl;
 import it.unical.asde2018.unitest.components.persistence.impl.QuestionDAOImpl;
+import it.unical.asde2018.unitest.components.persistence.impl.StudentExamDAOImpl;
 import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
 
@@ -20,6 +21,9 @@ public class ExamService {
 	
 	@Autowired
 	private QuestionDAOImpl questionDAO;
+	
+	@Autowired 
+	private StudentExamDAOImpl studentExamDAO;
 	
 //	The insertExam saves an Exam object, it needs to save the question first, because of cascade purposes 
 	public void insertExam(Exam exam) {

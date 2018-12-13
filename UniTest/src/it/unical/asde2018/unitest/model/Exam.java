@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 @Table(name = "exam")
 public class Exam {
 
-//	ID of the Exam
+//	Auto-generated ID of the Exam
 	@Id
 	@Column(name = "examID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +41,7 @@ public class Exam {
 	private boolean available = false;
 
 //	The professor that creates the Exam
-	@Transient
+	@Transient // Temporary annotation
 	private User user;
 
 //	An Exam contains a list of Questions
