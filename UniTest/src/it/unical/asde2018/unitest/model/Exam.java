@@ -1,38 +1,85 @@
 package it.unical.asde2018.unitest.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Exam {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-	private int id;							//exam ID
-	private String name;					//The name of the exam
-	private Exam_Type examType;				//The type of exam
-	private List<Question> questions;		//A list of questions present in the exam 
-	private Date creationDate;				//The date of the creation of the exam
-	private boolean isAvailable;			//This field shows if the exam is available to one student or not
+@Entity
+@Table(name = "exam")
+public class Exam {
 	
-	public Exam(int id, String name, Exam_Type examType, List<Question> questions, 
-			Date creationDate, boolean isAvailable) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.examType = examType;
-		this.questions = questions;
-		this.creationDate = creationDate;
-		this.isAvailable = isAvailable;
-	}
+//	Auto-generated ID of the Exam
+	@Id
+	@Column(name = "examID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long ExamID;
+
+//	Name of the Exam
+	@Column(nullable = false)
+	private String name;
+
+//	Date of creation
+	@Temporal(TemporalType.DATE)
+	private Date creation_date;
+
+//	An Exam is available whether it can be choosed by students
+	@Transient
+	private boolean available = false;
+
+//	The professor that creates the Exam
+//	@OneToOne
+//	@JoinColumn(name="id")
+	@Transient
+	private User user;
+
+//	An internal ID for managing the exams in the services
+	@Transient
+	private int internalID;
+	
+//	An Exam contains a list of Questions
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "examID")
+	private List<Question> questions;
 
 	public Exam() {
-		super();
 	}
 
-	public int getId() {
-		return id;
+	public Exam(User user, String name, Date date) {
+		this.user = user;
+		this.name = name;
+		creation_date = date;
+		questions = new ArrayList<>();
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getInternalID() {
+		return internalID;
+	}
+	
+	public void setInternalID(int internalID) {
+		this.internalID = internalID;
+	}
+
+	public long getExamID() {
+		return ExamID;
+	}
+
+	public void setExamID(long examID) {
+		ExamID = examID;
 	}
 
 	public String getName() {
@@ -43,46 +90,30 @@ public class Exam {
 		this.name = name;
 	}
 
-	public Exam_Type getExamType() {
-		return examType;
+	public boolean isAvailable() {
+		return available;
 	}
 
-	public void setExamType(Exam_Type examType) {
-		this.examType = examType;
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public Date getCreation_date() {
+		return creation_date;
+	}
+
+	public void addQuestion(Question q) {
+		questions.add(q);
 	}
 
 	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public boolean isAvailable() {
-		return isAvailable;
-	}
-
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
-	
-	public void addQuestion(Question q) {
-		questions.add(q);
-	}
-
 	@Override
 	public String toString() {
-		return "Exam [id=" + id + ", name=" + name + ", examType=" + examType + ", questions=" + questions
-				+ ", creationDate=" + creationDate + ", isAvailable=" + isAvailable + "]";
+		return "Exam [ExamID=" + ExamID + ", name=" + name + ", creation_date=" + creation_date + ", available="
+				+ available + ", user=" + user + ", internalID=" + internalID + ", questions=" + questions + "]";
 	}
-	
+
 }

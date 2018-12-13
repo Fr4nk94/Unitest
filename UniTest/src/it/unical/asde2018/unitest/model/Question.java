@@ -1,84 +1,134 @@
 package it.unical.asde2018.unitest.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "question")
 public class Question {
 
-	private int id;						//The id to identify the question
-	private String question_title;   	//The question
-	Question_Type questionType;			//The Type of the answer I expected
-	float correct_score;				//The value I assign to a correct answer to this question
-	float wrong_score;					//The value I assign to a wrong answer to this question
+//	ID of the question
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "questionID")
+	private long questionID;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type")
+	private Question_Type type;
+
+//	The question body is the argument
+	@Column(name = "question_body")
+	private String question_body;
+
+// 	The score given if the answer is correct 	
+	@Column(name = "correct_score")
+	private float correctScore;
+
+//	The score given if the answer is wrong	
+	@Column(name = "wrong_score")
+	private float wrongScore;
+
+//	A Question contains a list of Answers (handling of different answer is not supported yet)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "questionID")
 	private List<Answer> answers;
 	
-	public Question(int id, String question_title, Question_Type questionType, float correct_score, float wrong_score, List<Answer> answers) {
-		super();
-		this.id = id;
-		this.question_title = question_title;
-		this.questionType = questionType;
-		this.correct_score = correct_score;
-		this.wrong_score = wrong_score;
-		this.answers = answers;
-	}
+	@Transient
+	private int internalID;
+	
+/*	@ManyToOne
+	private Exam exam;*/
 	
 	public Question() {
 		super();
 	}
 
-	public int getId() {
-		return id;
+	public Question(String question_body, Question_Type type, float correctScore, float wrongScore) {
+		super();
+		this.answers = new ArrayList<>();
+		this.question_body = question_body;
+		this.type = type;
+		this.correctScore = correctScore;
+		this.wrongScore = wrongScore;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getInternalID() {
+		return internalID;
 	}
 
-	public String getQuestion_title() {
-		return question_title;
+	public void setInternalID(int internalID) {
+		this.internalID = internalID;
 	}
 
-	public void setQuestion_title(String question_title) {
-		this.question_title = question_title;
+	public long getQuestionID() {
+		return questionID;
 	}
 
-	public Question_Type getQuestionType() {
-		return questionType;
+	public void setQuestionID(long questionID) {
+		this.questionID = questionID;
 	}
 
-	public void setQuestionType(Question_Type questionType) {
-		this.questionType = questionType;
+	public Question_Type getType() {
+		return type;
 	}
 
-	public float getCorrect_score() {
-		return correct_score;
+	public void setType(Question_Type type) {
+		this.type = type;
 	}
 
-	public void setCorrect_score(float correct_score) {
-		this.correct_score = correct_score;
+	public String getQuestion_body() {
+		return question_body;
 	}
 
-	public float getWrong_score() {
-		return wrong_score;
+	public void setQuestion_body(String question_body) {
+		this.question_body = question_body;
 	}
 
-	public void setWrong_score(float wrong_score) {
-		this.wrong_score = wrong_score;
-	}
-	
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
-	}
-
-	public List<Answer> getAnswers(){
+	public List<Answer> getAnswers() {
 		return answers;
+	}
+
+	public void addAnswer(Answer answer) {
+		this.answers.add(answer);
+	}
+
+	public float getCorrectScore() {
+		return correctScore;
+	}
+
+	public void setCorrectScore(float correctScore) {
+		this.correctScore = correctScore;
+	}
+
+	public float getWrongScore() {
+		return wrongScore;
+	}
+
+	public void setWrongScore(float wrongScore) {
+		this.wrongScore = wrongScore;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", question_title=" + question_title + ", questionType=" + questionType
-				+ getAnswers()+", correct_score=" + correct_score + ", wrong_score=" + wrong_score + "]";
+		return "Question [questionID=" + questionID + ", type=" + type + ", question_body=" + question_body
+				+ ", correctScore=" + correctScore + ", wrongScore=" + wrongScore + ", internalID=" + internalID
+				+ ", answers =" + answers + "]";
 	}
-	
-	
 	
 }

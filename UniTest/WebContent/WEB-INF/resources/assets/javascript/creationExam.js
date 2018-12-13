@@ -1,16 +1,20 @@
 $(document).ready(function() {
+	
+	$("#wrong").hide();
+	$(".input_fields_wrap").hide();
+	
+	
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
+    var type = "";				// The type of the box (radio button or checkbox)
+    var questionType = "OPEN_ANSWER";		//The type of the question (Open, Multiple, Single)..Set to default value
     
     var x = 0; //initlal text box count
     $(add_button).on("click",function(e){ //on add input button click
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            
-            var type = e.target.id == "single" ? "radio" : "checkbox";
-            
             
             $(wrapper).append('<div id="moreAnswer">'+
             '<input id="answer'+x+'" type="text" name="answer" required/>'+
@@ -24,6 +28,149 @@ $(document).ready(function() {
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
       
+    
+    
+    
+     $('#questionType').on('change', function() {
+      
+    	 questionType = this.value;
+    	 
+    	 if(this.value == "OPEN_ANSWER"){
+    		 
+    		 for(var i=0;i<x;i++){
+    			 $("#moreAnswer").remove();
+    		 }
+    		 
+    		 x = 0;
+    		 
+    		 $("#wrong").hide();
+    		 $(".input_fields_wrap").hide();
+    	 }
+    	 else if(this.value == "SINGLE_CHOICE"){
+    		
+    		 for(var i=0;i<x;i++){
+    			 $("#moreAnswer").remove();
+    		 }
+    		
+    		 x=0;
+    		 $("#isCorrect").prop("type", "radio");
+    		 type = "radio";
+    		 $("#wrong").show();
+    		 $(".input_fields_wrap").show();
+    	 }
+    	 else if (this.value == "MULTIPLE_CHOICE"){
+    		 
+    		 for(var i=0;i<x;i++){
+    			 $("#moreAnswer").remove();
+    		 }
+    		 
+    		 x=0;
+    		 $("#isCorrect").prop("type", "checkbox");
+    		 type = "checkbox";
+    		 $("#wrong").show();
+    		 $(".input_fields_wrap").show();
+    	 }
+    
+    });
+    
+    
+    
+    $("#oneMoreQuestion").on("click", function() {
+    	
+    	if(questionType == "OPEN_ANSWER"){
+    		console.log("you are submitting a OPEN question");
+    		
+    		
+    		var questionTitle = $("#questionTitle").val();
+        	var maxScore = $("#correctScore").val();
+        	var exam_ID = $("#exam_ID").val();
+        	
+        	
+        	console.log(questionTitle);
+        	console.log(maxScore);
+        	console.log(exam_ID);
+        	
+        	$.ajax({
+        		url : "insertQuestions",
+        		type : "POST",
+        		data : { 
+        			"exam_ID" : exam_ID,
+        			"questionTitle" : questionTitle,
+        			"maxScore" : maxScore,
+        			"questionType" : "OPEN_ANSWER"
+        		},
+        		
+        		success : function(result){
+        			$("#questionForm")[0].reset();
+        		},
+        		
+        		error : function(res){
+        			alert(res);
+        		}
+        	});
+    		
+    		
+    	}
+    	else if (questionType == "MULTIPLE_CHOICE"){
+    		console.log("you are submitting a MULTIPLE question");
+    	}
+    	else if (questionType == "SINGLE_CHOICE"){
+    		console.log("you are submitting a SINGLE question");
+    	}
+    	
+    	
+    });
+    
+    
+    
+    
+    
+    
+    // CREATE EXAM
+    
+    
+    $("#createExam").on("click", function(){
+    	var examName = $("#examName").val();
+    	var isAvailable = $('input[name=isAvailable]:checked', '#availableOption').val();
+    	
+    	console.log("is available = "+isAvailable);
+    	console.log("examName= "+  examName);
+    	
+    	$.ajax({
+    		url : "createExam",
+    		type : "POST",
+    		data : {
+    				"examName" : examName,
+    				"isAvailable" : isAvailable
+    		},
+    		success : function(res) {
+    			
+    				window.location.href="./addQuestions";
+    			
+    		},
+    		
+    		error : function(r){
+    			alert(r);
+    		}
+    	});
+    });
+    
+    
+    
+    
+    
+    /////////////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -60,7 +207,7 @@ $(document).ready(function() {
     			"wrongScore" : wrongScore,
     			"answer" : answer,
     			"isCorrect" : isCorrect,
-    			"questionType" : "SINGLE_CHOISE"
+    			"questionType" : "SINGLE_CHOICE"
     		},
     		success : function(result){
     			$("#questionForm")[0].reset();
@@ -124,7 +271,7 @@ $(document).ready(function() {
     			"wrongScore" : wrongScore,
     			"answer" : answer,
     			"isCorrect" : isCorrect,
-    			"questionType" : "MULTIPLE_CHOISE"
+    			"questionType" : "MULTIPLE_CHOICE"
     		},
     		success : function(result){
     			$("#questionForm")[0].reset();
@@ -218,3 +365,7 @@ $(document).ready(function() {
     
 });
 
+
+function f() {
+	
+}

@@ -3,6 +3,8 @@ package it.unical.asde2018.unitest.components.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import it.unical.asde2018.unitest.components.services.ExamService;
 import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
-import it.unical.asde2018.unitest.model.Exam_Type;
 import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
+import it.unical.asde2018.unitest.model.User;
 
 
 @org.springframework.stereotype.Controller
@@ -25,11 +27,11 @@ public class ExamController {
 	ExamService examService;
 	
 	
-	//TODO method created only for testin purposes
+	//TODO method created only for testing purposes
 	@GetMapping("/")
 	public String home() {
 		
-		return "createGeneralExam";
+		return "createExam";
 	}
 	
 	@GetMapping("examCreated")
@@ -38,32 +40,64 @@ public class ExamController {
 		return "examCreated";
 	}
 	
-	@PostMapping("createGeneralExam")
-	public String createGeneralExam(@RequestParam String examName, @RequestParam String examType, @RequestParam String isAvailable, Model model) {
+	@PostMapping("createExam")
+	@ResponseBody
+	public void createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable, HttpSession session) {
 		
 		List<Question> questions = new ArrayList<>();
 		List<Answer> answers = new ArrayList<>();
 		
-		examService.createExam(examName, Exam_Type.valueOf(examType), questions, answers, Boolean.parseBoolean(isAvailable));
+		//TODO
+		User professor = new User();
+
+		Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable));
 		
-		model.addAttribute("currentExamID", examService.getCurrentExamID());
+		session.setAttribute("currentExamID", e.getInternalID());
 		
-		if(Exam_Type.valueOf(examType).equals(Exam_Type.OPEN_ANSWER))
-		{
-			return "createOpenAnswerExam";
-		}
-		else if(Exam_Type.valueOf(examType).equals(Exam_Type.SINGLE_CHOISE))
-		{
-			return "createSingleChoiseAnswerExam";
-		}
-		else if(Exam_Type.valueOf(examType).equals(Exam_Type.MULTIPLE_CHOISE))
-		{
-			return "createMultipleChoiseAnswerExam";
-		}
-		return "index";
+//		if(Exam_Type.valueOf(examType).equals(Exam_Type.OPEN_ANSWER))
+//		{
+//			return "createOpenAnswerExam";
+//		}
+//		else if(Exam_Type.valueOf(examType).equals(Exam_Type.SINGLE_CHOICE))
+//		{
+//			return "createSingleChoiseAnswerExam";
+//		}
+//		else if(Exam_Type.valueOf(examType).equals(Exam_Type.MULTIPLE_CHOICE))
+//		{
+//			return "createMultipleChoiseAnswerExam";
+//		}
+//		return "index";
+		
+		//return "redirect:/insertQuestions";
 	}
 	
-
+	@PostMapping("insertQuestions")
+	@ResponseBody
+	public String insertQuestion(HttpSession session, @RequestParam String exam_ID, @RequestParam String questionTitle, @RequestParam String questionType, @RequestParam String maxScore) {
+	
+		
+		System.out.println("INSERT QUESTION exam_ID ="+exam_ID+" question title = "+questionTitle+" max score = "+maxScore);
+		
+		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
+		Question question = new Question(questionTitle, Question_Type.valueOf(questionType), Integer.parseInt(maxScore), 0); //Wrong score = 0 because it's open answer
+		question.setInternalID(e.getQuestions().size());
+		
+		
+		e.addQuestion(question);
+		
+		System.out.println(e.toString());
+		
+		return "addQuestions";
+	}
+	
+	
+	
+	@GetMapping("addQuestions")
+	public String addQuestions() {
+		return "addQuestions";
+	}
+	
+/*
 	@PostMapping("addQuestionAndAnswers")
 	@ResponseBody
 	public void addQuestionAndAnswers(@RequestParam String exam_ID, @RequestParam String questionTitle, @RequestParam String correctScore, @RequestParam String wrongScore, @RequestParam String answer, @RequestParam String isCorrect, @RequestParam String questionType) {
@@ -85,7 +119,7 @@ public class ExamController {
 		Question question = new Question(e.getQuestions().size(), questionTitle, Question_Type.valueOf(questionType), Integer.parseInt(correctScore), 0, answers);
 		
 		
-		if(Question_Type.SINGLE_CHOISE == Question_Type.valueOf(questionType)) {
+		if(Question_Type.SINGLE_CHOICE == Question_Type.valueOf(questionType)) {
 				
 				int correct = Integer.parseInt(isCorrect.split("-")[1]);
 				System.out.println("LA RISPOSTA CORRETTA E'"+correct );
@@ -98,7 +132,7 @@ public class ExamController {
 				
 			}
 		
-		else if(Question_Type.MULTIPLE_CHOISE == Question_Type.valueOf(questionType)) {
+		else if(Question_Type.MULTIPLE_CHOICE == Question_Type.valueOf(questionType)) {
 			String[] tmp = isCorrect.split(",");
 			
 			int[] corrects = new int[tmp.length];
@@ -160,4 +194,5 @@ public class ExamController {
 		examService.printExam(e.getId());
 		
 	}
+	*/
 }
