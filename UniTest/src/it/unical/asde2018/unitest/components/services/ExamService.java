@@ -18,7 +18,7 @@ public class ExamService {
 
 	private static int currentID = 0;
 	
-	// K = ID, V = exam
+	// K = InternalID, V = exam
 	private HashMap<Integer, Exam> exams;
 	
 	
@@ -44,14 +44,11 @@ public class ExamService {
 	}
 	
 	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable) {
-		// TODO
+		
 		Exam e = new Exam(professor, examName, new Date());
-	
 		
 		e.setInternalID(getNextExamID());
 		
-		
-		//exams.put(professor, new Ha)
 		exams.put(e.getInternalID(), e);
 		
 		System.out.println("EXAMSERVICE, EXAM CREATED "+e);
@@ -59,11 +56,6 @@ public class ExamService {
 		
 		return e;
 	}
-	
-//	public void addQuestion(Question q, Exam e) {
-//		//TODO 
-//		exams.get(e.getId()).addQuestion(q);
-//	}
 	
 		
 	public Exam getExamByID(int examID) {

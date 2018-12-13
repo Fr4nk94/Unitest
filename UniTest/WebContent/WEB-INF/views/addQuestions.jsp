@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Create Your Exam</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="resources/assets/javascript/creationExam.js"></script>
+<script src="resources/js/creationExam.js"></script>
 </head>
 <body>
 
@@ -38,7 +38,7 @@
 			</div>
 
 		 <!--   <input id="submit" type="submit" value="Submit"> -->
-		 <button id="submit" type="button">Done</button>
+		 <button id="submit" >Done</button>
 		  <input id="exam_ID" type="hidden" value="${ currentExamID }" name="exam_ID" />
 			
 		  <button id="oneMoreQuestion" type="button">One more question</button>

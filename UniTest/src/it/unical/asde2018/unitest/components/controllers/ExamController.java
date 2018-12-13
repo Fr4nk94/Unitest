@@ -42,33 +42,22 @@ public class ExamController {
 	
 	@PostMapping("createExam")
 	@ResponseBody
-	public void createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable, HttpSession session) {
+	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable, HttpSession session) {
 		
 		List<Question> questions = new ArrayList<>();
 		List<Answer> answers = new ArrayList<>();
-		
-		//TODO
-		User professor = new User();
-
-		Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable));
-		
-		session.setAttribute("currentExamID", e.getInternalID());
-		
-//		if(Exam_Type.valueOf(examType).equals(Exam_Type.OPEN_ANSWER))
-//		{
-//			return "createOpenAnswerExam";
-//		}
-//		else if(Exam_Type.valueOf(examType).equals(Exam_Type.SINGLE_CHOICE))
-//		{
-//			return "createSingleChoiseAnswerExam";
-//		}
-//		else if(Exam_Type.valueOf(examType).equals(Exam_Type.MULTIPLE_CHOICE))
-//		{
-//			return "createMultipleChoiseAnswerExam";
-//		}
-//		return "index";
-		
-		//return "redirect:/insertQuestions";
+		try {
+			User professor = (User) session.getAttribute("aUser");
+	
+			Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable));
+			
+			session.setAttribute("currentExamID", e.getInternalID());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
 	@PostMapping("insertQuestions")
@@ -102,11 +91,9 @@ public class ExamController {
 			int k = 0;
 
 			for(String s : tmp) {
-				idCorr.add(Integer.parseInt(tmp[k].split("-")[1]));
-				k++;
+				idCorr.add(Integer.parseInt(s.split("-")[1]));
 			}
 			
-			k = 0;
 			for( String s : ans) {
 				question.addAnswer(new Answer(s, (idCorr.contains(k) ? true : false)));
 				k++;

@@ -1,7 +1,6 @@
 package it.unical.asde2018.unitest.components.services;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -68,8 +67,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		authorities.add(au);
 		a.setRoles(authorities);
 		au.setUser(a);
+		
+		User den = new User();
+		String psw = new BCryptPasswordEncoder().encode("den");
+		
+		den.setEnabled(true);
+		den.setPassword(psw);
+		den.setUsername("den");
+		
+		Role prof = new Role();
+		prof.setAuthority("ROLE_Professor");
+		Set<Role> authorities1 = new HashSet<>();
+		authorities1.add(prof);
+		den.setRoles(authorities1);
+		prof.setUser(den);
 
 		userDetailsDao.save(a);
+		userDetailsDao.save(den);
 
 	}
 

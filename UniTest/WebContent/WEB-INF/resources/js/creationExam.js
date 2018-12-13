@@ -4,20 +4,21 @@ $(document).ready(function() {
 	$(".input_fields_wrap").hide();
 	
 	
+	
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
     var type = "";				// The type of the box (radio button or checkbox)
     var questionType = "OPEN_ANSWER";		//The type of the question (Open, Multiple, Single)..Set to default value
     
-    var x = 0; //initlal text box count
+    var x = 0; //initial text box count
     $(add_button).on("click",function(e){ //on add input button click
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
             
             $(wrapper).append('<div id="moreAnswer">'+
-            '<input id="answer'+x+'" type="text" name="answer" required/>'+
+            '<input id="answer'+x+'" type="text" name="answer" />'+
             '<a href="#" class="remove_field">Remove</a>'+
             '<input id="isCorrect" type="'+type+'" name="isCorrect" value="true-'+x+'"> Correct<br>'+
             '</div>'); //add input box
@@ -77,6 +78,7 @@ $(document).ready(function() {
     
     $("#oneMoreQuestion").on("click", function() {
     	
+    	
     	var questionTitle = $("#questionTitle").val();
     	var exam_ID = $("#exam_ID").val();
     	var correctScore = $("#correctScore").val();
@@ -85,13 +87,25 @@ $(document).ready(function() {
     	var isCorrect = "";
     	
     	
+
+        // Check if empty of not
+        if (questionTitle === '') {
+            alert('Insert the question');
+            return false;
+        }
+        
+        // Check if empty of not
+        if (correctScore === '') {
+            alert('Insert the score of the correct answer');
+            return false;
+        }
+    	
+    	
+    	
+    	
     	if(questionType == "OPEN_ANSWER"){
     		console.log("you are submitting a OPEN question");
     		
-        	console.log(questionTitle);
-        	console.log(correctScore);
-        	console.log(exam_ID);
-        	
         	$.ajax({
         		url : "insertQuestions",
         		type : "POST",
@@ -139,12 +153,23 @@ $(document).ready(function() {
 
     		});
     		
-    		console.log(exam_ID);
-    		console.log(correctScore);
-    		console.log(wrongScore);
-    		console.log(answer);
-    		console.log(isCorrect);
+    		// Check if empty of not
+            if (wrongScore === '') {
+                alert('Insert the wrong score');
+                return false;
+            }
+            
+            // Check if empty of not
+            if (answer === '') {
+                alert('Insert the answer');
+                return false;
+            }
     		
+            // Check if empty of not
+            if (isCorrect === '') {
+                alert('Choose at least one correct answer');
+                return false;
+            }
     		
     		
     		$.ajax({
@@ -161,6 +186,7 @@ $(document).ready(function() {
         		},
         		success : function(result){
         			$("#questionForm")[0].reset();
+        			$("#questionType").val("MULTIPLE_CHOICE");
         			
         			for(var i=0; i<x; i++){
         				$("#moreAnswer").remove();
@@ -188,12 +214,24 @@ $(document).ready(function() {
     		
     		isCorrect = $('input[name=isCorrect]:checked', '#questionForm').val();
     		
-    		console.log(exam_ID);
-    		console.log(correctScore);
-    		console.log(wrongScore);
-    		console.log(answer);
-    		console.log(isCorrect);
+    		// Check if empty of not
+            if (wrongScore === '') {
+            	alert('Insert the wrong score');
+                return false;
+            }
+            
+            // Check if empty of not
+            if (answer === '') {
+            	alert('Insert the answer');
+                return false;
+            }
     		
+            // Check if empty of not
+            if (isCorrect === '') {
+                alert('Choose at least one correct answer');
+                return false;
+            }
+            
     		$.ajax({
         		url : "insertQuestions",
         		type : "POST",
@@ -208,6 +246,7 @@ $(document).ready(function() {
         		},
         		success : function(result){
         			$("#questionForm")[0].reset();
+        			$("#questionType").val("SINGLE_CHOICE");
         			
         			for(var i=0; i<x; i++){
         				$("#moreAnswer").remove();
@@ -268,192 +307,22 @@ $(document).ready(function() {
     
     /////////////////////////////////////////////////////////
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    $("#moreSingleChoiseQuestion").on("click", function(){
-//		var questionTitle = $("#questionTitle").val();
-//		var exam_ID = $("#exam_ID").val();
-//		var correctScore = $("#correctScore").val();
-//		var wrongScore = $("#wrongScore").val();
-//		var answer ="";
-//
-//		for(var i=0; i<= x;i++){
-//			answer += $("#answer"+i).val();
-//			
-//			if(i != x)
-//				answer+=",";
-//		}
-//		
-//		var isCorrect = $('input[name=isCorrect]:checked', '#questionForm').val()
-//			
-//		
-//		console.log(exam_ID);
-//		console.log(correctScore);
-//		console.log(wrongScore);
-//		console.log(answer);
-//		console.log(isCorrect);
-//		
-//    	$.ajax({
-//    		url : "addQuestionAndAnswers",
-//    		type : "POST",
-//    		data : {
-//    			"questionTitle" : questionTitle,
-//    			"exam_ID" : exam_ID,
-//    			"correctScore" : correctScore,
-//    			"wrongScore" : wrongScore,
-//    			"answer" : answer,
-//    			"isCorrect" : isCorrect,
-//    			"questionType" : "SINGLE_CHOICE"
-//    		},
-//    		success : function(result){
-//    			$("#questionForm")[0].reset();
-//    			
-//    			for(var i=0; i<x; i++){
-//    				$("#moreAnswer").remove();
-//    			}
-//    			x=0;
-//    		},
-//    		
-//    		error : function(res){
-//    			console.log(res);
-//    		}
-//    	});
-//    	
-//    	
-//    });
-    
-    
-    $("#moreMultipleChoiseQuestion").on("click", function(){
-    	var questionTitle = $("#questionTitle").val();
-		var exam_ID = $("#exam_ID").val();
-		var correctScore = $("#correctScore").val();
-		var wrongScore = $("#wrongScore").val();
-		var answer ="";
-		
-		for(var i=0; i<= x;i++){
-			answer += $("#answer"+i).val();
-			
-			if(i != x)
-				answer+=",";
-		}
-		
-		var isCorrect = "";
-		
-		$('input[name=isCorrect]:checked').each(function() {
-			
-			if(isCorrect != ""){
-				isCorrect+=","+$(this).val();
-			}
-			else {
-				isCorrect+=$(this).val();
-			}
-
-		});
-    	
-		console.log(exam_ID);
-		console.log(correctScore);
-		console.log(wrongScore);
-		console.log(answer);
-		
-		console.log(isCorrect);
-		
-	 	$.ajax({
-    		url : "addQuestionAndAnswers",
-    		type : "POST",
-    		data : {
-    			"questionTitle" : questionTitle,
-    			"exam_ID" : exam_ID,
-    			"correctScore" : correctScore,
-    			"wrongScore" : wrongScore,
-    			"answer" : answer,
-    			"isCorrect" : isCorrect,
-    			"questionType" : "MULTIPLE_CHOICE"
-    		},
-    		success : function(result){
-    			$("#questionForm")[0].reset();
-    			
-    			for(var i=0; i<x; i++){
-    				$("#moreAnswer").remove();
-    			}
-    			x=0;
-    		},
-    		
-    		error : function(res){
-    			console.log(res);
-    		}
-    	});
-    	
-		
-		
-		
-		
-		
-		
-		
-    });
-    
-    
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    $("#moreOpenAnswerQuestion").on("click", function(){
-//    	var questionTitle = $("#questionTitle").val();
-//    	var maxScore = $("#maxScore").val();
-//    	var exam_ID = $("#exam_ID").val();
-//    	
-//    	console.log(questionTitle);
-//    	console.log(maxScore);
-//    	console.log(exam_ID);
-//    	
-//    	$.ajax({
-//    		url : "addQuestion",
-//    		type : "POST",
-//    		data : { 
-//    			"exam_ID" : exam_ID,
-//    			"questionTitle" : questionTitle,
-//    			"maxScore" : maxScore
-//    		},
-//    		
-//    		success : function(result){
-//    			$("#OpenQuestionForm")[0].reset();
-//    		},
-//    		
-//    		error : function(res){
-//    			alert(res);
-//    		}
-//    	});
-//    	
-//    });
-//    
     $("#submit").on("click", function(){
+    	
     	$.ajax({
     		url : "examCreated",
     		type : "GET",
     		success : function(result){
+    			
+    			 // Check if empty of not
+                if (input !== "" ) {
+                	console.log(input);
+                	alert("You should submit your question before to review the exam !1");
+                    return false;
+                }
+                
     			window.location.href="examCreated";
+    			
     		},
     		error : function(res){
     			
@@ -462,17 +331,17 @@ $(document).ready(function() {
     	
     });
     
-    $('#OpenQuestionForm').submit(function(event){
-    	if( $("#questionTitle").val() ){
-    		alert("You should submit your question before to review the exam !");
-    		return false;
-    	}
-    	return true;
+    
+    
+    
+    $('#submit').on("click",function(event){
+    		
+    		
+    		
+          //  alert("You should submit your question before to review the exam !");
+    	
     });
     
 });
 
 
-function f() {
-	
-}
