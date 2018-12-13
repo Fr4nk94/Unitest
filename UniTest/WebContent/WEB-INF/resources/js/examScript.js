@@ -8,7 +8,6 @@ function submitExam() {
 			function() {
 				map[$(this).attr("id")] = $(this).siblings(".answerList").find(
 						"input:checked").val();
-
 			});
 	$(".multipleQuestionCorrect").each(function() {
 		$(':checkbox:checked').each(function(i) {
@@ -40,15 +39,17 @@ function submitExam() {
 		success : function(result) {
 			if (result) {
 				alert("esame sottomesso");
+				localStorage.clear();
 				// window.location();
 			}
 		}
 	});
+
 }
 
 function timer() {
 	// Set the date we're counting down to
-	var countDownDate = new Date("Dec 11, 2018 16:03:45").getTime();
+	var countDownDate = new Date("Dec 13, 2018 11:03:45").getTime();
 
 	// Update the count down every 1 second
 	var x = setInterval(function() {
@@ -83,10 +84,8 @@ window.onbeforeunload = function() {
 			function() {
 				localStorage.setItem($(this).attr("id"), $(this).siblings(
 						".form-group").find("textarea").val());
-
 			});
 }
-
 window.onload = function() {
 	$(".openQuestion").each(function() {
 		var name = localStorage.getItem($(this).attr("id"));

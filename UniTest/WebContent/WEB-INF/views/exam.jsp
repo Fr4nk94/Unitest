@@ -43,8 +43,8 @@
 							</c:forEach>
 						</div>
 						<div class="questionsRow">
-							<button class="button" id="backquestions">Back</button>
-							<button class="button" id="nextquestions">Next</button>
+						<!--  	<button class="button" id="backquestions">Back</button>
+							<button class="button" id="nextquestions">Next</button> -->
 							<span>${count} of <c:out value="${totQuestions}"></c:out>
 							</span>
 						</div>
@@ -60,8 +60,8 @@
 							<textarea class="form-control" rows="5" id="comment"></textarea>
 						</div>
 						<div class="questionsRow">
-							<button class="button" id="backquestions">Back</button>
-							<button class="button" id="nextquestions">Next</button>
+						<!-- 	<button class="button" id="backquestions">Back</button>
+							<button class="button" id="nextquestions">Next</button> -->
 							<span>${count} of <c:out value="${totQuestions}"></c:out>
 							</span>
 						</div>
@@ -84,8 +84,8 @@
 							</c:forEach>
 						</div>
 						<div class="questionsRow">
-							<button class="button" id="backquestions">Back</button>
-							<button class="button" id="nextquestions">Next</button>
+						<!-- 	<button class="button" id="backquestions">Back</button>
+							<button class="button" id="nextquestions">Next</button> -->
 							<span>${count} of <c:out value="${totQuestions}"></c:out>
 							</span>
 						</div>

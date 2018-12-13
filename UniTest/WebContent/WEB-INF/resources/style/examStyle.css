@@ -92,6 +92,7 @@ input[type=checkbox], input[type=radio] {
 	margin: 0 -20px;
 	padding: 10px 20px;
 	border-radius: 0 0 3px 3px;
+	height:50px;
 }
 
 .button, .greyButton {
