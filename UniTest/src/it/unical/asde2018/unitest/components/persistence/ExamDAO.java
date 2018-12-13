@@ -37,6 +37,7 @@ public class ExamDAO {
 		List<Question> l1 = new ArrayList<>();
 		Question q1 = new Question(5, "Wich is your favorite team?", Question_Type.OPEN_ANSWER, 1_000.0f, 1_000.0f);
 		l1.add(q1);
+		save(q1);
 		fondamenti.setQuestions(l1);
 
 		save(fondamenti);
@@ -44,6 +45,21 @@ public class ExamDAO {
 		save(new Exam(3, "3", "Analisi", d1, true, Exam_Type.MIXED));
 		save(new Exam(4, "4", "SIW", d1, true, Exam_Type.MIXED));
 
+	}
+
+	public void save(Question question) {
+		Session session = sessionFactory.openSession();
+
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(question);
+			tx.commit();
+
+		} catch (Exception e) {
+			tx.rollback();
+		}
+		session.close();
 	}
 
 	public void save(Exam exam) {
@@ -66,6 +82,7 @@ public class ExamDAO {
 		Session session = sessionFactory.openSession();
 		List<Exam> exams = null;
 		try {
+			// join FETCH e.questions
 			exams = session.createQuery("from Exam e", Exam.class).getResultList();
 			// System.out.println("exams" + exams);
 		} catch (Exception ex) {

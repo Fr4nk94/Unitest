@@ -1,10 +1,15 @@
 package it.unical.asde2018.unitest.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +30,17 @@ public class Question {
 	float correct_score; // The value I assign to a correct answer to this question
 	float wrong_score; // The value I assign to a wrong answer to this question
 
-	// private List<Answer> answers;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+	private List<Answer> answers;
+
+	public Question() {
+		super();
+		question_title = "";
+		questionType = null;
+		correct_score = 0;
+		wrong_score = 0;
+		answers = null;
+	}
 
 	public Question(int id, String question_title, Question_Type questionType, float correct_score, float wrong_score) {
 		super();
@@ -34,12 +49,7 @@ public class Question {
 		this.questionType = questionType;
 		this.correct_score = correct_score;
 		this.wrong_score = wrong_score;
-//		List<Answer> answers
-//		this.answers = answers;
-	}
-
-	public Question() {
-		super();
+		answers = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -82,14 +92,14 @@ public class Question {
 		this.wrong_score = wrong_score;
 	}
 
-//	public void setAnswers(List<Answer> answers) {
-//		this.answers = answers;
-//	}
-//
-//	public List<Answer> getAnswers() {
-//		return answers;
-//	}
-//
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
 //	@Override
 //	public String toString() {
 //		return "Question [id=" + id + ", question_title=" + question_title + ", questionType=" + questionType

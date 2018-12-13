@@ -1,5 +1,6 @@
 package it.unical.asde2018.unitest.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Exam {
 	private Exam_Type examType; // The type of exam
 	// @OneToMany(fetch = FetchType.EAGER, mappedBy = "id", cascade =
 	// CascadeType.ALL)
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "exam")
 	private List<Question> questions; // A list of questions present in the exam
 
@@ -44,6 +46,7 @@ public class Exam {
 		creationDate = null;
 		isAvailable = false;
 		examType = null;
+		questions = null;
 	}
 
 	public Exam(Integer id, String code, String name, Date creationDate, boolean isAvailable, Exam_Type examType) {
@@ -53,6 +56,7 @@ public class Exam {
 		this.creationDate = creationDate;
 		this.isAvailable = isAvailable;
 		this.examType = examType;
+		questions = new ArrayList<>();
 	}
 
 	public int getId() {
