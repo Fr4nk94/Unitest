@@ -17,6 +17,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table
 public class Student_Exam {
@@ -30,7 +33,7 @@ public class Student_Exam {
 //	ID of the Exam created by a Professor
 	@OneToOne
 	@JoinColumn(name = "examID")
-	private long ExamID;
+	private Exam exam;
 
 //	Date of the taken Exam
 	@Column(nullable = false)
@@ -41,27 +44,34 @@ public class Student_Exam {
 	private User user;
 
 //	List of the Question given by the Student
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "examID")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Student_ExamID")
 	private List<Student_Question> given_question;
 
 	public Student_Exam() {
 	}
 
-	public Student_Exam(long examID, Date submission_date, User user) {
+	public Student_Exam(Date submission_date, User user) {
 		super();
-		ExamID = examID;
 		this.submission_date = submission_date;
 		this.user = user;
 		this.given_question = new ArrayList<>();
 	}
 
-	public long getExamID() {
-		return ExamID;
+	public long getStudent_ExamID() {
+		return Student_ExamID;
 	}
 
-	public void setExamID(long examID) {
-		ExamID = examID;
+	public void setStudent_ExamID(long student_ExamID) {
+		Student_ExamID = student_ExamID;
+	}
+
+	public Exam getExam() {
+		return exam;
+	}
+
+	public void setExam(Exam exam) {
+		this.exam = exam;
 	}
 
 	public Date getSubmission_date() {

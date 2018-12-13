@@ -14,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table
@@ -28,28 +32,27 @@ public class Student_Question {
 //	Reference to Question given by the professor
 	@OneToOne
 	@JoinColumn(name = "questionID")
-	private long questionID;
+	private Question question;
 
 //	Given answer for the Question
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "questionID")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "Student_QuestionID")
 	private List<Student_Answer> answer_given;
 
 	public Student_Question() {
 	}
 
-	public Student_Question(long questionID, Student_Answer answer_given) {
+	public Student_Question(long questionID) {
 		super();
-		this.questionID = questionID;
 		this.answer_given = new ArrayList<>();
 	}
 
-	public long getQuestionID() {
-		return questionID;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setQuestionID(long questionID) {
-		this.questionID = questionID;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 	public long getStudent_QuestionID() {

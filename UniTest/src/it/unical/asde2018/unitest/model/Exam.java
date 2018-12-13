@@ -26,7 +26,7 @@ public class Exam {
 	@Id
 	@Column(name = "examID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ExamID;
+	private long examID;
 
 //	Name of the Exam
 	@Column(nullable = false)
@@ -60,11 +60,11 @@ public class Exam {
 	}
 
 	public long getExamID() {
-		return ExamID;
+		return examID;
 	}
 
 	public void setExamID(long examID) {
-		ExamID = examID;
+		this.examID = examID;
 	}
 
 	public String getName() {

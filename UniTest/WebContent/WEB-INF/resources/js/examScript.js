@@ -3,17 +3,26 @@ $(document).ready(timer());
 function submitExam() {
 	var comment = $("#comment").val();
 	var map = {};
-	var array = [];
+	// var array = [];
 	$(".multipleQuestion").each(
 			function() {
 				map[$(this).attr("id")] = $(this).siblings(".answerList").find(
 						"input:checked").val();
 			});
-	$(".multipleQuestionCorrect").each(function() {
-		$(':checkbox:checked').each(function(i) {
-			array[i] = $(this).val();
+	/*
+	 * $(".multipleQuestionCorrect").each(function() { var array = [];
+	 * $(':checkbox:checked').each(function(i) { array[i] = $(this).val(); });
+	 * map[$(this).attr("id")] = array; });
+	 */
+
+	$(".multipleQuestionCorrect").siblings(".answerList").each(function() {
+		console.log($(this).siblings(".multipleQuestionCorrect").attr("id"));
+		var array = [];
+		$(this).find('input:checked').each(function() {
+			console.log($(this).val());
+			array.push($(this).val());
 		});
-		map[$(this).attr("id")] = array;
+		map[$(this).siblings(".multipleQuestionCorrect").attr("id")] = array;
 	});
 
 	$(".openQuestion").each(
@@ -24,6 +33,7 @@ function submitExam() {
 	for ( var key in map) {
 		// check if the property/key is defined in the object itself, not in
 		// parent
+		console.log("key : " + key);
 		if (map.hasOwnProperty(key)) {
 			console.log(key, map[key]);
 		}

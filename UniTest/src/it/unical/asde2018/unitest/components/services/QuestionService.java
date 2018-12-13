@@ -1,11 +1,15 @@
 package it.unical.asde2018.unitest.components.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import it.unical.asde2018.unitest.model.Answer;
+import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
+import it.unical.asde2018.unitest.model.Question_Type;
+import it.unical.asde2018.unitest.model.User;
 
 @Service
 public class QuestionService {
@@ -23,40 +27,36 @@ public class QuestionService {
 	@PostConstruct
 	public void init() {
 
-/*		questions = new ArrayList<>();
+		questions = new ArrayList<>();
+		
+		Exam exam = new Exam(new User(), "Esame di Giancarlo", new Date());
 
-		Answer ans1 = new Answer("ciccio", false);
-		Answer ans2 = new Answer("francesco", false);
-		Answer ans3 = new Answer("fra", false);
-		Answer ans4 = new Answer("cucco", true);
-		List<Answer> lista = new ArrayList<>();
-		lista.add(ans1);
-		lista.add(ans2);
-		lista.add(ans3);
-		lista.add(ans4);
-		Question q1 = new Question("dove va ciccio", lista, "multiple");
+		Question q1 = new Question("dove va ciccio", Question_Type.MULTIPLE_CHOICE);
+		q1.addAnswer(new Answer("ciccio", false));
+		q1.addAnswer(new Answer("francesco", false));
+		q1.addAnswer(new Answer("fra", false));
+		q1.addAnswer(new Answer("cucco", true));
+
+		Question q2 = new Question("dove va ciccio nuova domanda dove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domanda?", Question_Type.MULTIPLE_CHOICE);
+		q2.addAnswer(new Answer("cacca", true));
+		q2.addAnswer(new Answer("bao", false));
+		q2.addAnswer(new Answer("miao", false));
+
+		Question q3 = new Question("domanda aperta?", Question_Type.OPEN_ANSWER);
+
+		Question q4= new Question("cazz e domanda è?", Question_Type.SINGLE_CHOICE);
+		q4.addAnswer(new Answer("cacca", true));
+		q4.addAnswer(new Answer("bao", false));
+		q4.addAnswer(new Answer("miao", true));
+		
+		exam.addQuestion(q1);
+		exam.addQuestion(q2);
+		exam.addQuestion(q3);
+		exam.addQuestion(q4);
+		
 		questions.add(q1);
-		Answer ans5 = new Answer("cacca", true);
-		Answer ans6 = new Answer("bao", false);
-		Answer ans7 = new Answer("miao", false);
-		List<Answer> lista2 = new ArrayList<>();
-		lista2.add(ans5);
-		lista2.add(ans6);
-		lista2.add(ans7);
-		Question q2 = new Question("dove va ciccio nuova domanda dove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domandadove va ciccio nuova domanda?",
-				lista2, "multiple");
 		questions.add(q2);
-		List<Answer> lista3 = new ArrayList<>();
-		Question q3 = new Question("domanda aperta?", lista3, "open");
 		questions.add(q3);
-		Answer ans8 = new Answer("cacca", true);
-		Answer ans9 = new Answer("bao", false);
-		Answer ans10 = new Answer("miao", true);
-		List<Answer> lista4 = new ArrayList<>();
-		lista4.add(ans8);
-		lista4.add(ans9);
-		lista4.add(ans10);
-		Question q4= new Question(3,"cazz e domanda è?",lista4,"open");
-		questions.add(q4);*/
+		questions.add(q4);
 	}
 }

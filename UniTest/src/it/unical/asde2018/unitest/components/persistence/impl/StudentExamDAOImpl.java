@@ -2,10 +2,13 @@ package it.unical.asde2018.unitest.components.persistence.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import it.unical.asde2018.unitest.components.persistence.global.AbstractBaseDAO;
 import it.unical.asde2018.unitest.components.persistence.global.Student_ExamDAO;
 import it.unical.asde2018.unitest.model.Student_Exam;
 
+@Repository
 public class StudentExamDAOImpl extends AbstractBaseDAO<Student_Exam, Long> implements Student_ExamDAO{
 
 	public StudentExamDAOImpl() {
