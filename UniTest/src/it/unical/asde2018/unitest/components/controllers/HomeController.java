@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.unical.asde2018.unitest.components.services.ExamService;
+import it.unical.asde2018.unitest.model.Answer;
+import it.unical.asde2018.unitest.model.Exam;
+import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
 import it.unical.asde2018.unitest.model.User;
 import it.unical.asde2018.unitest.model.security.UserPrincipal;
@@ -58,7 +61,7 @@ public class HomeController {
 	public String listExam(HttpSession session, Model model) {
 		System.out.println("list Exam Function");
 
-/*		List<Exam> exams = examService.getAllExams();
+		List<Exam> exams = examService.getAllExams();
 
 		for (Exam exam : exams) {
 			System.out.println("Exam " + exam.getExamID());
@@ -68,7 +71,7 @@ public class HomeController {
 					System.out.println("answer " + a.getAnswer_body() + " id : " + a.isCorrect());
 				}
 			}
-		}*/
+		}
 
 		return "ExamList";
 	}

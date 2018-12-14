@@ -71,4 +71,9 @@ public class ExamService {
 	public void storeExam(Exam exam) {
 		examDAO.save(exam);
 	 }
+
+
+	public List<Exam> getAllExams() {
+		return examDAO.getAllExams();
+	}
 }
