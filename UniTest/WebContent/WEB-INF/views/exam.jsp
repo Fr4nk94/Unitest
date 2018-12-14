@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="privew">
 		<c:set var="count" value="0" scope="page" />
@@ -71,8 +72,7 @@
 							<c:forEach var="i" begin="0"
 								end="${fn:length(element.answers)-1}">
 
-								<label> <input type="checkbox"
-									name="answerG${element.id}"
+								<label> <input type="checkbox" name="answerG${dario}"
 									value="${element.answers[i].answer_body}"> <c:out
 										value="${element.answers[i].answer_body}"></c:out>
 								</label>

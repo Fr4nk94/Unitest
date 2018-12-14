@@ -18,7 +18,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+
+import it.unical.asde2018.unitest.components.services.ExamService;
 import it.unical.asde2018.unitest.components.services.QuestionService;
+import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Student_Exam;
 import it.unical.asde2018.unitest.model.Student_Question;
 import it.unical.asde2018.unitest.model.User;
@@ -29,15 +32,23 @@ public class QuestionController {
 	@Autowired
 	public QuestionService questionService;
 
+	@Autowired
+	public ExamService examService;
+
 //	@GetMapping("/")
 //	public String goToIndex() {
 //		return "index";
 //	}
 
 	@GetMapping("/exam")
-	public String goToExam(Model model) {
-		model.addAttribute("totQuestions", questionService.getListQuestions().size());
-		model.addAttribute("questions", questionService.getListQuestions());
+	public String goToExam(Model model,HttpSession session) {
+		Exam examTmp=examService.getExamByID(1);
+		model.addAttribute("questions", examTmp.getQuestions());
+		model.addAttribute("totQuestions", examTmp.getQuestions().size());
+		session.setAttribute("exam", examTmp.getExamID());
+		model.addAttribute("timer", examTmp.getCreation_date());
+//		model.addAttribute("totQuestions", questionService.getListQuestions().size());
+//		model.addAttribute("questions", questionService.getListQuestions());
 //		model.addAttribute("answers", questionService.getListQuestions().get(0).getAnswers());
 		return "exam";
 	}

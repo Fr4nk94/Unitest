@@ -27,6 +27,9 @@ public class QuestionService {
 	@PostConstruct
 	public void init() {
 
+		
+		
+		
 //		questions = new ArrayList<>();
 //		
 //		Exam exam = new Exam(new User(), "Esame di Giancarlo", new Date());
