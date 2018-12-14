@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<jsp:include page="commons/bottomInclude.jsp"></jsp:include>
+
 <title>Unitest - LogIn</title>
 
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
@@ -41,5 +41,5 @@
 	<!-- /#wrapper -->
 
 </body>
-
+<jsp:include page="commons/bottomInclude.jsp"></jsp:include>
 </html>

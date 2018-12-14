@@ -18,7 +18,7 @@ $(document).ready(function() {
             x++; //text box increment
             
             $(wrapper).append('<div id="moreAnswer">'+
-            '<input id="answer'+x+'" type="text" name="answer" />'+
+            '<input class="answerInput" id="answer'+x+'" type="text" name="answer" />'+
             '<a href="#" class="remove_field">'+
             '<span  id="trash" class="fa-stack"><i class="fa fa-trash" aria-hidden="true"></i> </span></a>'+
             '<input id="isCorrect" type="'+type+'" name="isCorrect" value="true-'+x+'"> Correct<br>'+
