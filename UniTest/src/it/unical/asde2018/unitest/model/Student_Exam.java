@@ -38,6 +38,14 @@ public class Student_Exam {
 //	Date of the taken Exam
 	@Column(nullable = false)
 	private Date submission_date;
+	
+// The score given by the system and the professor
+	@Column(name = "student_score")
+	private float student_score = 0;
+	
+//	Indicates if the exam is completely corrected or not
+	@Column(name = "correct")
+	private boolean correct;
 
 //	Student that submits the Exam
 	@Transient // Temporary annotation
@@ -56,6 +64,7 @@ public class Student_Exam {
 		this.submission_date = submission_date;
 		this.user = user;
 		this.given_question = new ArrayList<>();
+		this.correct = false;
 	}
 
 	public long getStudent_ExamID() {
@@ -101,4 +110,21 @@ public class Student_Exam {
 	public void addQuestion(Student_Question question) {
 		this.given_question.add(question);
 	}
+
+	public float getStudent_score() {
+		return student_score;
+	}
+
+	public void setStudent_score(float student_score) {
+		this.student_score = student_score;
+	}
+
+	public boolean isCorrect() {
+		return correct;
+	}
+
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
+	}
+	
 }

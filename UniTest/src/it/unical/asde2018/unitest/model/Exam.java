@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "exam")
 public class Exam {
-	
+
 //	Auto-generated ID of the Exam
 	@Id
 	@Column(name = "examID")
@@ -32,6 +32,10 @@ public class Exam {
 //	Name of the Exam
 	@Column(nullable = false)
 	private String name;
+
+//  The max score that is possible to obtain in the exam
+	@Column(name = "max_score")
+	private float max_score;
 
 //	Date of creation
 	@Temporal(TemporalType.DATE)
@@ -50,7 +54,7 @@ public class Exam {
 //	An internal ID for managing the exams in the services
 	@Transient
 	private int internalID;
-	
+
 //	An Exam contains a list of Questions
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "examID")
@@ -64,12 +68,13 @@ public class Exam {
 		this.name = name;
 		creation_date = date;
 		questions = new ArrayList<>();
+		this.max_score = 0;
 	}
 
 	public int getInternalID() {
 		return internalID;
 	}
-	
+
 	public void setInternalID(int internalID) {
 		this.internalID = internalID;
 	}
@@ -109,11 +114,16 @@ public class Exam {
 	public List<Question> getQuestions() {
 		return questions;
 	}
+	
+	public void setMaxScore(float score) {
+		this.max_score+= score;
+	}
 
 	@Override
 	public String toString() {
-		return "Exam [ExamID=" + ExamID + ", name=" + name + ", creation_date=" + creation_date + ", available="
-				+ available + ", user=" + user + ", internalID=" + internalID + ", questions=" + questions + "]";
+		return "Exam [ExamID=" + ExamID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
+				+ creation_date + ", available=" + available + ", user=" + user + ", internalID=" + internalID
+				+ ", questions=" + questions + "]";
 	}
 
 }
