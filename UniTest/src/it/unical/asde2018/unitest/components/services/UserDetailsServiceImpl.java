@@ -52,7 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
 	}
 
-	@PostConstruct
+/*	@PostConstruct
 	public void init() {
 		User a = new User();
 		String encoded = new BCryptPasswordEncoder().encode("mano");
@@ -85,6 +85,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		userDetailsDao.save(a);
 		userDetailsDao.save(den);
 
-	}
+	}*/
 
 }
