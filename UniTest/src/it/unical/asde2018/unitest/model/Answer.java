@@ -7,9 +7,9 @@ public class Answer {
 		private boolean isCorrect;			//This value shows if this answer is correct or not
 		private String answer_content;		//This is the content of the answer, showed to the student
 		
-		public Answer(int questionID, int id, boolean isCorrect, String answer_content) {
+		public Answer(int id, boolean isCorrect, String answer_content) {
 			super();
-			this.questionID = questionID;
+//			this.questionID = questionID;
 			this.id = id;
 			this.isCorrect = isCorrect;
 			this.answer_content = answer_content;
