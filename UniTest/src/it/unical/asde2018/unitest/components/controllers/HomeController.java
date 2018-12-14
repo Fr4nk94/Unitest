@@ -29,7 +29,7 @@ public class HomeController {
 	public String index(Model model, Principal principal, Authentication authentication, HttpSession session) {
 		if (authentication != null) {
 			authentication.getAuthorities().forEach(grant -> {
-				System.out.println(grant.getAuthority());
+				session.setAttribute("role", grant.getAuthority());
 			});
 			session.setAttribute("aUser", ((UserPrincipal) authentication.getPrincipal()).getUser());
 		}

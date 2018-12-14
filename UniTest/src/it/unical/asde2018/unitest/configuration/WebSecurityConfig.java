@@ -53,7 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/resources/**").permitAll()
         .antMatchers("/login**").permitAll()
-        .anyRequest().authenticated()
+        .antMatchers("/createExam").hasRole("Professor")
+        .anyRequest().authenticated()        
         .and()
         .formLogin()
         .loginPage("/login")
@@ -63,5 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .logout()
         .logoutUrl("/logout")
         .deleteCookies("JSESSIONID");
+		
+//		http.authorizeRequests().antMatchers("/createExam**").hasRole("Professor");
 	}
 }
