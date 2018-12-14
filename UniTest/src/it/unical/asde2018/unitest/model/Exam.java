@@ -1,43 +1,106 @@
 package it.unical.asde2018.unitest.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "exam")
 public class Exam {
 
-	private int id; // exam ID
-	private String name; // The name of the exam
-	private Exam_Type examType; // The type of exam
-	private List<Question> questions; // A list of questions present in the exam
+//	private String name; // The name of the exam
+//	private List<Question> questions; // A list of questions present in the exam
 //	private List<Answer> answers;			//A list of answer present in the exam
-	private Date creationDate; // The date of the creation of the exam
-	private boolean isAvailable; // This field shows if the exam is available to one student or not
 	private int totalScore;
 
-	public Exam(int id, String name, Exam_Type examType, List<Question> questions, Date creationDate,
-			boolean isAvailable) {
-		super();
-		this.totalScore = 0;
-		this.id = id;
-		this.name = name;
-		this.examType = examType;
-		this.questions = questions;
-//		this.answers = answers;
-		this.creationDate = creationDate;
-		this.isAvailable = isAvailable;
-	}
+//	public Exam(int id, String name, List<Question> questions, Date creationDate, boolean isAvailable) {
+//		super();
+//		this.totalScore = 0;
+//		this.id = id;
+//		this.name = name;
+//		this.questions = questions;
+////		this.answers = answers;
+//		this.creationDate = creationDate;
+//		this.isAvailable = isAvailable;
+//	}
+
+//	Auto-generated ID of the Exam
+	@Id
+	@Column(name = "examID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long ExamID;
+
+//	Name of the Exam
+	@Column(nullable = false)
+	private String name;
+
+//  The max score that is possible to obtain in the exam
+	@Column(name = "max_score")
+	private float max_score;
+
+//	Date of creation
+	@Temporal(TemporalType.DATE)
+	private Date creation_date;
+
+//	An Exam is available whether it can be choosed by students
+	@Transient
+	private boolean available = false;
+
+//	The professor that creates the Exam
+//	@OneToOne
+//	@JoinColumn(name="id")
+	@Transient
+	private User user;
+
+//	An internal ID for managing the exams in the services
+	@Transient
+	private int internalID;
+
+//	An Exam contains a list of Questions
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "examID")
+	private List<Question> questions;
 
 	public Exam() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public int getId() {
-		return id;
+	public Exam(User user, String name, Date date) {
+		this.user = user;
+		this.name = name;
+		creation_date = date;
+		questions = new ArrayList<>();
+		this.max_score = 0;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getInternalID() {
+		return internalID;
+	}
+
+	public void setInternalID(int internalID) {
+		this.internalID = internalID;
+	}
+
+	public long getExamID() {
+		return ExamID;
+	}
+
+	public void setExamID(long examID) {
+		ExamID = examID;
 	}
 
 	public String getName() {
@@ -48,12 +111,20 @@ public class Exam {
 		this.name = name;
 	}
 
-	public Exam_Type getExamType() {
-		return examType;
+	public boolean isAvailable() {
+		return available;
 	}
 
-	public void setExamType(Exam_Type examType) {
-		this.examType = examType;
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public Date getCreation_date() {
+		return creation_date;
+	}
+
+	public void addQuestion(Question q) {
+		questions.add(q);
 	}
 
 	public List<Question> getQuestions() {
@@ -72,28 +143,23 @@ public class Exam {
 //		this.answers = answers;
 //	}
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public boolean isAvailable() {
-		return isAvailable;
-	}
-
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
-
 	public int getTotalScore() {
 		return totalScore;
 	}
 
 	public void setTotalScore(int totalScore) {
 		this.totalScore = totalScore;
+	}
+
+	public void setMaxScore(float score) {
+		this.max_score += score;
+	}
+
+	@Override
+	public String toString() {
+		return "Exam [ExamID=" + ExamID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
+				+ creation_date + ", available=" + available + ", user=" + user + ", internalID=" + internalID
+				+ ", questions=" + questions + "]";
 	}
 
 }

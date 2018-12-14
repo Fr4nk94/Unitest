@@ -1,55 +1,74 @@
 package it.unical.asde2018.unitest.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "answer")
 public class Answer {
-	
-		private int questionID;  			//The id of the question associated to this answer
-		private int id; 					//The id of the current answer
-		private boolean isCorrect;			//This value shows if this answer is correct or not
-		private String answer_content;		//This is the content of the answer, showed to the student
-		
-		public Answer(int id, boolean isCorrect, String answer_content) {
-			super();
-//			this.questionID = questionID;
-			this.id = id;
-			this.isCorrect = isCorrect;
-			this.answer_content = answer_content;
-		}
 
-		public Answer() {
-			super();
-			// TODO Auto-generated constructor stub
-		}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "answerID")
+	private long answerID;
 
-		public int getQuestionID() {
-			return questionID;
-		}
+	@Column(nullable = false)
+	private String answer_body;
 
-		public void setQuestionID(int questionID) {
-			this.questionID = questionID;
-		}
+	@Column(nullable = false)
+	private boolean correct;
 
-		public int getId() {
-			return id;
-		}
+//	public Answer(int id, boolean isCorrect, String answer_content) {
+//		super();
+////			this.questionID = questionID;
+//		this.id = id;
+//		this.isCorrect = isCorrect;
+//		this.answer_content = answer_content;
+//	}
+	/*
+	 * @ManyToOne private Question question;
+	 */
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	public Answer() {
+	}
 
-		public boolean isCorrect() {
-			return isCorrect;
-		}
+	public Answer(String text, boolean correct) {
+		super();
+		this.answer_body = text;
+		this.correct = correct;
+	}
 
-		public void setCorrect(boolean isCorrect) {
-			this.isCorrect = isCorrect;
-		}
+	public long getAnswerID() {
+		return answerID;
+	}
 
-		public String getAnswer_content() {
-			return answer_content;
-		}
+	public void setAnswerID(long answerID) {
+		this.answerID = answerID;
+	}
 
-		public void setAnswer_content(String answer_content) {
-			this.answer_content = answer_content;
-		}
-		
+	public String getAnswer_body() {
+		return answer_body;
+	}
+
+	public void setAnswer_body(String answer_body) {
+		this.answer_body = answer_body;
+	}
+
+	public boolean isCorrect() {
+		return correct;
+	}
+
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
+	}
+
+	@Override
+	public String toString() {
+		return "Answer [answerID=" + answerID + ", answer_body=" + answer_body + ", correct=" + correct + "]";
+	}
+
 }

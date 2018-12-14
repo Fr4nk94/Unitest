@@ -10,15 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.unical.asde2018.unitest.components.services.ServiceProfessor;
-import it.unical.asde2018.unitest.model.Answer;
-import it.unical.asde2018.unitest.model.Exam;
-import it.unical.asde2018.unitest.model.Question;
+import it.unical.asde2018.unitest.model.Student_Answer;
+import it.unical.asde2018.unitest.model.Student_Exam;
+import it.unical.asde2018.unitest.model.Student_Question;
 
 @Controller
 public class ControllerProfessor {
@@ -26,25 +24,22 @@ public class ControllerProfessor {
 	@Autowired
 	private ServiceProfessor testService;
 
-	private int questions;
-	private int answer;
-
-	@GetMapping("/")
-	private String goToIndex(Model model, HttpSession session) {
-//		if (session.getAttribute("user") != null) {
-//			return "listLobbies";
-//		}
-		return "index";
-	}
+//	@GetMapping("/")
+//	private String goToIndex(Model model, HttpSession session) {
+////		if (session.getAttribute("user") != null) {
+////			return "listLobbies";
+////		}
+//		return "index";
+//	}
 
 	@GetMapping("/checkExam")
 	public String checkExam(HttpSession session, Model model, @RequestParam int idExam) {
-		for (Exam exam : testService.getPortfolio()) {
-			if (exam.getId() == idExam) {
+		for (Student_Exam exam : testService.getPortfolio()) {
+			if (exam.getStudent_ExamID() == idExam) {
 //				model.addAttribute("idExam", idExam);
 				session.setAttribute("exam", testService.getExam(idExam));
 				session.setAttribute("idExam", idExam);
-				return "exam";
+				return "correctExam";
 			}
 		}
 		return "";
@@ -54,14 +49,14 @@ public class ControllerProfessor {
 //	@ResponseBody
 	public String setScore(HttpSession session, Model model, @RequestParam int totalScore, @RequestParam int idExam) {
 //		System.out.println("Score " + totalScore + " ID " + idExam);
-		testService.getExam(idExam).setTotalScore(totalScore);
-		return "index";
+		testService.getExam(idExam).setStudent_score(totalScore);
+		return "listExam";
 	}
 
 	@GetMapping("goToExam")
 	public String goToExam(HttpSession session, Model model) {
 //		model.addAttribute("idExam", testService.getExam(idExam));
-		return "exam";
+		return "correctExam";
 	}
 
 	@GetMapping("/showExam")
@@ -88,18 +83,18 @@ public class ControllerProfessor {
 	private JSONObject getExamJSON(HttpSession session) {
 
 		JSONObject examJSON = new JSONObject();
-		Exam exam = (Exam) session.getAttribute("exam");
-		examJSON.put("idExam", exam.getId());
-		examJSON.put("nameExam", exam.getName());
+		Student_Exam exam = (Student_Exam) session.getAttribute("exam");
+		examJSON.put("idExam", exam.getStudent_ExamID());
+		examJSON.put("nameExam", exam.getExam().getName());
 		JSONArray questionArrayJSON = new JSONArray();
-		for (Question question : exam.getQuestions()) {
+		for (Student_Question question : exam.getGiven_question()) {
 			JSONObject questionObjectJSON = new JSONObject();
-			questionObjectJSON.put("name", question.getQuestion_title());
-			questionObjectJSON.put("score", question.getCorrect_score());
+			questionObjectJSON.put("name", question.getQuestion().getQuestion_body());
+			questionObjectJSON.put("score", question.getQuestion().getCorrectScore());
 			JSONArray answerArrayJSON = new JSONArray();
-			for (Answer answer : question.getAnswer()) {
+			for (Student_Answer answer : question.getAnswer_given()) {
 				JSONObject answerOjectJSON = new JSONObject();
-				answerOjectJSON.put("answer", answer.getAnswer_content());
+				answerOjectJSON.put("answer", answer.getAnswer_given());
 				answerArrayJSON.add(answerOjectJSON);
 			}
 			questionObjectJSON.put("answers", answerArrayJSON);
@@ -114,18 +109,17 @@ public class ControllerProfessor {
 	private JSONArray listTests(HttpSession session) {
 
 		JSONArray examList = new JSONArray();
-		List<Exam> exams = testService.getPortfolio();
+		List<Student_Exam> exams = testService.getPortfolio();
 //		Integer exami = (Integer) session.getAttribute("exam");
 
 //		System.out.println("SIZE " + exami);
-		for (Exam exam : exams) {
+		for (Student_Exam exam : exams) {
 			JSONObject examJSON = new JSONObject();
-			examJSON.put("scoreExam", exam.getTotalScore());
-			System.out.println("SCORE " + exam.getTotalScore());
-			examJSON.put("nameExam", exam.getName());
-			examJSON.put("dateExam", exam.getCreationDate().toString());
-			examJSON.put("idExam", exam.getId());
-			JSONArray jsonQuestionArray = new JSONArray();
+			examJSON.put("scoreExam", exam.getStudent_score());
+			System.out.println("SCORE " + exam.getStudent_score());
+			examJSON.put("nameExam", exam.getExam().getName());
+			examJSON.put("dateExam", exam.getSubmission_date().toString());
+			examJSON.put("idExam", exam.getStudent_ExamID());
 //			for (Question question : exam.getQuestions()) {
 //				JSONObject objectQuestion = new JSONObject();
 //				objectQuestion.put("question", question.getQuestion_title());
