@@ -29,9 +29,6 @@
 					<div id="main-container" class="col-lg-12">
 						<h1 class="page-header">Dashboard</h1>
 
-						<form action="listExam">
-							<button type="button" id="query" class="btn btn-primary">Query</button>
-						</form>
 
 					</div>
 					<!-- /.col-lg-12 -->
