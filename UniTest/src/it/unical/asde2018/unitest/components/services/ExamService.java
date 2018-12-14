@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.unical.asde2018.unitest.components.persistence.global.ExamDAO;
 import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
@@ -17,6 +19,9 @@ import it.unical.asde2018.unitest.model.User;
 public class ExamService {
 
 	private static int currentID = 0;
+	
+	@Autowired
+	private ExamDAO examDAO;
 	
 	// K = InternalID, V = exam
 	private HashMap<Integer, Exam> exams;
@@ -43,6 +48,7 @@ public class ExamService {
 		return e.getInternalID();
 	}
 	
+	
 	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable) {
 		
 		Exam e = new Exam(professor, examName, new Date());
@@ -61,4 +67,8 @@ public class ExamService {
 	public Exam getExamByID(int examID) {
 		return exams.get(examID);
 	}
+	
+	public void storeExam(Exam exam) {
+		examDAO.save(exam);
+	 }
 }

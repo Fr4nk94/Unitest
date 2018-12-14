@@ -19,7 +19,8 @@ $(document).ready(function() {
             
             $(wrapper).append('<div id="moreAnswer">'+
             '<input id="answer'+x+'" type="text" name="answer" />'+
-            '<a href="#" class="remove_field">Remove</a>'+
+            '<a href="#" class="remove_field">'+
+            '<span  id="trash" class="fa-stack"><i class="fa fa-trash" aria-hidden="true"></i> </span></a>'+
             '<input id="isCorrect" type="'+type+'" name="isCorrect" value="true-'+x+'"> Correct<br>'+
             '</div>'); //add input box
         }
@@ -36,7 +37,7 @@ $(document).ready(function() {
       
     	 questionType = this.value;
     	 
-    	 if(this.value == "OPEN_ANSWER"){
+    	 if(this.value == "OPEN_ANSWER" || this.value == "ATTACH_FILE"){
     		 
     		 for(var i=0;i<x;i++){
     			 $("#moreAnswer").remove();
@@ -103,7 +104,7 @@ $(document).ready(function() {
     	
     	
     	
-    	if(questionType == "OPEN_ANSWER"){
+    	if(questionType == "OPEN_ANSWER" || questionType == "ATTACH_FILE"){
     		console.log("you are submitting a OPEN question");
     		
         	$.ajax({
@@ -121,6 +122,7 @@ $(document).ready(function() {
         		
         		success : function(result){
         			$("#questionForm")[0].reset();
+        			$("#questionType").val(questionType);
         		},
         		
         		error : function(res){
@@ -270,8 +272,6 @@ $(document).ready(function() {
     
     
     
-    
-    
     // CREATE EXAM
     
     
@@ -307,40 +307,30 @@ $(document).ready(function() {
     
     /////////////////////////////////////////////////////////
     
-    $("#submit").on("click", function(){
-    	
-    	$.ajax({
-    		url : "examCreated",
-    		type : "GET",
-    		success : function(result){
-    			
-    			 // Check if empty of not
-                if (input !== "" ) {
-                	console.log(input);
-                	alert("You should submit your question before to review the exam !1");
-                    return false;
-                }
-                
-    			window.location.href="examCreated";
-    			
-    		},
-    		error : function(res){
-    			
-    		}
-    	});
-    	
-    });
-    
-    
-    
-    
-    $('#submit').on("click",function(event){
-    		
-    		
-    		
-          //  alert("You should submit your question before to review the exam !");
-    	
-    });
+    $("#done").on("click", function(){
+        
+        
+        var examID=$("#exam_ID").val();
+        
+        
+        $.ajax({
+         url : 'examCreated',
+         type : 'POST',
+         data : {
+          "exam_ID" : examID
+         },
+         success : function(result){
+          
+          
+          alert("SAVED ON THE DB");
+          
+         },
+         error : function(res){
+          
+         }
+        });
+        
+       });
     
 });
 
