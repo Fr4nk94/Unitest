@@ -23,27 +23,11 @@ import javax.persistence.Transient;
 @Table(name = "exam")
 public class Exam {
 
-//	private String name; // The name of the exam
-//	private List<Question> questions; // A list of questions present in the exam
-//	private List<Answer> answers;			//A list of answer present in the exam
-	private int totalScore;
-
-//	public Exam(int id, String name, List<Question> questions, Date creationDate, boolean isAvailable) {
-//		super();
-//		this.totalScore = 0;
-//		this.id = id;
-//		this.name = name;
-//		this.questions = questions;
-////		this.answers = answers;
-//		this.creationDate = creationDate;
-//		this.isAvailable = isAvailable;
-//	}
-
 //	Auto-generated ID of the Exam
 	@Id
 	@Column(name = "examID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long examID;
+	private long ExamID;
 
 //	Name of the Exam
 	@Column(nullable = false)
@@ -61,8 +45,8 @@ public class Exam {
 	@Transient
 	private boolean available = false;
 	
-//	An exam has a time in wich it must be submitted	
-	@Column(name = "timeAvailable")
+//	The time in which the exam must be submitted
+	@Column(name="timeAvailable")
 	private float timeAvailable;
 
 //	The professor that creates the Exam
@@ -70,26 +54,6 @@ public class Exam {
 //	@JoinColumn(name="id")
 	@Transient
 	private User user;
-
-	public float getMax_score() {
-		return max_score;
-	}
-
-	public void setMax_score(float max_score) {
-		this.max_score = max_score;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public void setCreation_date(Date creation_date) {
-		this.creation_date = creation_date;
-	}
 
 //	An internal ID for managing the exams in the services
 	@Transient
@@ -121,11 +85,11 @@ public class Exam {
 	}
 
 	public long getExamID() {
-		return examID;
+		return ExamID;
 	}
 
 	public void setExamID(long examID) {
-		this.examID = examID;
+		ExamID = examID;
 	}
 
 	public String getName() {
@@ -155,29 +119,9 @@ public class Exam {
 	public List<Question> getQuestions() {
 		return questions;
 	}
-
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-
-//	public List<Answer> getAnswers() {
-//		return answers;
-//	}
-//
-//	public void setAnswers(List<Answer> answers) {
-//		this.answers = answers;
-//	}
-
-	public int getTotalScore() {
-		return totalScore;
-	}
-
-	public void setTotalScore(int totalScore) {
-		this.totalScore = totalScore;
-	}
-
+	
 	public void setMaxScore(float score) {
-		this.max_score += score;
+		this.max_score+= score;
 	}
 
 	public float getTimeAvailable() {
@@ -190,9 +134,9 @@ public class Exam {
 
 	@Override
 	public String toString() {
-		return "Exam [ExamID=" + examID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
+		return "Exam [ExamID=" + ExamID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
 				+ creation_date + ", available=" + available + ", timeAvailable=" + timeAvailable + ", user=" + user
 				+ ", internalID=" + internalID + ", questions=" + questions + "]";
-
 	}
+
 }

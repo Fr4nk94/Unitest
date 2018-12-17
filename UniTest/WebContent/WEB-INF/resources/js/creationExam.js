@@ -278,7 +278,7 @@ $(document).ready(function() {
     $("#createExam").on("click", function(){
     	var examName = $("#examName").val();
     	var isAvailable = $('input[name=isAvailable]:checked', '#availableOption').val();
-    	var timeAvailable = $("#timer").val();
+    	var timeAvailable = $("#availableTime").val();
     	
     	console.log("is available = "+isAvailable);
     	console.log("examName= "+  examName);
