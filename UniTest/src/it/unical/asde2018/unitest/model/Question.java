@@ -1,7 +1,8 @@
 package it.unical.asde2018.unitest.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import java.util.ArrayList;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,7 +22,6 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "question")
 public class Question {
-
 //	ID of the question
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +36,6 @@ public class Question {
 	@Column(name = "question_body")
 	private String question_body;
 
-
 // 	The score given if the answer is correct 	
 	@Column(name = "correct_score")
 	private float correctScore;
@@ -49,13 +48,14 @@ public class Question {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "questionID")
 	private List<Answer> answers;
-	
+
 	@Transient
 	private int internalID;
-	
-/*	@ManyToOne
-	private Exam exam;*/
-	
+
+	/*
+	 * @ManyToOne private Exam exam;
+	 */
+
 	public Question() {
 		super();
 	}
@@ -131,5 +131,5 @@ public class Question {
 				+ ", correctScore=" + correctScore + ", wrongScore=" + wrongScore + ", internalID=" + internalID
 				+ ", answers =" + answers + "]";
 	}
-	
+
 }

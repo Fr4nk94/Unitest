@@ -23,6 +23,22 @@ import javax.persistence.Transient;
 @Table(name = "exam")
 public class Exam {
 
+//	private String name; // The name of the exam
+//	private List<Question> questions; // A list of questions present in the exam
+//	private List<Answer> answers;			//A list of answer present in the exam
+	private int totalScore;
+
+//	public Exam(int id, String name, List<Question> questions, Date creationDate, boolean isAvailable) {
+//		super();
+//		this.totalScore = 0;
+//		this.id = id;
+//		this.name = name;
+//		this.questions = questions;
+////		this.answers = answers;
+//		this.creationDate = creationDate;
+//		this.isAvailable = isAvailable;
+//	}
+
 //	Auto-generated ID of the Exam
 	@Id
 	@Column(name = "examID")
@@ -114,9 +130,29 @@ public class Exam {
 	public List<Question> getQuestions() {
 		return questions;
 	}
-	
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+//	public List<Answer> getAnswers() {
+//		return answers;
+//	}
+//
+//	public void setAnswers(List<Answer> answers) {
+//		this.answers = answers;
+//	}
+
+	public int getTotalScore() {
+		return totalScore;
+	}
+
+	public void setTotalScore(int totalScore) {
+		this.totalScore = totalScore;
+	}
+
 	public void setMaxScore(float score) {
-		this.max_score+= score;
+		this.max_score += score;
 	}
 
 	@Override
