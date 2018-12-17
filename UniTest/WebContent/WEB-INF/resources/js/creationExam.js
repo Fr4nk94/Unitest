@@ -137,12 +137,20 @@ $(document).ready(function() {
     		
     		isCorrect = "";
     		
+    		
     		for(var i=0; i<= x;i++){
     			answer += $("#answer"+i).val();
+    			
+    			// Check if empty of not
+                if ($("#answer"+i).val() === '') {
+                    alert('Insert the answer');
+                    return false;
+                }
     			
     			if(i != x)
     				answer+=",";
     		}
+    		
     		
     		$('input[name=isCorrect]:checked').each(function() {
     			
@@ -156,23 +164,17 @@ $(document).ready(function() {
     		});
     		
     		// Check if empty of not
-            if (wrongScore === '') {
-                alert('Insert the wrong score');
-                return false;
-            }
-            
-            // Check if empty of not
-            if (answer === '') {
-                alert('Insert the answer');
-                return false;
-            }
-    		
-            // Check if empty of not
             if (isCorrect === '') {
                 alert('Choose at least one correct answer');
                 return false;
             }
     		
+    		// Check if empty of not
+            if (wrongScore === '') {
+                alert('Insert the wrong score');
+                return false;
+            }
+            
     		
     		$.ajax({
         		url : "insertQuestions",
@@ -210,11 +212,18 @@ $(document).ready(function() {
     		for(var i=0; i<= x;i++){
     			answer += $("#answer"+i).val();
     			
+    			// Check if empty of not
+                if ($("#answer"+i).val() === '') {
+                    alert('Insert the answer');
+                    return false;
+                }
+    			
     			if(i != x)
     				answer+=",";
     		}
     		
-    		isCorrect = $('input[name=isCorrect]:checked', '#questionForm').val();
+    		isCorrect = $('input[name=isCorrect]:checked').val();
+    		
     		
     		// Check if empty of not
             if (wrongScore === '') {
@@ -229,7 +238,7 @@ $(document).ready(function() {
             }
     		
             // Check if empty of not
-            if (isCorrect === '') {
+            if (isCorrect == undefined) {
                 alert('Choose at least one correct answer');
                 return false;
             }
@@ -280,9 +289,7 @@ $(document).ready(function() {
     	var isAvailable = $('input[name=isAvailable]:checked').val();
     	var timeAvailable = $("#availableTime").val();
     	
-    	alert(isAvailable);
-    	
-    	if(examName == '' || isAvailable == ''){
+    	if(examName == '' || isAvailable == undefined){
     		alert("Compilare tutti i campi");
     		return false;
     	}

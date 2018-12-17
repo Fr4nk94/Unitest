@@ -35,7 +35,7 @@
 								</div>
 
 								<div class="col-md-4 ">
-									<label> <input id="availableTime" type="number" min=0.5
+									<label> <input class="littleInputBox" id="availableTime" type="number" min=0.5
 										max=5 step=0.5 value=0.5> Time Available<br>
 									</label>
 								</div>

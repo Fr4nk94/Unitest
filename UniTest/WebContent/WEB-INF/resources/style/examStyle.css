@@ -278,6 +278,6 @@ button#multiple{
 	visibility: hidden;
 }
 
-#availableTime{
+.littleInputBox{
 	width : 30%;
 }
