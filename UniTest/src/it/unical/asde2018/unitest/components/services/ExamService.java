@@ -49,9 +49,9 @@ public class ExamService {
 	}
 	
 	
-	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable) {
+	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable, float timeAvailable) {
 		
-		Exam e = new Exam(professor, examName, new Date());
+		Exam e = new Exam(professor, examName, new Date(), timeAvailable);
 		
 		e.setInternalID(getNextExamID());
 		

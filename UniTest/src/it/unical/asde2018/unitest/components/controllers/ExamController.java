@@ -43,7 +43,7 @@ public class ExamController {
 
 	@PostMapping("createExam")
 	@ResponseBody
-	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable,
+	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable, @RequestParam String timeAvailable,
 			HttpSession session) {
 
 		List<Question> questions = new ArrayList<>();
@@ -51,7 +51,7 @@ public class ExamController {
 		try {
 			User professor = (User) session.getAttribute("aUser");
 
-			Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable));
+			Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable), Float.parseFloat(timeAvailable));
 
 			session.setAttribute("currentExamID", e.getInternalID());
 		} catch (Exception e) {

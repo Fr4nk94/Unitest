@@ -44,6 +44,10 @@ public class Exam {
 //	An Exam is available whether it can be choosed by students
 	@Transient
 	private boolean available = false;
+	
+//	An exam has a time in wich it must be submitted	
+	@Column(name = "timeAvailable")
+	private float timeAvailable;
 
 //	The professor that creates the Exam
 //	@OneToOne
@@ -63,12 +67,13 @@ public class Exam {
 	public Exam() {
 	}
 
-	public Exam(User user, String name, Date date) {
+	public Exam(User user, String name, Date date, float timeAvailable) {
 		this.user = user;
 		this.name = name;
 		creation_date = date;
 		questions = new ArrayList<>();
 		this.max_score = 0;
+		this.timeAvailable = timeAvailable;
 	}
 
 	public int getInternalID() {
@@ -119,11 +124,19 @@ public class Exam {
 		this.max_score+= score;
 	}
 
+	public float getTimeAvailable() {
+		return timeAvailable;
+	}
+
+	public void setTimeAvailable(float timeAvailable) {
+		this.timeAvailable = timeAvailable;
+	}
+
 	@Override
 	public String toString() {
 		return "Exam [ExamID=" + ExamID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
-				+ creation_date + ", available=" + available + ", user=" + user + ", internalID=" + internalID
-				+ ", questions=" + questions + "]";
+				+ creation_date + ", available=" + available + ", timeAvailable=" + timeAvailable + ", user=" + user
+				+ ", internalID=" + internalID + ", questions=" + questions + "]";
 	}
 
 }
