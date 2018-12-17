@@ -85,16 +85,12 @@
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
 						You have been forcibly logged out due to multiplesessions on the
-						same account (only one activesession per user is allowed). <a
-							href="#" class="alert-link">Alert Link</a>.
+						same account (only one activesession per user is allowed).
 					</div>
 				</c:if>
 				<c:if test="${param.error != null}">
 					<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-hidden="true">&times;</button>
-						The username or password you entered is incorrect.<a
-							href="#" class="alert-link">Alert Link</a>.
+						The username or password you entered is incorrect.
 					</div>
 				</c:if>
 			</div>
