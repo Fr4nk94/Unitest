@@ -24,8 +24,8 @@
 							<div class="row">
 								<div class="col-md-4 text-left">
 									<label id="availableOption"> <input type="radio"
-										name="isAvailable" value="true" required> Exam
-										Available<br>
+										name="isAvailable" class="custom-control-input" value="true"
+										required> Exam Available<br>
 									</label>
 								</div>
 								<div class="col-md-4 ">
@@ -35,7 +35,9 @@
 								</div>
 
 								<div class="col-md-4 ">
-									<input id="availableTime" type="number" min=0.5 max=5 step=0.5 value=0.5>
+									<label> <input id="availableTime" type="number" min=0.5
+										max=5 step=0.5 value=0.5> Time Available<br>
+									</label>
 								</div>
 							</div>
 
