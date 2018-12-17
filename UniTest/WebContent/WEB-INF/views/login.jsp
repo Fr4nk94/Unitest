@@ -56,8 +56,8 @@
 						<form role="form" action="loginAction" method="post">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="E-mail" name="username"
-										type="text" autofocus>
+									<input class="form-control" placeholder="E-mail"
+										name="username" type="text" autofocus>
 								</div>
 								<div class="form-group">
 									<input class="form-control" placeholder="Password"
@@ -76,6 +76,25 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<c:if test="${param.expired != null}">
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						You have been forcibly logged out due to multiplesessions on the
+						same account (only one activesession per user is allowed).
+					</div>
+				</c:if>
+				<c:if test="${param.error != null}">
+					<div class="alert alert-danger alert-dismissable">
+						The username or password you entered is incorrect.
+					</div>
+				</c:if>
+			</div>
+			<div class="col-md-4"></div>
 		</div>
 	</div>
 

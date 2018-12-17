@@ -128,10 +128,6 @@ input[type=checkbox], input[type=radio] {
 	margin-top: 7px;
 }
 
-.navbar{
-	background-color: #dee3e6;
-}
-
 .questionsBox {
 	display: block;
 	border: solid 1px #e3e3e3;
@@ -276,4 +272,8 @@ button#multiple{
 
 .answerInput{
 	margin: 0.2% 0% 0.3% 0%;
+}
+
+#timer{
+	visibility: hidden;
 }

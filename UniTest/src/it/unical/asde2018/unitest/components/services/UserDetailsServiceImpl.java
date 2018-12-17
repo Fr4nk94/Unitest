@@ -60,6 +60,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		a.setEnabled(true);
 		a.setPassword(encoded);
 		a.setUsername("mano");
+		a.setFullName("Proyecto ASDE Student");
 
 		Role au = new Role();
 		au.setAuthority("ROLE_Student");
@@ -74,6 +75,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		den.setEnabled(true);
 		den.setPassword(psw);
 		den.setUsername("den");
+		den.setFullName("Proyecto ASDE Professor");
 		
 		Role prof = new Role();
 		prof.setAuthority("ROLE_Professor");

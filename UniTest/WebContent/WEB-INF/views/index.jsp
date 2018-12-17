@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Unitest - LogIn</title>
+<title>Unitest - Welcome</title>
 
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
 <script type="text/javascript"

@@ -30,6 +30,12 @@ function submitExam() {
 				map[$(this).attr("id")] = $(this).siblings(".form-group").find(
 						"textarea").val();
 			});
+	
+	$(".attachFile").each(
+			function() {
+				map[$(this).attr("id")] = $(this).siblings(".form-group").find(
+						"input").val();
+			});
 	for ( var key in map) {
 		// check if the property/key is defined in the object itself, not in
 		// parent
@@ -59,8 +65,13 @@ function submitExam() {
 
 function timer() {
 	// Set the date we're counting down to
-	var countDownDate = new Date("Dec 13, 2018 11:03:45").getTime();
-
+	var datona= document.getElementById("timer").innerHTML;
+	var ore=2;
+	var data= new Date(datona);
+	console.log(data)
+	data.setHours(data.getHours()+ore);
+	console.log("nuova data"+data);
+	var countDownDate = new Date(data).getTime();
 	// Update the count down every 1 second
 	var x = setInterval(function() {
 

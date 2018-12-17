@@ -8,14 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
 <link rel="stylesheet" href="resources/style/examStyle.css" />
-
 <title>Exam</title>
-
 </head>
-
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="privew">
+		<p id="timer">${timer}</p>
 		<c:set var="count" value="0" scope="page" />
 		<c:set var="dario" value="0" scope="page" />
 		<c:forEach items="${questions}" var="element">
@@ -62,6 +60,23 @@
 						</div>
 					</div>
 				</c:when>
+				<c:when test="${element.type=='ATTACH_FILE' }">
+					<div class="questionsBox">
+						<div class="questions attachFile" id="${dario}">
+							<c:out value="${element.question_body}"></c:out>
+						</div>
+						<div class="form-group">
+							<label for="comment">Answer:</label> <input type="file"
+								name="pic"></input>
+						</div>
+						<div class="questionsRow">
+							<!-- 	<button class="button" id="backquestions">Back</button>
+							<button class="button" id="nextquestions">Next</button> -->
+							<span>${count} of <c:out value="${totQuestions}"></c:out>
+							</span>
+						</div>
+					</div>
+				</c:when>
 				<c:when test="${element.type=='MULTIPLE_CHOICE' }">
 					<div class="questionsBox">
 						<div class="questions multipleQuestionCorrect" id="${dario}">
@@ -71,8 +86,7 @@
 							<c:forEach var="i" begin="0"
 								end="${fn:length(element.answers)-1}">
 
-								<label> <input type="checkbox"
-									name="answerG${element.id}"
+								<label> <input type="checkbox" name="answerG${dario}"
 									value="${element.answers[i].answer_body}"> <c:out
 										value="${element.answers[i].answer_body}"></c:out>
 								</label>

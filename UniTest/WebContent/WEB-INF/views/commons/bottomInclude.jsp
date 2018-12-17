@@ -15,3 +15,5 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="resources/assets/unitest/js/sb-admin-2.min.js"></script>
+
+<script src="resources/assets/unitest/js/commons.js"></script>

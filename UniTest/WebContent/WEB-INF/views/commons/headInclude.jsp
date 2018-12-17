@@ -16,14 +16,16 @@ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></scri
 <!-- MetisMenu CSS -->
 <link href="resources/assets/vendor/metisMenu/metisMenu.min.css"
 	rel="stylesheet">
+	
+	
+<!-- Morris Charts CSS -->
+<link href="resources/assets/vendor/morrisjs/morris.css"
+	rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="resources/assets/unitest/css/sb-admin-2.min.css"
 	rel="stylesheet">
 
-<!-- Morris Charts CSS -->
-<link href="resources/assets/vendor/morrisjs/morris.css"
-	rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link

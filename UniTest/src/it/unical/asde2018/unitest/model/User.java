@@ -20,8 +20,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column
+	@Column(nullable = false)
 	private String username;
+
+	@Column(nullable = false)
+	private String fullName;
 
 	@Column(nullable = false)
 	private String password;
@@ -29,7 +32,7 @@ public class User {
 	@Column(name = "ENABLED", nullable = false)
 	private boolean enabled;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
 
 	public long getId() {
@@ -70,6 +73,14 @@ public class User {
 
 	public void setRoles(Set<Role> authorities) {
 		this.roles = authorities;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public User(long id, String username, String password, boolean enabled, Set<Role> authorities) {

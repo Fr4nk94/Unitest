@@ -32,7 +32,7 @@ public class HomeController {
 	public String index(Model model, Principal principal, Authentication authentication, HttpSession session) {
 		if (authentication != null) {
 			authentication.getAuthorities().forEach(grant -> {
-				System.out.println(grant.getAuthority());
+				session.setAttribute("role", grant.getAuthority());
 			});
 			session.setAttribute("aUser", ((UserPrincipal) authentication.getPrincipal()).getUser());
 		}
@@ -46,6 +46,11 @@ public class HomeController {
 	@GetMapping("/login")
 	public String login() {
 		return "login";
+	}
+	
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "accessDenied";
 	}
 
 	@GetMapping("/saveExam")
@@ -75,4 +80,23 @@ public class HomeController {
 
 		return "ExamList";
 	}
+	
+	@GetMapping("/examList")
+	public String examList(HttpSession session, Model model) {
+		int numExams = examService.getAllExams().size();
+		int numberOfPages = 0;
+		
+		if(numExams%5==0) {
+			numberOfPages=numExams/5;
+		}else
+		{
+			numberOfPages = (numExams/5)+1;
+		}
+
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("page",examService.getAPage(1, 5));
+
+		return "examList";
+	}
+
 }

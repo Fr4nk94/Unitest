@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Create Exam</title>
+<title>UniTest - Create Exam</title>
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
 <link rel="stylesheet" href="resources/style/examStyle.css" />
 </head>
