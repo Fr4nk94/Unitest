@@ -312,11 +312,15 @@
 			<div id="page-navigation">
 				<div class="row">
 					<div class="pagination">
-						<a href="#">&laquo;</a> <a href="paging?pageNumber=1">1</a> <a
+						<!-- <a href="#">&laquo;</a> <a href="paging?pageNumber=1">1</a> <a
 							class="active" href="paging?pageNumber=2">2</a> <a
 							href="paging?pageNumber=3">3</a> <a href="paging?pageNumber=4">4</a>
 						<a href="paging?pageNumber=5">5</a> <a href="paging?pageNumber=6">6</a>
-						<a href="paging?pageNumber=1">&raquo;</a>
+						<a href="paging?pageNumber=1">&raquo;</a> -->
+						<c:forEach begin="1" end="${numberOfPages}" varStatus="loop">
+						
+							<a href="paging?pageNumber=${loop.index}">${loop.index}</a>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -337,7 +341,7 @@
 												<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 													elit. Vestibulum tincidunt est vitae ultrices accumsan.
 													Aliquam ornare lacus adipiscing, posuere lectus et,
-													fringilla augue.</p>
+													fringilla augue. ${exam.id}</p>
 											</div>
 											<div class="panel-footer">${exam.creatorProfessor}</div>
 										</div>
@@ -356,7 +360,7 @@
 												<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 													elit. Vestibulum tincidunt est vitae ultrices accumsan.
 													Aliquam ornare lacus adipiscing, posuere lectus et,
-													fringilla augue.</p>
+													fringilla augue. ${exam.id}</p>
 											</div>
 											<div class="panel-footer">${exam.creatorProfessor}</div>
 										</div>
@@ -375,7 +379,7 @@
 												<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 													elit. Vestibulum tincidunt est vitae ultrices accumsan.
 													Aliquam ornare lacus adipiscing, posuere lectus et,
-													fringilla augue.</p>
+													fringilla augue. ${exam.id}</p>
 											</div>
 											<div class="panel-footer">${exam.creatorProfessor}</div>
 										</div>

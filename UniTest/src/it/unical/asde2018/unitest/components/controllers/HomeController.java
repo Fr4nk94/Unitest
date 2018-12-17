@@ -17,6 +17,17 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String getExamsList(Model model) {
+		int numExams = examsService.getExams().size();
+		int numberOfPages = 0;
+		
+		if(numExams%5==0) {
+			numberOfPages=numExams/5;
+		}else
+		{
+			numberOfPages = (numExams/5)+1;
+		}
+
+		model.addAttribute("numberOfPages", numberOfPages);
 		model.addAttribute("page",examsService.getPage(1));
 		System.out.println("Robe");
 		return "index";
