@@ -21,10 +21,18 @@ public class Answer {
 
 	@Column(nullable = false)
 	private boolean correct;
-	
-/*	@ManyToOne
-	private Question question;*/
-	
+
+//	public Answer(int id, boolean isCorrect, String answer_content) {
+//		super();
+////			this.questionID = questionID;
+//		this.id = id;
+//		this.isCorrect = isCorrect;
+//		this.answer_content = answer_content;
+//	}
+	/*
+	 * @ManyToOne private Question question;
+	 */
+
 	public Answer() {
 	}
 
@@ -62,7 +70,5 @@ public class Answer {
 	public String toString() {
 		return "Answer [answerID=" + answerID + ", answer_body=" + answer_body + ", correct=" + correct + "]";
 	}
-	
 
 }
-
