@@ -133,6 +133,7 @@ public class ControllerProfessor {
 //				jsonQuestionArray.add(objectQuestion);
 //			}
 //			examJSON.put("listQuestion", jsonQuestionArray);
+			
 			examList.add(examJSON);
 		}
 		return examList;
