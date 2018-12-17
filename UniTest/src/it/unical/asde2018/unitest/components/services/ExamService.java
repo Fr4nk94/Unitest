@@ -93,4 +93,9 @@ public class ExamService {
 	public List<Exam> getAllExams() {
 		return examDAO.getAllExams();
 	}
+	
+	public List<Exam> getAPage(int pageNumber,int numExams){
+		int sPos = (pageNumber-1)*numExams;
+		return examDAO.getPage(sPos,numExams);
+	}
 }

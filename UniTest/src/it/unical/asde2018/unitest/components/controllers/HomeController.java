@@ -75,4 +75,22 @@ public class HomeController {
 
 		return "ExamList";
 	}
+	
+	@GetMapping("/examList")
+	public String examList(HttpSession session, Model model) {
+		int numExams = examService.getAllExams().size();
+		int numberOfPages = 0;
+		
+		if(numExams%5==0) {
+			numberOfPages=numExams/5;
+		}else
+		{
+			numberOfPages = (numExams/5)+1;
+		}
+
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("page",examService.getAPage(1, 5));
+
+		return "examList";
+	}
 }
