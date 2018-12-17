@@ -23,7 +23,7 @@
 
 							<div class="row">
 								<div class="col-md-4 text-left">
-									<label id="availableOption"> <input type="radio"
+									<label> <input type="radio"
 										name="isAvailable" class="custom-control-input" value="true"
 										required> Exam Available<br>
 									</label>

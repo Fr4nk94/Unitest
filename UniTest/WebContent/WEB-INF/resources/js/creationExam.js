@@ -277,8 +277,10 @@ $(document).ready(function() {
     
     $("#createExam").on("click", function(){
     	var examName = $("#examName").val();
-    	var isAvailable = $('input[name=isAvailable]:checked', '#availableOption').val();
+    	var isAvailable = $('input[name=isAvailable]:checked').val();
     	var timeAvailable = $("#availableTime").val();
+    	
+    	alert(isAvailable);
     	
     	if(examName == '' || isAvailable == ''){
     		alert("Compilare tutti i campi");
