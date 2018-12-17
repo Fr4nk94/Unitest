@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/resources/**").permitAll()
         .antMatchers("/login**").permitAll()
-        .antMatchers("/createExam", "/addQuestions").hasRole("Professor")
+        .antMatchers("/createExam", "/addQuestions", "/evalExam").hasRole("Professor")
         .anyRequest().authenticated()        
         .and()
         .formLogin()

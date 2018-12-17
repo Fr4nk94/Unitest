@@ -57,24 +57,4 @@ public class HomeController {
 	
 		return "OK";
 	}
-
-	@GetMapping("/listExam")
-	@ResponseBody
-	public String listExam(HttpSession session, Model model) {
-		System.out.println("list Exam Function");
-
-/*		List<Exam> exams = examService.getAllExams();
-
-		for (Exam exam : exams) {
-			System.out.println("Exam " + exam.getExamID());
-			for (Question q : exam.getQuestions()) {
-				System.out.println("question " + q.getQuestion_body());
-				for (Answer a : q.getAnswers()) {
-					System.out.println("answer " + a.getAnswer_body() + " id : " + a.isCorrect());
-				}
-			}
-		}*/
-
-		return "ExamList";
-	}
 }

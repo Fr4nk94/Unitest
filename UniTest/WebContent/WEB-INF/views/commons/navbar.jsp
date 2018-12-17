@@ -47,26 +47,25 @@
                             </div>
                              /input-group
                         </li> -->
-				<c:if test="${role == 'ROLE_Student'}">
-					<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
-							Dashboard</a></li>
+				<c:if test="${role == 'ROLE_Student'}">			
 
-					<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
-							Portfolio</a> <!-- <ul class="nav nav-second-level">
-						<li><a href="flot.html">Flot Charts</a></li>
-						<li><a href="morris.html">Morris.js Charts</a></li>
+					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
+							Portfolio</a> <ul class="nav nav-second-level">
+						<li><a href="flot.html">Available Exams</a></li>
+						<li><a href="morris.html">Taken Exams</a></li>
 					</ul> 
-					 --> <!-- /.nav-second-level --></li>
+					<!-- /.nav-second-level --></li>
 				</c:if>
 				<c:if test="${role == 'ROLE_Professor'}">
-					<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
+					<li><a href="#"><i class="fa fa-dashboard fa-fw"></i>
 							Dashboard</a></li>
-					<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
-							Portfolio</a> <!-- <ul class="nav nav-second-level">
-						<li><a href="flot.html">Flot Charts</a></li>
-						<li><a href="morris.html">Morris.js Charts</a></li>
+					<li><a><i class="fa fa-bar-chart-o fa-fw"></i>
+							Portfolio<span class="fa arrow"></span></a><ul class="nav nav-second-level">
+						<li><a href="#">Created Exams</a></li>
+						<li><a href="#">Evaluated Exams</a></li>
+						<li><a href="evalExam">Non evaluated exams</a></li>
 					</ul> 
-					 --> <!-- /.nav-second-level --></li>
+					  <!-- /.nav-second-level --></li>
 					<li><a href="createExam"><i class="fa fa-table fa-fw"></i>
 							Create Exam</a></li>
 					<!-- <li><a href="#"><i class="fa fa-edit fa-fw"></i> Forms</a></li> -->
