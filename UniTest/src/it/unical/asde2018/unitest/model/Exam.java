@@ -27,7 +27,7 @@ public class Exam {
 	@Id
 	@Column(name = "examID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ExamID;
+	private long examID;
 
 //	Name of the Exam
 	@Column(nullable = false)
@@ -51,7 +51,31 @@ public class Exam {
 	@Transient
 	private User user;
 
-//	An internal ID for managing the exams in the services
+	public float getMax_score() {
+		return max_score;
+	}
+
+	public void setMax_score(float max_score) {
+		this.max_score = max_score;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setCreation_date(Date creation_date) {
+		this.creation_date = creation_date;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+	// An internal ID for managing the exams in the services
 	@Transient
 	private int internalID;
 
@@ -80,11 +104,11 @@ public class Exam {
 	}
 
 	public long getExamID() {
-		return ExamID;
+		return examID;
 	}
 
 	public void setExamID(long examID) {
-		ExamID = examID;
+		examID = examID;
 	}
 
 	public String getName() {
@@ -114,14 +138,14 @@ public class Exam {
 	public List<Question> getQuestions() {
 		return questions;
 	}
-	
+
 	public void setMaxScore(float score) {
-		this.max_score+= score;
+		this.max_score += score;
 	}
 
 	@Override
 	public String toString() {
-		return "Exam [ExamID=" + ExamID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
+		return "Exam [ExamID=" + examID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
 				+ creation_date + ", available=" + available + ", user=" + user + ", internalID=" + internalID
 				+ ", questions=" + questions + "]";
 	}
