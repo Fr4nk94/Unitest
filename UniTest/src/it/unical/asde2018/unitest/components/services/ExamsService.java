@@ -47,6 +47,7 @@ public class ExamsService {
 		Exam e18 = new Exam(17, "Basi di Dati", Exam_Type.MIXED, Date.valueOf(LocalDate.now()), true, "Rullo");
 		Exam e19 = new Exam(18, "Fondamenti", Exam_Type.MIXED, Date.valueOf(LocalDate.now()), true, "Perri");
 		Exam e20 = new Exam(19, "Ingegneria", Exam_Type.MIXED, Date.valueOf(LocalDate.now()), true, "Ricca");
+		Exam e21 = new Exam(20, "Ingegneria", Exam_Type.MIXED, Date.valueOf(LocalDate.now()), true, "Ricca");
 
 		exams.add(e1);
 		exams.add(e2);
@@ -68,6 +69,7 @@ public class ExamsService {
 		exams.add(e18);
 		exams.add(e19);
 		exams.add(e20);
+		exams.add(e21);
 	}
 
 	public List<Exam> getExams() {
@@ -80,7 +82,11 @@ public class ExamsService {
 	public List<Exam> getPage(int pageNumber) {
 		int start = (pageNumber - 1) * 5;
 		int end = ((pageNumber - 1) * 5) + 5;
-		return exams.subList(start, end);
+		if(end>exams.size()) {
+			return exams.subList(start, exams.size());
+		}else {
+			return exams.subList(start, end);
+		}
 	}
 
 }

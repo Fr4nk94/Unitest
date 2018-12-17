@@ -318,7 +318,6 @@
 						<a href="paging?pageNumber=5">5</a> <a href="paging?pageNumber=6">6</a>
 						<a href="paging?pageNumber=1">&raquo;</a> -->
 						<c:forEach begin="1" end="${numberOfPages}" varStatus="loop">
-						
 							<a href="paging?pageNumber=${loop.index}">${loop.index}</a>
 						</c:forEach>
 					</div>
