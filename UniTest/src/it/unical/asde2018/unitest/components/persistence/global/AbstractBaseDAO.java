@@ -54,7 +54,17 @@ public abstract class AbstractBaseDAO<T, X extends Serializable> {
 	}
 
 	public T getById(X id) {
-		return getCurrentSession().get(gettClass(), id);
+		Session session = getCurrentSession();
+		Transaction tx = null;
+		T entitity = null;
+		try {
+			tx = session.beginTransaction();
+			entitity = session.get(gettClass(), id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return entitity;
 	}
 
 	public void update(T object) {
@@ -113,6 +123,5 @@ public abstract class AbstractBaseDAO<T, X extends Serializable> {
 //		Query<T> q = session.createQuery(query);
 //		return q.getResultList();
 	}
-
 
 }

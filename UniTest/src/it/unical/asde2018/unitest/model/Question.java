@@ -51,10 +51,17 @@ public class Question {
 
 	@Transient
 	private int internalID;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Exam exam;
+	
+	public Exam getExam() {
+		return exam;
+	}
 
-	/*
-	 * @ManyToOne private Exam exam;
-	 */
+	public void setExam(Exam exam) {
+		this.exam = exam;
+	}
 
 	public Question() {
 		super();
