@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.sessionManagement().maximumSessions(1);
+		http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired");
 		
 		http.sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/resources/**").permitAll()
         .antMatchers("/login**").permitAll()
-        .antMatchers("/createExam").hasRole("Professor")
+        .antMatchers("/createExam", "/addQuestions").hasRole("Professor")
         .anyRequest().authenticated()        
         .and()
         .formLogin()
@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .logout()
         .logoutUrl("/logout")
-        .deleteCookies("JSESSIONID");
+        .deleteCookies("JSESSIONID").and().exceptionHandling().accessDeniedPage("/accessDenied");
 		
 //		http.authorizeRequests().antMatchers("/createExam**").hasRole("Professor");
 	}

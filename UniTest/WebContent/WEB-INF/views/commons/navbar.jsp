@@ -15,8 +15,8 @@
 
 	<ul class="nav navbar-top-links navbar-right">
 
-		<li><a href="logout"><i class="fa fa-user fa-fw"></i>${aUser.fullName}</a></li>
-		<li><a href="logout"><i class="fa fa-sign-out fa-fw"></i>
+		<li><a href="#"><i class="fa fa-user fa-fw"></i>${aUser.fullName}</a></li>
+		<li><a href="#" id="logout"><i class="fa fa-sign-out fa-fw"></i>
 				Logout</a></li>
 		<!-- 	<li class="dropdown"><a class="dropdown-toggle"
 			data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
@@ -107,3 +107,24 @@
 	</div>
 	<!-- /.navbar-static-side -->
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">UniTest</h4>
+			</div>
+			<div class="modal-body">Are you sure that you want to leave the system?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+				<button type="button" class="btn btn-primary" id="yesButtonLog">Yes</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

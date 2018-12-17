@@ -44,6 +44,11 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+	
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "accessDenied";
+	}
 
 	@GetMapping("/saveExam")
 	@ResponseBody
