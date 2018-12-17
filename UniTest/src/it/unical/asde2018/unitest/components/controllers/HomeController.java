@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.unical.asde2018.unitest.components.services.ExamService;
-import it.unical.asde2018.unitest.model.Answer;
-import it.unical.asde2018.unitest.model.Exam;
-import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
 import it.unical.asde2018.unitest.model.User;
 import it.unical.asde2018.unitest.model.security.UserPrincipal;
@@ -32,7 +29,7 @@ public class HomeController {
 	public String index(Model model, Principal principal, Authentication authentication, HttpSession session) {
 		if (authentication != null) {
 			authentication.getAuthorities().forEach(grant -> {
-				System.out.println(grant.getAuthority());
+				session.setAttribute("role", grant.getAuthority());
 			});
 			session.setAttribute("aUser", ((UserPrincipal) authentication.getPrincipal()).getUser());
 		}
@@ -47,6 +44,11 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+	
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "accessDenied";
+	}
 
 	@GetMapping("/saveExam")
 	@ResponseBody
@@ -54,25 +56,5 @@ public class HomeController {
 		System.out.println("saveExam CONTROLLER");
 	
 		return "OK";
-	}
-
-	@GetMapping("/listExam")
-	@ResponseBody
-	public String listExam(HttpSession session, Model model) {
-		System.out.println("list Exam Function");
-
-		List<Exam> exams = examService.getAllExams();
-
-		for (Exam exam : exams) {
-			System.out.println("Exam " + exam.getExamID());
-			for (Question q : exam.getQuestions()) {
-				System.out.println("question " + q.getQuestion_body());
-				for (Answer a : q.getAnswers()) {
-					System.out.println("answer " + a.getAnswer_body() + " id : " + a.isCorrect());
-				}
-			}
-		}
-
-		return "ExamList";
 	}
 }

@@ -52,8 +52,8 @@ public class QuestionController {
 		model.addAttribute("totQuestions", examTmp.getQuestions().size());
 		session.setAttribute("exam", examTmp.getExamID());
 		SimpleDateFormat sdf = new SimpleDateFormat("MM dd, yyyy hh:mm:ss aa");
-		String data = "12 17, 2018 13:00:00 AM";
-		Date newDate = null;
+		String data = "12 17, 2018 14:00:00 AM";
+		Date newDate = new Date();
 		try {
 			newDate = sdf.parse(data);
 		} catch (ParseException e) {

@@ -66,9 +66,12 @@ function submitExam() {
 function timer() {
 	// Set the date we're counting down to
 	var datona= document.getElementById("timer").innerHTML;
-	console.log(datona);
-	var countDownDate = new Date(datona).getTime();
-	console.log(countDownDate);
+	var ore=2;
+	var data= new Date(datona);
+	console.log(data)
+	data.setHours(data.getHours()+ore);
+	console.log("nuova data"+data);
+	var countDownDate = new Date(data).getTime();
 	// Update the count down every 1 second
 	var x = setInterval(function() {
 
