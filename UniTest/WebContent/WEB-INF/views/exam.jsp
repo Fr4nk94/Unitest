@@ -21,14 +21,14 @@
 			<c:choose>
 				<c:when test="${element.type=='SINGLE_CHOICE' }">
 					<div class="questionsBox">
-						<div class="questions multipleQuestion" id="${dario}">
+						<div class="questions multipleQuestion" id="${element.questionID}">
 							<c:out value="${element.question_body}"></c:out>
 						</div>
 						<div class="answerList">
 							<c:forEach var="i" begin="0"
 								end="${fn:length(element.answers)-1}">
 
-								<label> <input type="radio" name="answerG${dario}"
+								<label> <input type="radio" name="answerG${element.questionID}"
 									value="${element.answers[i].answer_body}"> <c:out
 										value="${element.answers[i].answer_body}"></c:out>
 								</label>
@@ -45,7 +45,7 @@
 				</c:when>
 				<c:when test="${element.type=='OPEN_ANSWER' }">
 					<div class="questionsBox">
-						<div class="questions openQuestion" id="${dario}">
+						<div class="questions openQuestion" id="${element.questionID}">
 							<c:out value="${element.question_body}"></c:out>
 						</div>
 						<div class="form-group">
@@ -62,7 +62,7 @@
 				</c:when>
 				<c:when test="${element.type=='ATTACH_FILE' }">
 					<div class="questionsBox">
-						<div class="questions attachFile" id="${dario}">
+						<div class="questions attachFile" id="${element.questionID}">
 							<c:out value="${element.question_body}"></c:out>
 						</div>
 						<div class="form-group">
@@ -79,14 +79,14 @@
 				</c:when>
 				<c:when test="${element.type=='MULTIPLE_CHOICE' }">
 					<div class="questionsBox">
-						<div class="questions multipleQuestionCorrect" id="${dario}">
+						<div class="questions multipleQuestionCorrect" id="${element.questionID}">
 							<c:out value="${element.question_body}"></c:out>
 						</div>
 						<div class="answerList">
 							<c:forEach var="i" begin="0"
 								end="${fn:length(element.answers)-1}">
 
-								<label> <input type="checkbox" name="answerG${dario}"
+								<label> <input type="checkbox" name="answerG${element.questionID}"
 									value="${element.answers[i].answer_body}"> <c:out
 										value="${element.answers[i].answer_body}"></c:out>
 								</label>
@@ -102,7 +102,7 @@
 					</div>
 				</c:when>
 			</c:choose>
-			<c:set var="dario" value="${dario + 1}" scope="page" />
+			
 		</c:forEach>
 		<div id="divSubmit">
 			<button id="buttonSubmit" type="button" data-toggle="modal"

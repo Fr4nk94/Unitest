@@ -47,7 +47,7 @@ public class QuestionController {
 
 	@GetMapping("/exam")
 	public String goToExam(Model model, HttpSession session) {
-		Exam examTmp = examService.getExamByID(1);
+		Exam examTmp = examService.getAllExams().get(1);
 		model.addAttribute("questions", examTmp.getQuestions());
 		model.addAttribute("totQuestions", examTmp.getQuestions().size());
 		session.setAttribute("exam", examTmp.getExamID());

@@ -55,16 +55,24 @@ public class ExamService {
 		User user = new User();
 		user.setFullName("Pippo il grande");
 		Exam exam1= new Exam(user, "primo Esame", new Date());
+		examDAO.save(exam1);
+		q1.setExam(exam1);
+		q2.setExam(exam1);
+		q3.setExam(exam1);
 		exam1.addQuestion(q1);
 		exam1.addQuestion(q2);
 		exam1.addQuestion(q3);
-		examDAO.save(exam1);
+		examDAO.update(exam1);
 		
 		Exam exam2= new Exam(user, "secondo Esame", new Date());
+		examDAO.save(exam2);
+		q1.setExam(exam2);
+		q2.setExam(exam2);
+		q3.setExam(exam2);
 		exam2.addQuestion(q1);
 		exam2.addQuestion(q2);
 		exam2.addQuestion(q3);
-		examDAO.save(exam2);
+		examDAO.update(exam2);
 		
 	}
 
@@ -91,7 +99,7 @@ public class ExamService {
 	}
 
 	public Exam getExamByID(int examID) {
-		return exams.get(examID);
+		return examDAO.getById((long)examID);
 	}
 
 	public void storeExam(Exam exam) {

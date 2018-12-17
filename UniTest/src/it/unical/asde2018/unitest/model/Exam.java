@@ -80,8 +80,8 @@ public class Exam {
 	private int internalID;
 
 //	An Exam contains a list of Questions
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "examID")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="exam")
+//	@JoinColumn(name = "examID")
 	private List<Question> questions;
 
 	public Exam() {
