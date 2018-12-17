@@ -37,26 +37,26 @@ public class ExamService {
 	@PostConstruct
 	public void init() {
 		exams = new HashMap<>(); 
-		Answer a1= new Answer("ciccio", false);
-		Answer a2= new Answer("pluto", false);
-		Answer a3= new Answer("paperino", false);
-		Question q1= new Question("chi sei?", Question_Type.SINGLE_CHOICE, 5, 0);
-		q1.addAnswer(a1);
-		q1.addAnswer(a2);
-		q1.addAnswer(a3);
-		Answer a4= new Answer("ciccio", false);
-		Answer a5= new Answer("pluto", false);
-		Answer a6= new Answer("paperino", false);
-		Question q2= new Question("chi sei?", Question_Type.MULTIPLE_CHOICE, 5, 0);
-		q2.addAnswer(a4);
-		q2.addAnswer(a5);
-		q2.addAnswer(a6);
-		Question q3= new Question("chi sei?", Question_Type.OPEN_ANSWER, 5, 0);
-		Exam exam1= new Exam(new User(), "primo Esame", new Date());
-		exam1.addQuestion(q1);
-		exam1.addQuestion(q2);
-		exam1.addQuestion(q3);
-		exams.put(1, exam1);
+//		Answer a1= new Answer("ciccio", false);
+//		Answer a2= new Answer("pluto", false);
+//		Answer a3= new Answer("paperino", false);
+//		Question q1= new Question("chi sei?", Question_Type.SINGLE_CHOICE, 5, 0);
+//		q1.addAnswer(a1);
+//		q1.addAnswer(a2);
+//		q1.addAnswer(a3);
+//		Answer a4= new Answer("ciccio", false);
+//		Answer a5= new Answer("pluto", false);
+//		Answer a6= new Answer("paperino", false);
+//		Question q2= new Question("chi sei?", Question_Type.MULTIPLE_CHOICE, 5, 0);
+//		q2.addAnswer(a4);
+//		q2.addAnswer(a5);
+//		q2.addAnswer(a6);
+//		Question q3= new Question("chi sei?", Question_Type.ATTACH_FILE, 5, 0);
+//		Exam exam1= new Exam(new User(), "primo Esame", new Date());
+//		exam1.addQuestion(q1);
+//		exam1.addQuestion(q2);
+//		exam1.addQuestion(q3);
+//		exams.put(1, exam1);
 		
 	}
 
