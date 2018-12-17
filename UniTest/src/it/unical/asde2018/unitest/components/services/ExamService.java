@@ -84,6 +84,10 @@ public class ExamService {
 		return e.getInternalID();
 	}
 	
+	public Exam getExamByInternalID(int internalID) {
+		return exams.get(internalID);
+	}
+	
 	
 	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable, float timeAvailable) {
 		

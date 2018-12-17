@@ -280,6 +280,11 @@ $(document).ready(function() {
     	var isAvailable = $('input[name=isAvailable]:checked', '#availableOption').val();
     	var timeAvailable = $("#availableTime").val();
     	
+    	if(examName == '' || isAvailable == ''){
+    		alert("Compilare tutti i campi");
+    		return false;
+    	}
+    	
     	console.log("is available = "+isAvailable);
     	console.log("examName= "+  examName);
     	

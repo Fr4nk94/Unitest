@@ -70,7 +70,7 @@ public class ExamController {
 		System.out.println("INSERT QUESTION exam_ID =" + exam_ID + " question title = " + questionTitle
 				+ " max score = " + correctScore);
 
-		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
+		Exam e = examService.getExamByInternalID(Integer.parseInt(exam_ID));
 		Question question = new Question(questionTitle, Question_Type.valueOf(questionType),
 				Integer.parseInt(correctScore), Integer.parseInt(wrongScore));
 		question.setInternalID(e.getQuestions().size());
