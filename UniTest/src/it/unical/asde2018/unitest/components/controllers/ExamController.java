@@ -73,6 +73,7 @@ public class ExamController {
 		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
 		Question question = new Question(questionTitle, Question_Type.valueOf(questionType),
 				Float.parseFloat(correctScore), Float.parseFloat(wrongScore));
+
 		question.setInternalID(e.getQuestions().size());
 
 		if (Question_Type.valueOf(questionType).equals(Question_Type.SINGLE_CHOICE)) {
