@@ -52,6 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
 	}
 
+<<<<<<< HEAD
 /*	@PostConstruct
 	public void init() {
 		User a = new User();
@@ -88,5 +89,43 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		userDetailsDao.save(den);
 
 	}*/
+=======
+	@PostConstruct
+	public void init() {
+		User a = new User();
+		String encoded = new BCryptPasswordEncoder().encode("mano");
+
+		a.setEnabled(true);
+		a.setPassword(encoded);
+		a.setUsername("mano");
+		a.setFullName("Proyecto ASDE Student");
+
+		Role au = new Role();
+		au.setAuthority("ROLE_Student");
+		Set<Role> authorities = new HashSet<>();
+		authorities.add(au);
+		a.setRoles(authorities);
+		au.setUser(a);
+		
+		User den = new User();
+		String psw = new BCryptPasswordEncoder().encode("den");
+		
+		den.setEnabled(true);
+		den.setPassword(psw);
+		den.setUsername("den");
+		den.setFullName("Proyecto ASDE Professor");
+		
+		Role prof = new Role();
+		prof.setAuthority("ROLE_Professor");
+		Set<Role> authorities1 = new HashSet<>();
+		authorities1.add(prof);
+		den.setRoles(authorities1);
+		prof.setUser(den);
+
+		userDetailsDao.save(a);
+		userDetailsDao.save(den);
+
+	}
+>>>>>>> refs/remotes/origin/master
 
 }

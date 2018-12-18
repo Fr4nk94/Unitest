@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>UniTest - Add Questions</title>
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
+<<<<<<< HEAD
 <link rel="stylesheet" href="resources/style/examStyle.css" />	
 
 </head>
@@ -51,6 +52,55 @@
 											<input class="answerInput" id="answer0" type="text" name="answer" required>
 											<input id="isCorrect" name="isCorrect" value="true-0">
 											Correct<br>
+=======
+<link rel="stylesheet" href="resources/style/examStyle.css" />
+
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+		<jsp:include page="commons/navbar.jsp"></jsp:include>
+
+		<!-- Page Content -->
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div id="main-container" class="col-lg-12">
+						<div class="privew">
+
+
+
+							<form id="questionForm">
+
+
+								<div class="questionsBox">
+									<label class="questions">Question:</label>
+
+									<textarea class="insertQuestionsRow insertQuestionsBox"
+										id="questionTitle" name="questionTitle" required></textarea>
+									<br> <select class="btn secondary dropdown-toggle"
+										id="questionType" name="questionType">
+										<option value="OPEN_ANSWER">Open Answer</option>
+										<option value="MULTIPLE_CHOICE">Multiple Choice</option>
+										<option value="SINGLE_CHOICE">Single Choice</option>
+										<option value="ATTACH_FILE">Attach File</option>
+									</select> <label>Correct Answer score : <input
+										class="littleInputBox" id="correctScore" type="number"
+										name="correctScore" step=0.5 min=0 required><br>
+									</label> <label id="wrong">Wrong Answer score : <input
+										class="littleInputBox" id="wrongScore" type="number"
+										name="wrongScore" step=0.5 min=-10 max=0 required><br>
+									</label>
+
+
+									<div class="input_fields_wrap">
+										<button id="multiple" class="add_field_button btn btn-info">Add
+											More Answers</button>
+										<div>
+											<input class="answerInput" id="answer0" type="text"
+												name="answer" required> <input id="isCorrect"
+												name="isCorrect" value="true-0"> Correct<br>
+>>>>>>> refs/remotes/origin/master
 										</div>
 									</div>
 

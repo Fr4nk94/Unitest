@@ -28,5 +28,19 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		session.close();
 		return exams;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public List<Exam> getPage(int startPosition,int numberOfExams){
+		Session session = sessionFactory.openSession();
+		String hql = "from Exam";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(startPosition);
+		query.setMaxResults(numberOfExams);
+		List<Exam> results = query.list();
+		session.close();
+		return results;
+	}
+>>>>>>> refs/remotes/origin/master
 }

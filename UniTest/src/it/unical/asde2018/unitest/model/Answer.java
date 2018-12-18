@@ -21,6 +21,7 @@ public class Answer {
 
 	@Column(nullable = false)
 	private boolean correct;
+<<<<<<< HEAD
 
 //	public Answer(int id, boolean isCorrect, String answer_content) {
 //		super();
@@ -72,3 +73,50 @@ public class Answer {
 	}
 
 }
+=======
+	
+/*	@ManyToOne
+	private Question question;*/
+	
+	public Answer() {
+	}
+
+	public Answer(String text, boolean correct) {
+		super();
+		this.answer_body = text;
+		this.correct = correct;
+	}
+
+	public long getAnswerID() {
+		return answerID;
+	}
+
+	public void setAnswerID(long answerID) {
+		this.answerID = answerID;
+	}
+
+	public String getAnswer_body() {
+		return answer_body;
+	}
+
+	public void setAnswer_body(String answer_body) {
+		this.answer_body = answer_body;
+	}
+
+	public boolean isCorrect() {
+		return correct;
+	}
+
+	public void setCorrect(boolean correct) {
+		this.correct = correct;
+	}
+
+	@Override
+	public String toString() {
+		return "Answer [answerID=" + answerID + ", answer_body=" + answer_body + ", correct=" + correct + "]";
+	}
+	
+
+}
+
+>>>>>>> refs/remotes/origin/master

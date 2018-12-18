@@ -23,6 +23,7 @@ public class AppConfig {
 	public DataSource getDataSource() {
 		final BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
+<<<<<<< HEAD
 		//dataSource.setUrl("jdbc:h2:mem:MyDB");
 		dataSource.setUrl("jdbc:h2:file:~/git/Unitest/UniTest/data/db;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE");
 		dataSource.setUsername("sa");
@@ -55,6 +56,38 @@ public class AppConfig {
 		prop.put("hibernate.format_sql", true);
 		prop.put("hibernate.hbm2ddl.auto", "update");
 //		prop.put("hibernate.hbm2ddl.auto", "create");
+=======
+		dataSource.setUrl("jdbc:h2:mem:MyDB");
+		dataSource.setUsername("sa");
+		dataSource.setPassword("sa");
+		return dataSource;
+	}
+
+	@Bean
+	public SessionFactory sessionFactory() {
+
+		final LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
+		lsfb.setDataSource(getDataSource());
+		lsfb.setHibernateProperties(getHibernateProperties());
+		lsfb.setPackagesToScan("it.unical.asde2018.unitest.model");
+
+		try {
+			lsfb.afterPropertiesSet();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+		return lsfb.getObject();
+
+	}
+
+	private Properties getHibernateProperties() {
+
+		Properties prop = new Properties();
+		prop.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+		prop.put("hibernate.show_sql", true);
+		prop.put("hibernate.format_sql", true);
+		prop.put("hibernate.hbm2ddl.auto", "create");
+>>>>>>> refs/remotes/origin/master
 		prop.put("hibernate.current_session_context_class", "thread");
 		return prop;
 	}

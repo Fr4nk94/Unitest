@@ -43,6 +43,7 @@ public class ExamController {
 
 	@PostMapping("createExam")
 	@ResponseBody
+<<<<<<< HEAD
 	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable,
 			HttpSession session) {
 
@@ -73,6 +74,38 @@ public class ExamController {
 		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
 		Question question = new Question(questionTitle, Question_Type.valueOf(questionType),
 				Integer.parseInt(correctScore), Integer.parseInt(wrongScore));
+=======
+	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable, @RequestParam String timeAvailable,
+			HttpSession session, Model model) {
+
+		List<Question> questions = new ArrayList<>();
+		List<Answer> answers = new ArrayList<>();
+		try {
+			User professor = (User) session.getAttribute("aUser");
+
+			Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable), Float.parseFloat(timeAvailable));
+
+			session.setAttribute("currentExamID", e.getInternalID());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@PostMapping("insertQuestions")
+	@ResponseBody
+	public String insertQuestion(HttpSession session, @RequestParam String exam_ID, @RequestParam String questionTitle,
+			@RequestParam String questionType, @RequestParam String correctScore, @RequestParam String wrongScore,
+			@RequestParam String answers, @RequestParam String isCorrect) {
+
+		System.out.println("INSERT QUESTION exam_ID =" + exam_ID + " question title = " + questionTitle
+				+ " max score = " + correctScore);
+
+		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
+		Question question = new Question(questionTitle, Question_Type.valueOf(questionType),
+				Float.parseFloat(correctScore), Float.parseFloat(wrongScore));
+>>>>>>> refs/remotes/origin/master
 		question.setInternalID(e.getQuestions().size());
 
 		if (Question_Type.valueOf(questionType).equals(Question_Type.SINGLE_CHOICE)) {

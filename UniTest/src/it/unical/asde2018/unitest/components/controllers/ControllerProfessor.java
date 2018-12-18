@@ -146,6 +146,7 @@ public class ControllerProfessor {
 		return examList;
 	}
 }
+<<<<<<< HEAD
 package it.unical.asde2018.unitest.components.controllers;
 
 import java.util.List;
@@ -287,3 +288,5 @@ public class ControllerProfessor {
 		return examList;
 	}
 }
+=======
+>>>>>>> refs/remotes/origin/master

@@ -54,6 +54,7 @@ public abstract class AbstractBaseDAO<T, X extends Serializable> {
 	}
 
 	public T getById(X id) {
+<<<<<<< HEAD
 		return getCurrentSession().get(gettClass(), id);
 	}
 
@@ -114,5 +115,76 @@ public abstract class AbstractBaseDAO<T, X extends Serializable> {
 //		return q.getResultList();
 	}
 
+=======
+		Session session = getCurrentSession();
+		Transaction tx = null;
+		T entitity = null;
+		try {
+			tx = session.beginTransaction();
+			entitity = session.get(gettClass(), id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return entitity;
+	}
+
+	public void update(T object) {
+		Session session = getCurrentSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(object);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+	}
+
+	public void delete(T object) {
+		Session session = getCurrentSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(object);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+	}
+
+	public void deleteById(X id) {
+		T entity = getById(id);
+		delete(entity);
+	}
+
+	public void saveOrUpdate(T object) {
+		Session session = getCurrentSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(object);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+	}
+
+	public List<T> getAll() {
+
+		return (List<T>) getCurrentSession().createQuery("from " + gettClass()).list();
+//
+//		Session session = sessionFactory.getCurrentSession();
+//		CriteriaBuilder builder = session.getCriteriaBuilder();
+//		CriteriaQuery<T> query = builder.createQuery(tClass);
+//		Root<T> root = query.from(tClass);
+//		query.select(root);
+//		Query<T> q = session.createQuery(query);
+//		return q.getResultList();
+	}
+>>>>>>> refs/remotes/origin/master
 
 }
