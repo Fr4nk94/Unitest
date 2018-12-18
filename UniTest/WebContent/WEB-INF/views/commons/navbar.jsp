@@ -51,7 +51,7 @@
 
 					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
 							Portfolio</a> <ul class="nav nav-second-level">
-						<li><a href="flot.html">Available Exams</a></li>
+						<li><a href="getUserExams">Available Exams</a></li>
 						<li><a href="morris.html">Taken Exams</a></li>
 					</ul> 
 					<!-- /.nav-second-level --></li>
@@ -61,7 +61,7 @@
 							Dashboard</a></li>
 					<li><a><i class="fa fa-bar-chart-o fa-fw"></i>
 							Portfolio<span class="fa arrow"></span></a><ul class="nav nav-second-level">
-						<li><a href="#">Created Exams</a></li>
+						<li><a href="getUserExams">Created Exams</a></li>
 						<li><a href="#">Evaluated Exams</a></li>
 						<li><a href="evalExam">Non evaluated exams</a></li>
 					</ul> 

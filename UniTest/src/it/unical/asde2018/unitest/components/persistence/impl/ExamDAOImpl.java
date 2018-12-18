@@ -1,5 +1,6 @@
 package it.unical.asde2018.unitest.components.persistence.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import it.unical.asde2018.unitest.components.persistence.global.AbstractBaseDAO;
 import it.unical.asde2018.unitest.components.persistence.global.ExamDAO;
 import it.unical.asde2018.unitest.model.Exam;
+import it.unical.asde2018.unitest.model.User;
 
 // Implementation of ExamDAO, every function that provides exams should be here
 @Repository
@@ -39,4 +41,30 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		session.close();
 		return results;
 	}
+
+	@Override
+	public List<Exam> getUserExams(User user) {
+		Session session = sessionFactory.openSession();
+		String hql="";
+		
+		
+		if(user.getRoles().iterator().next().getAuthority().equals("ROLE_Professor")) {
+			System.out.println("SEI PROFESSOREEEEE");
+			hql = "from Exam "; // TODO connect with the professor that create the exam
+			
+		}
+		else if(user.getRoles().iterator().next().getAuthority().equals("ROLE_Student")) {
+			System.out.println("SEI STUDENTEEEE");
+			hql = "from Exam WHERE available = true"; //TODO Check if it's correct
+			
+		}
+		
+		Query query = session.createQuery(hql);
+		List<Exam> results = query.list();
+		
+		session.close();
+		return results;
+	}
+	
+	
 }

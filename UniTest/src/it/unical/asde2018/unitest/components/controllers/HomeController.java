@@ -98,5 +98,12 @@ public class HomeController {
 
 		return "examList";
 	}
-
+	
+	//TODO Aggiunto da Dennis
+	@GetMapping("/getUserExams")
+	@ResponseBody
+	public void getUserExams(HttpSession session) {
+		examService.getUserExams((User) session.getAttribute("aUser"));
+	}
+	
 }
