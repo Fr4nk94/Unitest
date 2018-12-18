@@ -115,4 +115,8 @@ public class ExamService {
 		int sPos = (pageNumber-1)*numExams;
 		return examDAO.getPage(sPos,numExams);
 	}
+
+	public Exam retriveStoredExam(Long long1) {
+		return examDAO.getById(long1);
+	}
 }

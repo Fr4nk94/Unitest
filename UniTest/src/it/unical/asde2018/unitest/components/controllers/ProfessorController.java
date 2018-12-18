@@ -19,7 +19,7 @@ import it.unical.asde2018.unitest.model.Student_Exam;
 import it.unical.asde2018.unitest.model.Student_Question;
 
 @Controller
-public class ControllerProfessor {
+public class ProfessorController {
 
 	@Autowired
 	private ServiceProfessor testService;
