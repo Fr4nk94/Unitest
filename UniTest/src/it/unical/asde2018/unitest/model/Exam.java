@@ -42,13 +42,17 @@ public class Exam {
 	private Date creation_date;
 
 //	An Exam is available whether it can be choosed by students
-	@Transient
+	@Column(name = "available")
 	private boolean available = false;
+	
+//	An exam has a time in which it must be submitted
+	@Column(name = "timeAvailable")
+	private float timeAvailable;
 
 //	The professor that creates the Exam
-//	@OneToOne
-//	@JoinColumn(name="id")
-	@Transient
+	@OneToOne
+	@JoinColumn(name="id")
+//	@Transient
 	private User user;
 
 	public float getMax_score() {
@@ -80,19 +84,20 @@ public class Exam {
 	private int internalID;
 
 //	An Exam contains a list of Questions
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="exam")
-//	@JoinColumn(name = "examID")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "examID")
 	private List<Question> questions;
 
 	public Exam() {
 	}
 
-	public Exam(User user, String name, Date date) {
+	public Exam(User user, String name, Date date, float timeAvailable) {
 		this.user = user;
 		this.name = name;
 		creation_date = date;
 		questions = new ArrayList<>();
 		this.max_score = 0;
+		this.timeAvailable = timeAvailable;
 	}
 
 	public int getInternalID() {
