@@ -50,9 +50,9 @@ public class Exam {
 	private float timeAvailable;
 
 //	The professor that creates the Exam
-//	@OneToOne
-//	@JoinColumn(name="id")
-	@Transient
+	@OneToOne
+	@JoinColumn(name="id")
+//	@Transient
 	private User user;
 
 	public float getMax_score() {
@@ -84,8 +84,8 @@ public class Exam {
 	private int internalID;
 
 //	An Exam contains a list of Questions
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="exam")
-//	@JoinColumn(name = "examID")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "examID")
 	private List<Question> questions;
 
 	public Exam() {
