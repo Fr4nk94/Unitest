@@ -33,6 +33,7 @@ public class ExamService {
 
 		System.out.println(e);
 	}
+	
 
 	@PostConstruct
 	public void init() {
