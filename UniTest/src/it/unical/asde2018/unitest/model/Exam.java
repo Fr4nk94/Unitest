@@ -27,7 +27,7 @@ public class Exam {
 	@Id
 	@Column(name = "examID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ExamID;
+	private long examID;
 
 //	Name of the Exam
 	@Column(nullable = false)
@@ -44,10 +44,6 @@ public class Exam {
 //	An Exam is available whether it can be choosed by students
 	@Transient
 	private boolean available = false;
-	
-//	The time in which the exam must be submitted
-	@Column(name="timeAvailable")
-	private float timeAvailable;
 
 //	The professor that creates the Exam
 //	@OneToOne
@@ -55,7 +51,31 @@ public class Exam {
 	@Transient
 	private User user;
 
-//	An internal ID for managing the exams in the services
+	public float getMax_score() {
+		return max_score;
+	}
+
+	public void setMax_score(float max_score) {
+		this.max_score = max_score;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setCreation_date(Date creation_date) {
+		this.creation_date = creation_date;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+	// An internal ID for managing the exams in the services
 	@Transient
 	private int internalID;
 
@@ -67,13 +87,12 @@ public class Exam {
 	public Exam() {
 	}
 
-	public Exam(User user, String name, Date date, float timeAvailable) {
+	public Exam(User user, String name, Date date) {
 		this.user = user;
 		this.name = name;
 		creation_date = date;
 		questions = new ArrayList<>();
 		this.max_score = 0;
-		this.timeAvailable = timeAvailable;
 	}
 
 	public int getInternalID() {
@@ -85,11 +104,11 @@ public class Exam {
 	}
 
 	public long getExamID() {
-		return ExamID;
+		return examID;
 	}
 
 	public void setExamID(long examID) {
-		ExamID = examID;
+		examID = examID;
 	}
 
 	public String getName() {
@@ -119,24 +138,16 @@ public class Exam {
 	public List<Question> getQuestions() {
 		return questions;
 	}
-	
+
 	public void setMaxScore(float score) {
-		this.max_score+= score;
-	}
-
-	public float getTimeAvailable() {
-		return timeAvailable;
-	}
-
-	public void setTimeAvailable(float timeAvailable) {
-		this.timeAvailable = timeAvailable;
+		this.max_score += score;
 	}
 
 	@Override
 	public String toString() {
-		return "Exam [ExamID=" + ExamID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
-				+ creation_date + ", available=" + available + ", timeAvailable=" + timeAvailable + ", user=" + user
-				+ ", internalID=" + internalID + ", questions=" + questions + "]";
+		return "Exam [ExamID=" + examID + ", name=" + name + ", max_score=" + max_score + ", creation_date="
+				+ creation_date + ", available=" + available + ", user=" + user + ", internalID=" + internalID
+				+ ", questions=" + questions + "]";
 	}
 
 }

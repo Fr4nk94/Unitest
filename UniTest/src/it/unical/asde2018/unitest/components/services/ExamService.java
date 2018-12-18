@@ -44,17 +44,17 @@ public class ExamService {
 		q1.addAnswer(a1);
 		q1.addAnswer(a2);
 		q1.addAnswer(a3);
-		Answer a4= new Answer("ciccio", false);
+		Answer a4= new Answer("ciccio", false)	;
 		Answer a5= new Answer("pluto", false);
 		Answer a6= new Answer("paperino", false);
-		Question q2= new Question("chi sei?", Question_Type.MULTIPLE_CHOICE, 5, 0);
+		Question q2= new Question("Dimmi quali sono i calciatori bravi dell'italia?", Question_Type.MULTIPLE_CHOICE, 5, 0);
 		q2.addAnswer(a4);
 		q2.addAnswer(a5);
 		q2.addAnswer(a6);
 		Question q3= new Question("chi sei?", Question_Type.ATTACH_FILE, 5, 0);
 		User user = new User();
 		user.setFullName("Pippo il grande");
-		Exam exam1= new Exam(user, "primo Esame", new Date(), (float) 3.5);
+		Exam exam1= new Exam(user, "primo Esame", new Date());
 		examDAO.save(exam1);
 		q1.setExam(exam1);
 		q2.setExam(exam1);
@@ -64,7 +64,7 @@ public class ExamService {
 		exam1.addQuestion(q3);
 		examDAO.update(exam1);
 		
-		Exam exam2= new Exam(user, "secondo Esame", new Date(), (float) 2);
+		Exam exam2= new Exam(user, "secondo Esame", new Date());
 		examDAO.save(exam2);
 		q1.setExam(exam2);
 		q2.setExam(exam2);
@@ -83,15 +83,11 @@ public class ExamService {
 	public int getExamID(Exam e) {
 		return e.getInternalID();
 	}
-	
-	public Exam getExamByInternalID(int internalID) {
-		return exams.get(internalID);
-	}
-	
-	
-	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable, float timeAvailable) {
-		
-		Exam e = new Exam(professor, examName, new Date(), timeAvailable);
+
+	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers,
+			boolean isAvailable) {
+
+		Exam e = new Exam(professor, examName, new Date());
 
 		e.setInternalID(getNextExamID());
 
@@ -103,7 +99,7 @@ public class ExamService {
 	}
 
 	public Exam getExamByID(int examID) {
-		return examDAO.getById((long)examID);
+		return exams.get(examID);
 	}
 
 	public void storeExam(Exam exam) {

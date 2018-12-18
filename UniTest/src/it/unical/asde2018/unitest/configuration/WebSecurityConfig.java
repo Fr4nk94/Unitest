@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/resources/**").permitAll()
         .antMatchers("/login**").permitAll()
         .antMatchers("/createExam", "/addQuestions", "/evalExam").hasRole("Professor")
+        .antMatchers("/exam").hasRole("Student")
         .anyRequest().authenticated()        
         .and()
         .formLogin()

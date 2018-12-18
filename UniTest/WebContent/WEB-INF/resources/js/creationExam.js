@@ -87,7 +87,7 @@ $(document).ready(function() {
 		var answer = "";
     	var isCorrect = "";
     	
-    	
+    	console.log("EXAM ID = "+exam_ID);
 
         // Check if empty of not
         if (questionTitle === '') {
@@ -224,7 +224,6 @@ $(document).ready(function() {
     		
     		isCorrect = $('input[name=isCorrect]:checked').val();
     		
-    		
     		// Check if empty of not
             if (wrongScore === '') {
             	alert('Insert the wrong score');
@@ -269,10 +268,6 @@ $(document).ready(function() {
         			console.log(res);
         		}
         	});
-    		
-    		
-    		
-    		
     	}
     	
     	

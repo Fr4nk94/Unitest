@@ -43,7 +43,7 @@ public class ExamController {
 
 	@PostMapping("createExam")
 	@ResponseBody
-	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable, @RequestParam String timeAvailable,
+	public boolean createGeneralExam(@RequestParam String examName, @RequestParam String isAvailable,
 			HttpSession session) {
 
 		List<Question> questions = new ArrayList<>();
@@ -51,7 +51,7 @@ public class ExamController {
 		try {
 			User professor = (User) session.getAttribute("aUser");
 
-			Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable), Float.parseFloat(timeAvailable));
+			Exam e = examService.createExam(professor, examName, questions, answers, Boolean.parseBoolean(isAvailable));
 
 			session.setAttribute("currentExamID", e.getInternalID());
 		} catch (Exception e) {
@@ -70,7 +70,7 @@ public class ExamController {
 		System.out.println("INSERT QUESTION exam_ID =" + exam_ID + " question title = " + questionTitle
 				+ " max score = " + correctScore);
 
-		Exam e = examService.getExamByInternalID(Integer.parseInt(exam_ID));
+		Exam e = examService.getExamByID(Integer.parseInt(exam_ID));
 		Question question = new Question(questionTitle, Question_Type.valueOf(questionType),
 				Float.parseFloat(correctScore), Float.parseFloat(wrongScore));
 		question.setInternalID(e.getQuestions().size());
