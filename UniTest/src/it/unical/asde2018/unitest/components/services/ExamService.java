@@ -44,10 +44,10 @@ public class ExamService {
 		q1.addAnswer(a1);
 		q1.addAnswer(a2);
 		q1.addAnswer(a3);
-		Answer a4= new Answer("ciccio", false);
+		Answer a4= new Answer("ciccio", false)	;
 		Answer a5= new Answer("pluto", false);
 		Answer a6= new Answer("paperino", false);
-		Question q2= new Question("chi sei?", Question_Type.MULTIPLE_CHOICE, 5, 0);
+		Question q2= new Question("Dimmi quali sono i calciatori bravi dell'italia?", Question_Type.MULTIPLE_CHOICE, 5, 0);
 		q2.addAnswer(a4);
 		q2.addAnswer(a5);
 		q2.addAnswer(a6);
@@ -99,7 +99,7 @@ public class ExamService {
 	}
 
 	public Exam getExamByID(int examID) {
-		return examDAO.getById((long)examID);
+		return exams.get(examID);
 	}
 
 	public void storeExam(Exam exam) {
