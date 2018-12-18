@@ -36,7 +36,6 @@ public class ExamController {
 	public String examCreated(HttpSession session, Model model, @RequestParam String exam_ID) {
 
 		Exam exam = examService.getExamByID(Integer.parseInt(exam_ID));
-
 		examService.storeExam(exam);
 		return "examCreated";
 	}
@@ -118,4 +117,6 @@ public class ExamController {
 	public String addQuestions() {
 		return "addQuestions";
 	}
+	
+	
 }

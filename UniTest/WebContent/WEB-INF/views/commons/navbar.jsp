@@ -51,7 +51,7 @@
 
 					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
 							Portfolio</a> <ul class="nav nav-second-level">
-						<li><a href="flot.html">Available Exams</a></li>
+						<li><a href="examList">Available Exams</a></li>
 						<li><a href="morris.html">Taken Exams</a></li>
 					</ul> 
 					<!-- /.nav-second-level --></li>

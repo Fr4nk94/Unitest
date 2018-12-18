@@ -57,7 +57,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="exams-list">
+			<!--	<div id="exams-list">
 				<div class="row">
 					<c:set var="count" value="${0}" />
 					<c:forEach var="exam" items="${page}">
@@ -112,12 +112,39 @@
 					</c:forEach>
 				</div>
 			</div>
-			<!-- /.exams-list -->
+			 /.exams-list -->
+			<table width="100%"
+				class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Professor</th>
+						<th>Start Date</th>
+						<th>Available Time</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="exam" items="${page}">
+						<tr examID="${ exam.examID }" class="odd gradeX">
+							<td>${ exam.name }</td>
+							<td>${ exam.user.fullName }</td>
+							<td>${ exam.creation_date }</td>
+							<td class="center">${ exam.timeAvailable }</td>
+							<td class="center">
+								<!-- <a type="button" class="btn btn-primary" href="exam?examId=${ exam.examID }">Start</a>-->
+								<button onclick="goToExam(${ exam.examID })" type="button" class="btn btn-primary">Start</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
 		<!-- /#page-wrapper -->
 	</div>
 	<!-- /#wrapper -->
 </body>
 <jsp:include page="commons/bottomInclude.jsp"></jsp:include>
-
+<script src="resources/js/examList.js"></script>
 </html>

@@ -2,7 +2,9 @@ package it.unical.asde2018.unitest.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -55,6 +57,14 @@ public class Exam {
 //	@Transient
 	private User user;
 
+	public float getTimeAvailable() {
+		return timeAvailable;
+	}
+
+	public void setTimeAvailable(float timeAvailable) {
+		this.timeAvailable = timeAvailable;
+	}
+
 	public float getMax_score() {
 		return max_score;
 	}
@@ -75,7 +85,7 @@ public class Exam {
 		this.creation_date = creation_date;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
 
@@ -86,7 +96,7 @@ public class Exam {
 //	An Exam contains a list of Questions
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "examID")
-	private List<Question> questions;
+	private Set<Question> questions;
 
 	public Exam() {
 	}
@@ -95,7 +105,7 @@ public class Exam {
 		this.user = user;
 		this.name = name;
 		creation_date = date;
-		questions = new ArrayList<>();
+		questions = new HashSet<>();
 		this.max_score = 0;
 		this.timeAvailable = timeAvailable;
 	}
@@ -140,7 +150,7 @@ public class Exam {
 		questions.add(q);
 	}
 
-	public List<Question> getQuestions() {
+	public Set<Question> getQuestions() {
 		return questions;
 	}
 

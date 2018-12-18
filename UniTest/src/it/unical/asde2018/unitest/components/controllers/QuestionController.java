@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -25,7 +26,9 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import it.unical.asde2018.unitest.components.services.ExamService;
 import it.unical.asde2018.unitest.components.services.QuestionService;
+import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
+import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Student_Answer;
 import it.unical.asde2018.unitest.model.Student_Exam;
 import it.unical.asde2018.unitest.model.Student_Question;
@@ -45,22 +48,42 @@ public class QuestionController {
 //		return "index";
 //	}
 
-	@GetMapping("/exam")
-	public String goToExam(Model model, HttpSession session) {
-		Exam examTmp = examService.getAllExams().get(0);
+	@PostMapping("/goToExamDario")
+	@ResponseBody
+	public String goToExam(@RequestParam String examID, @RequestParam String startingDate, Model model,
+			HttpSession session) {
+//		Exam examTmp = examService.getExamByID(Integer.parseInt(examID));
+//		Exam examTmp = examService.retriveStoredExam(examID);
+//		model.addAttribute("questions", examTmp.getQuestions());
+//		model.addAttribute("totQuestions", examTmp.getQuestions().size());
+		session.setAttribute("examID", examID);
+//		SimpleDateFormat sdf = new SimpleDateFormat("MM dd, yyyy hh:mm:ss aa");
+//		Date newDate = new Date();
+////		model.addAttribute("timer", sdf.format(newDate));
+//		model.addAttribute("timer", startingDate);
+		session.setAttribute("timer", startingDate);
+
+		return "exam";
+	}
+
+	@GetMapping("/redirectExam")
+	public String redirectExam(Model model, HttpSession session) {
+		System.out.println("Session ExamID " + (String) session.getAttribute("examID"));
+
+		Exam examTmp = examService.retriveStoredExam((String) session.getAttribute("examID"));
+		
+		for (Question q : examTmp.getQuestions()) {
+			System.out.println("Question " + q.getQuestion_body() + " ID: " + q.getQuestionID());
+			for (Answer a : q.getAnswers()) {
+				System.out.println("Answer " + a.getAnswer_body());
+			}
+		}
+		
 		model.addAttribute("questions", examTmp.getQuestions());
 		model.addAttribute("totQuestions", examTmp.getQuestions().size());
-		session.setAttribute("exam", examTmp.getExamID());
-		SimpleDateFormat sdf = new SimpleDateFormat("MM dd, yyyy hh:mm:ss aa");
-		String data = "12 17, 2018 14:00:00 AM";
-		Date newDate = new Date();
-		try {
-			newDate = sdf.parse(data);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		model.addAttribute("timer", sdf.format(newDate));
+		model.addAttribute("timer", session.getAttribute("timer"));
+		model.addAttribute("timeAvailable", examTmp.getTimeAvailable());
+
 		return "exam";
 	}
 
