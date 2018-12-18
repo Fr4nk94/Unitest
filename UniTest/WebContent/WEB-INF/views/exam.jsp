@@ -14,6 +14,8 @@
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="privew">
 		<p id="timer">${timer}</p>
+		<p id="timeAvailable">${timeAvailable}</p>
+		
 		<c:set var="count" value="0" scope="page" />
 		<c:set var="dario" value="0" scope="page" />
 		<c:forEach items="${questions}" var="element">

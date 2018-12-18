@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.jasper.tagplugins.jstl.core.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
-import it.unical.asde2018.unitest.model.Role;
 import it.unical.asde2018.unitest.model.User;
 
 @Service
@@ -117,8 +115,11 @@ public class ExamService {
 		int sPos = (pageNumber-1)*numExams;
 		return examDAO.getPage(sPos,numExams);
 	}
+
+	public Exam retriveStoredExam(Long long1) {
+		return examDAO.getById(long1);
+	}
 	
-	//TODO Aggiunto per prova da Dennis
 	public void getUserExams(User user) {
 		examDAO.getUserExams(user);
 	}

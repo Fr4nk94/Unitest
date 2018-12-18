@@ -1,6 +1,5 @@
 package it.unical.asde2018.unitest.components.persistence.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -41,7 +40,7 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		session.close();
 		return results;
 	}
-
+	
 	@Override
 	public List<Exam> getUserExams(User user) {
 		Session session = sessionFactory.openSession();
@@ -65,6 +64,4 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		session.close();
 		return results;
 	}
-	
-	
 }
