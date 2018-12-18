@@ -22,24 +22,34 @@
 								type="text" name="examName" required />
 
 							<div class="row">
-								<div class="col-md-4">
-									<label id="availableOption"> <input type="radio"
-										name="isAvailable" value="true" required> Exam
-										Available<br>
+								<div class="col-md-4 text-left">
+									<label> <input type="radio"
+										name="isAvailable" class="custom-control-input" value="true"
+										required> Exam Available<br>
 									</label>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-4 ">
 									<label> <input type="radio" name="isAvailable"
 										value="false" required> Not yet Available<br>
 									</label>
 								</div>
-								<div class="col-md-4 text-right	 ">
+
+								<div class="col-md-4 ">
+									<label> <input class="littleInputBox" id="availableTime" type="number" min=0.5
+										max=5 step=0.5 value=0.5> Time Available<br>
+									</label>
+								</div>
+							</div>
+
+							<div class="row">
+								<div>
 									<button class="btn btn-success" id="createExam" type="button">
 										Create the exam</button>
 								</div>
 							</div>
+							<!-- /.row -->
 						</div>
-
+						<!--  /.examNameBox -->
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>

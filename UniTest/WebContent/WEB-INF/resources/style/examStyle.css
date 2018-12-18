@@ -277,3 +277,7 @@ button#multiple{
 #timer{
 	visibility: hidden;
 }
+
+.littleInputBox{
+	width : 30%;
+}

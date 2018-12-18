@@ -54,7 +54,7 @@ public class ExamService {
 		Question q3= new Question("chi sei?", Question_Type.ATTACH_FILE, 5, 0);
 		User user = new User();
 		user.setFullName("Pippo il grande");
-		Exam exam1= new Exam(user, "primo Esame", new Date());
+		Exam exam1= new Exam(user, "primo Esame", new Date(), (float) 2);
 		examDAO.save(exam1);
 		q1.setExam(exam1);
 		q2.setExam(exam1);
@@ -64,7 +64,7 @@ public class ExamService {
 		exam1.addQuestion(q3);
 		examDAO.update(exam1);
 		
-		Exam exam2= new Exam(user, "secondo Esame", new Date());
+		Exam exam2= new Exam(user, "secondo Esame", new Date(), (float) 3.5);
 		examDAO.save(exam2);
 		q1.setExam(exam2);
 		q2.setExam(exam2);
@@ -84,10 +84,11 @@ public class ExamService {
 		return e.getInternalID();
 	}
 
-	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers,
-			boolean isAvailable) {
-
-		Exam e = new Exam(professor, examName, new Date());
+	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable, float timeAvailable) {
+		
+		System.out.println("EXAM SERVICE CREO ESAM "+professor+" "+ examName+" "+ new Date()+" "+ timeAvailable);
+		
+		Exam e = new Exam(professor, examName, new Date(), timeAvailable);
 
 		e.setInternalID(getNextExamID());
 
