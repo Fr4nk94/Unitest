@@ -1,5 +1,6 @@
 package it.unical.asde2018.unitest.components.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -119,4 +120,47 @@ public class ExamService {
 	public Exam retriveStoredExam(Long long1) {
 		return examDAO.getById(long1);
 	}
+	
+	public int automaticCorrection(HashMap<String, Object> map, long examID) {
+		int partialScore=0;
+		Exam professorExam = retriveStoredExam(examID);
+		for (String studentQuestionID : map.keySet()) {
+			for (Question professorQuestion : professorExam.getQuestions()) {
+				if(professorQuestion.getQuestionID()==Long.parseLong(studentQuestionID)) {
+					if(professorQuestion.getType()==Question_Type.OPEN_ANSWER 
+							|| professorQuestion.getType()==Question_Type.ATTACH_FILE) {
+						//CompletelyCorrect=false;
+					}
+					if(professorQuestion.getType()==Question_Type.SINGLE_CHOICE) {
+						for (Answer professorAnswer : professorQuestion.getAnswers()) {
+							if(((String)map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
+									&& professorAnswer.isCorrect()) {
+
+								partialScore+=professorQuestion.getCorrectScore();
+							}
+							else if(((String)map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
+									&& !professorAnswer.isCorrect()) {
+								partialScore+=professorQuestion.getWrongScore();
+							}
+						}
+					}
+					if(professorQuestion.getType()==Question_Type.MULTIPLE_CHOICE) {
+						for (Answer professorAnswer : professorQuestion.getAnswers()) {
+							for (String studentAnswer : (ArrayList<String>)map.get(studentQuestionID)) {
+								if(studentAnswer.equals(professorAnswer.getAnswer_body()) && professorAnswer.isCorrect()) {
+									partialScore+=professorQuestion.getCorrectScore();
+								}
+								if(studentAnswer.equals(professorAnswer.getAnswer_body()) && !professorAnswer.isCorrect()) {
+									partialScore+=professorQuestion.getWrongScore();
+								}
+							}
+
+						}
+					}
+				}
+			}
+		}
+		return partialScore;
+	}
+	
 }

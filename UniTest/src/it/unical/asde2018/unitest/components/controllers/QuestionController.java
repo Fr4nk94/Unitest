@@ -93,10 +93,8 @@ public class QuestionController {
 		HashMap<String, Object> map = obj.readValue(json, mapType);
 		System.out.println("map size " + map.size());
 		System.out.println("map val size " + map.values().size());
-//		long examID = (long) session.getAttribute("exam");
-//		Student_Exam exam_to_submit = new Student_Exam(new Date(), new User());
+		long examID = (long) session.getAttribute("exam");
 		for (String key : map.keySet()) {
-//			Student_Question question = new Student_Question();
 			if (map.get(key) instanceof String) {
 				System.out.println("Stringa");
 				System.out.println(map.get(key));
@@ -109,19 +107,9 @@ public class QuestionController {
 				}
 			}
 		}
-		/*
-		 * Student_Exam exam_to_submit = new Student_Exam((long)
-		 * session.getAttribute("exam"), new Date(),
-		 * (User)session.getAttribute("aUser"));
-		 * 
-		 * 
-		 * for (String key : map.keySet()) { System.out.println("key " + key + " " +
-		 * map.get(key)); Student_Question question = new
-		 * Student_Question(Long.parseLong(key));
-		 * 
-		 * }
-		 */
-
+		
+		System.out.println(examService.automaticCorrection(map, examID));
+	
 		return true;
 	}
 }
