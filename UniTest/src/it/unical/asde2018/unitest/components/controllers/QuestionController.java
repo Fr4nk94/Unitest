@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import it.unical.asde2018.unitest.components.services.ExamService;
 import it.unical.asde2018.unitest.components.services.QuestionService;
 import it.unical.asde2018.unitest.model.Exam;
+import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Student_Answer;
 import it.unical.asde2018.unitest.model.Student_Exam;
 import it.unical.asde2018.unitest.model.Student_Question;
@@ -76,7 +77,7 @@ public class QuestionController {
 		HashMap<String, Object> map = obj.readValue(json, mapType);
 		System.out.println("map size " + map.size());
 		System.out.println("map val size " + map.values().size());
-//		long examID = (long) session.getAttribute("exam");
+		long examID = (long) session.getAttribute("exam");
 //		Student_Exam exam_to_submit = new Student_Exam(new Date(), new User());
 		for (String key : map.keySet()) {
 //			Student_Question question = new Student_Question();
@@ -92,6 +93,15 @@ public class QuestionController {
 				}
 			}
 		}
+		
+		Exam professorExam = examService.getExamByIDFromDB(examID);
+		System.out.println("numerooooooProf"+professorExam.getQuestions().size());
+		for (Question question : professorExam.getQuestions()) {
+			System.out.println(question.toString());
+		}
+		
+		System.out.println("Sporcellino" + questionService.automaticCorrection(map, examID));
+		
 		/*
 		 * Student_Exam exam_to_submit = new Student_Exam((long)
 		 * session.getAttribute("exam"), new Date(),

@@ -68,7 +68,7 @@
 									<div class="col-lg-12">
 										<div class="panel panel-red">
 											<div class="panel-heading">
-												<a href="somethingBeautiful">${exam.name}</a>
+												<a href="somethingBeautiful">${exam.name},,,${exam.questions}</a>
 											</div>
 											
 											<div class="panel-footer">${exam.user.fullName}</div>

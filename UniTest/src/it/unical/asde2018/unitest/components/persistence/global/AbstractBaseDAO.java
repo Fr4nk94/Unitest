@@ -60,6 +60,7 @@ public abstract class AbstractBaseDAO<T, X extends Serializable> {
 		try {
 			tx = session.beginTransaction();
 			entitity = session.get(gettClass(), id);
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();

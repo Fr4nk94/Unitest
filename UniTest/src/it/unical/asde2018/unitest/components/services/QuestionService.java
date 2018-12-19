@@ -2,8 +2,11 @@ package it.unical.asde2018.unitest.components.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
@@ -14,6 +17,9 @@ import it.unical.asde2018.unitest.model.User;
 @Service
 public class QuestionService {
 
+	@Autowired
+	private ExamService examService;
+	
 	private List<Question> questions;
 
 	public QuestionService() {
@@ -47,7 +53,7 @@ public class QuestionService {
 //
 //		Question q3 = new Question("domanda aperta?", Question_Type.OPEN_ANSWER);
 //
-//		Question q4= new Question("cazz e domanda �?", Question_Type.SINGLE_CHOICE);
+//		Question q4= new Question("cazz e domanda �?", Question_Type.SINGLE_CHOICE);
 //		q4.addAnswer(new Answer("cacca", true));
 //		q4.addAnswer(new Answer("bao", false));
 //		q4.addAnswer(new Answer("miao", true));
@@ -61,5 +67,56 @@ public class QuestionService {
 //		questions.add(q2);
 //		questions.add(q3);
 //		questions.add(q4);
+	}
+	
+	public int automaticCorrection(HashMap<String, Object> map, long examID) {
+		int partialScore=0;
+		Exam professorExam = examService.getExamByIDFromDB(examID);
+		System.out.println("numProfQuest"+professorExam.getQuestions().size());
+		for (String studentQuestionID : map.keySet()) {
+			System.out.println("--------ENTROOOOOOOOOOOOOO------");
+
+			for (Question professorQuestion : professorExam.getQuestions()) {
+				System.out.println("Numero di questions del prof:"+ professorExam.getQuestions().size());
+				if(professorQuestion.getQuestionID()==Long.parseLong(studentQuestionID)) {
+					if(professorQuestion.getType()==Question_Type.OPEN_ANSWER 
+							|| professorQuestion.getType()==Question_Type.ATTACH_FILE) {
+						//CompletelyCorrect=false;
+					}
+					if(professorQuestion.getType()==Question_Type.SINGLE_CHOICE) {
+						System.out.println("ENTROOOOOOOOOOOOOO");
+						
+						for (Answer professorAnswer : professorQuestion.getAnswers()) {
+							if(((String)map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
+									&& professorAnswer.isCorrect()) {
+								
+								partialScore+=professorQuestion.getCorrectScore();
+								System.out.println("+++++CiEntro perchè è corretta."+partialScore);
+							}
+							else if(((String)map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
+									&& !professorAnswer.isCorrect()) {
+								partialScore+=professorQuestion.getWrongScore();
+								System.out.println("-----CiEntro perchè è sbagliata."+partialScore);
+
+							}
+						}
+					}
+					if(professorQuestion.getType()==Question_Type.MULTIPLE_CHOICE) {
+						for (Answer professorAnswer : professorQuestion.getAnswers()) {
+							for (String studentAnswer : (ArrayList<String>)map.get(studentQuestionID)) {
+								if(studentAnswer.equals(professorAnswer.getAnswer_body()) && professorAnswer.isCorrect()) {
+									partialScore+=professorQuestion.getCorrectScore();
+								}
+								if(studentAnswer.equals(professorAnswer.getAnswer_body()) && !professorAnswer.isCorrect()) {
+									partialScore+=professorQuestion.getWrongScore();
+								}
+							}
+
+						}
+					}
+				}
+			}
+		}
+		return partialScore;
 	}
 }

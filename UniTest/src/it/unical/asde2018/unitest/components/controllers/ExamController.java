@@ -108,6 +108,8 @@ public class ExamController {
 		e.setMaxScore(question.getCorrectScore());
 		
 		e.addQuestion(question);
+		
+		System.out.println("FROOOOOOOOOOOOOOOOOOOCIO"+e.getQuestions().size());
 
 		System.out.println(e.toString());
 

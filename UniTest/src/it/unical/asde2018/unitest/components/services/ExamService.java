@@ -102,6 +102,10 @@ public class ExamService {
 	public Exam getExamByID(int examID) {
 		return exams.get(examID);
 	}
+	
+	public Exam getExamByIDFromDB(long examID) {
+		return examDAO.getById(examID);
+	}
 
 	public void storeExam(Exam exam) {
 		examDAO.save(exam);
