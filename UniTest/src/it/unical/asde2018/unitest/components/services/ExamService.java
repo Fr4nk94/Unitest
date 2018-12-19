@@ -130,6 +130,7 @@ public class ExamService {
 		System.out.println("===================================================EXAM SERVICE IS AVAILABLE EXAM BEFORE = "+e.isAvailable());
 		e.setAvailable(e.isAvailable() ? false : true);
 		System.out.println("===================================================EXAM SERVICE IS AVAILABLE EXAM AFTER = "+e.isAvailable());
+		
 		examDAO.update(e);
 		
 		return examID+"-"+e.isAvailable();
