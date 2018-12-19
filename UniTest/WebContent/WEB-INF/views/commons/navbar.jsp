@@ -57,9 +57,7 @@
 					<!-- /.nav-second-level --></li>
 				</c:if>
 				<c:if test="${role == 'ROLE_Professor'}">
-					<li><a href="#"><i class="fa fa-dashboard fa-fw"></i>
-							Dashboard</a></li>
-					<li><a><i class="fa fa-bar-chart-o fa-fw"></i>
+					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
 							Portfolio<span class="fa arrow"></span></a><ul class="nav nav-second-level">
 						<li><a href="#">Created Exams</a></li>
 						<li><a href="#">Evaluated Exams</a></li>
