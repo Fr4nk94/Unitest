@@ -118,4 +118,11 @@ public class ExamController {
 	public String addQuestions() {
 		return "addQuestions";
 	}
+	
+	@PostMapping("changeAvailability")
+	@ResponseBody
+	public String changeAvailability(String exam_ID) {
+		return examService.changeAvailability(Long.parseLong(exam_ID));
+	}
+
 }

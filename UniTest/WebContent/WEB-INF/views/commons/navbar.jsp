@@ -47,25 +47,33 @@
                             </div>
                              /input-group
                         </li> -->
-				<c:if test="${role == 'ROLE_Student'}">			
+				<c:if test="${role == 'ROLE_Student'}">
 
 					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
-							Portfolio</a> <ul class="nav nav-second-level">
-						<li><a href="flot.html">Available Exams</a></li>
-						<li><a href="morris.html">Taken Exams</a></li>
-					</ul> 
-					<!-- /.nav-second-level --></li>
+							Portfolio</a>
+						<ul class="nav nav-second-level">
+						
+						<!--  MODIFICATO DA DENNIS -->
+							<li><a href="getUserExams">Available Exams</a></li> 
+						<!--  MODIFICATO DA DENNIS -->
+						
+							<li><a href="morris.html">Taken Exams</a></li>
+						</ul> <!-- /.nav-second-level --></li>
 				</c:if>
 				<c:if test="${role == 'ROLE_Professor'}">
 					<li><a href="#"><i class="fa fa-dashboard fa-fw"></i>
 							Dashboard</a></li>
-					<li><a><i class="fa fa-bar-chart-o fa-fw"></i>
-							Portfolio<span class="fa arrow"></span></a><ul class="nav nav-second-level">
-						<li><a href="#">Created Exams</a></li>
-						<li><a href="#">Evaluated Exams</a></li>
-						<li><a href="evalExam">Non evaluated exams</a></li>
-					</ul> 
-					  <!-- /.nav-second-level --></li>
+					<li><a><i class="fa fa-bar-chart-o fa-fw"></i> Portfolio<span
+							class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+
+							<!--  MODIFICATO DA DENNIS -->
+								<li><a href="getUserExams">Created Exams</a></li>
+							<!--  MODIFICATO DA DENNIS -->
+
+							<li><a href="#">Evaluated Exams</a></li>
+							<li><a href="evalExam">Non evaluated exams</a></li>
+						</ul> <!-- /.nav-second-level --></li>
 					<li><a href="createExam"><i class="fa fa-table fa-fw"></i>
 							Create Exam</a></li>
 					<!-- <li><a href="#"><i class="fa fa-edit fa-fw"></i> Forms</a></li> -->
@@ -117,7 +125,8 @@
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">UniTest</h4>
 			</div>
-			<div class="modal-body">Are you sure that you want to leave the system?</div>
+			<div class="modal-body">Are you sure that you want to leave the
+				system?</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 				<button type="button" class="btn btn-primary" id="yesButtonLog">Yes</button>

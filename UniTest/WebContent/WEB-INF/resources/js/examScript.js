@@ -30,7 +30,7 @@ function submitExam() {
 				map[$(this).attr("id")] = $(this).siblings(".form-group").find(
 						"textarea").val();
 			});
-	
+
 	$(".attachFile").each(
 			function() {
 				map[$(this).attr("id")] = $(this).siblings(".form-group").find(
@@ -65,12 +65,23 @@ function submitExam() {
 
 function timer() {
 	// Set the date we're counting down to
-	var datona= document.getElementById("timer").innerHTML;
-	var ore=2;
-	var data= new Date(datona);
-	console.log(data)
-	data.setHours(data.getHours()+ore);
-	console.log("nuova data"+data);
+	var datona = document.getElementById("timer").innerHTML;
+	var ore = document.getElementById("timeAvailable").innerHTML;
+	var oreProf = ore.split(".");
+	var minuti = 0;
+
+	if (oreProf[1] == 5) {
+		minuti = 30;
+	}
+	console.log("minuti" + minuti);
+	var data = new Date(datona);
+	var oo = Number(data.getHours()) + Number(oreProf[0]);
+	var min = Number(data.getMinutes()) + Number(minuti);
+	console.log("data javascript + ore" + oo);
+	console.log("data javascript + minuti" + min);
+	data.setHours(oo);
+	data.setMinutes(min);
+
 	var countDownDate = new Date(data).getTime();
 	// Update the count down every 1 second
 	var x = setInterval(function() {

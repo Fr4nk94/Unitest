@@ -312,37 +312,240 @@ $(document).ready(function() {
     	});
     });
     
-    
+    function saveLastQuestion()
+    {
+    	var questionTitle = $("#questionTitle").val();
+    	var exam_ID = $("#exam_ID").val();
+    	var correctScore = $("#correctScore").val();
+    	var wrongScore = $("#wrongScore").val();
+		var answer = "";
+    	var isCorrect = "";
+    	
+    	console.log("EXAM ID = "+exam_ID);
+
+        // Check if empty of not
+        if (questionTitle === '') {
+            alert('Insert the question');
+            return false;
+        }
+        
+        // Check if empty of not
+        if (correctScore === '') {
+            alert('Insert the score of the correct answer');
+            return false;
+        }
+    	
+    	
+    	
+    	
+    	if(questionType == "OPEN_ANSWER" || questionType == "ATTACH_FILE"){
+    		console.log("you are submitting a OPEN question");
+    		
+        	$.ajax({
+        		url : "insertQuestions",
+        		type : "POST",
+        		data : { 
+        			"exam_ID" : exam_ID,
+        			"questionTitle" : questionTitle,
+        			"correctScore" : correctScore,
+        			"wrongScore" : 0,
+        			"answers" : "",
+        			"questionType" : "OPEN_ANSWER",
+        			"isCorrect" : ""
+        		},
+        		
+        		success : function(result){
+        			$("#questionForm")[0].reset();
+        			$("#questionType").val(questionType);
+        		},
+        		
+        		error : function(res){
+        			alert(res);
+        		}
+        	});
+    		
+    		
+    	}
+    	else if (questionType == "MULTIPLE_CHOICE"){
+    		console.log("you are submitting a MULTIPLE question");
+    		
+    		isCorrect = "";
+    		
+    		
+    		for(var i=0; i<= x;i++){
+    			answer += $("#answer"+i).val();
+    			
+    			// Check if empty of not
+                if ($("#answer"+i).val() === '') {
+                    alert('Insert the answer');
+                    return false;
+                }
+    			
+    			if(i != x)
+    				answer+=",";
+    		}
+    		
+    		
+    		$('input[name=isCorrect]:checked').each(function() {
+    			
+    			if(isCorrect != ""){
+    				isCorrect+=","+$(this).val();
+    			}
+    			else {
+    				isCorrect+=$(this).val();
+    			}
+
+    		});
+    		
+    		// Check if empty of not
+            if (isCorrect === '') {
+                alert('Choose at least one correct answer');
+                return false;
+            }
+    		
+    		// Check if empty of not
+            if (wrongScore === '') {
+                alert('Insert the wrong score');
+                return false;
+            }
+            
+    		
+    		$.ajax({
+        		url : "insertQuestions",
+        		type : "POST",
+        		data : {
+        			"questionTitle" : questionTitle,
+        			"exam_ID" : exam_ID,
+        			"correctScore" : correctScore,
+        			"wrongScore" : wrongScore,
+        			"answers" : answer,
+        			"isCorrect" : isCorrect,
+        			"questionType" : "MULTIPLE_CHOICE"
+        		},
+        		success : function(result){
+        			$("#questionForm")[0].reset();
+        			$("#questionType").val("MULTIPLE_CHOICE");
+        			
+        			for(var i=0; i<x; i++){
+        				$("#moreAnswer").remove();
+        			}
+        			x=0;
+        		},
+        		
+        		error : function(res){
+        			console.log(res);
+        		}
+        	});
+        	
+    		
+    		
+    	}
+    	else if (questionType == "SINGLE_CHOICE"){
+    		console.log("you are submitting a SINGLE question");
+    	
+    		for(var i=0; i<= x;i++){
+    			answer += $("#answer"+i).val();
+    			
+    			// Check if empty of not
+                if ($("#answer"+i).val() === '') {
+                    alert('Insert the answer');
+                    return false;
+                }
+    			
+    			if(i != x)
+    				answer+=",";
+    		}
+    		
+    		isCorrect = $('input[name=isCorrect]:checked').val();
+    		
+    		// Check if empty of not
+            if (wrongScore === '') {
+            	alert('Insert the wrong score');
+                return false;
+            }
+            
+            // Check if empty of not
+            if (answer === '') {
+            	alert('Insert the answer');
+                return false;
+            }
+    		
+            // Check if empty of not
+            if (isCorrect == undefined) {
+                alert('Choose at least one correct answer');
+                return false;
+            }
+            
+    		$.ajax({
+        		url : "insertQuestions",
+        		type : "POST",
+        		data : {
+        			"questionTitle" : questionTitle,
+        			"exam_ID" : exam_ID,
+        			"correctScore" : correctScore,
+        			"wrongScore" : wrongScore,
+        			"answers" : answer,
+        			"isCorrect" : isCorrect,
+        			"questionType" : "SINGLE_CHOICE"
+        		},
+        		success : function(result){
+        			$("#questionForm")[0].reset();
+        			$("#questionType").val("SINGLE_CHOICE");
+        			
+        			for(var i=0; i<x; i++){
+        				$("#moreAnswer").remove();
+        			}
+        			x=0;
+        		},
+        		
+        		error : function(res){
+        			console.log(res);
+        		}
+        	});
+    	}
+    }
     
     
     
     /////////////////////////////////////////////////////////
     
     $("#done").on("click", function(){
-        
-        
-        var examID=$("#exam_ID").val();
-        
-        
-        $.ajax({
-         url : 'examCreated',
-         type : 'POST',
-         data : {
-          "exam_ID" : examID
-         },
-         success : function(result){
-          
-          
-          alert("SAVED ON THE DB");
-          
-         },
-         error : function(res){
-          
-         }
-        });
-        
-       });
+    	
+    	//TEST
+    	
+    	
+    	//END TEST
+    	
+    //	saveLastQuestion();
+    	storeOnTheDB();
+    	
+    	
+    	
+   });
+    
+   
     
 });
+
+function storeOnTheDB()
+{
+	 var examID=$("#exam_ID").val();
+    $.ajax({
+        url : 'examCreated',
+        type : 'POST',
+        data : {
+         "exam_ID" : examID
+        },
+        success : function(result){
+         
+         
+         alert("SAVED ON THE DB");
+         
+        },
+        error : function(res){
+         
+        }
+       });
+}
 
 

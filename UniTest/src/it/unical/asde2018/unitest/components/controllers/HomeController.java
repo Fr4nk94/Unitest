@@ -68,22 +68,14 @@ public class HomeController {
 
 		List<Exam> exams = examService.getAllExams();
 
-		for (Exam exam : exams) {
-			System.out.println("Exam " + exam.getExamID());
-			for (Question q : exam.getQuestions()) {
-				System.out.println("question " + q.getQuestion_body());
-				for (Answer a : q.getAnswers()) {
-					System.out.println("answer " + a.getAnswer_body() + " id : " + a.isCorrect());
-				}
-			}
-		}
 
 		return "ExamList";
 	}
 	
 	@GetMapping("/examList")
 	public String examList(HttpSession session, Model model) {
-		int numExams = examService.getAllExams().size();
+		//int numExams = examService.getAllExams().size();
+		int numExams = examService.getUserExams((User) session.getAttribute("aUser")).size();
 		int numberOfPages = 0;
 		
 		if(numExams%5==0) {
@@ -99,4 +91,14 @@ public class HomeController {
 		return "examList";
 	}
 
+	@GetMapping("getUserExams")
+	public String getUsersExams(HttpSession session, Model model) {
+		
+		System.out.println("LA SIZE E' "+examService.getUserExams((User) session.getAttribute("aUser")).size());
+		
+		model.addAttribute("examInList", examService.getUserExams((User) session.getAttribute("aUser")));
+		
+		return "dennisList";
+	}
+	
 }
