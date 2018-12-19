@@ -74,7 +74,8 @@ public class HomeController {
 	
 	@GetMapping("/examList")
 	public String examList(HttpSession session, Model model) {
-		int numExams = examService.getAllExams().size();
+		//int numExams = examService.getAllExams().size();
+		int numExams = examService.getUserExams((User) session.getAttribute("aUser")).size();
 		int numberOfPages = 0;
 		
 		if(numExams%5==0) {
@@ -90,4 +91,14 @@ public class HomeController {
 		return "examList";
 	}
 
+	@GetMapping("getUserExams")
+	public String getUsersExams(HttpSession session, Model model) {
+		
+		System.out.println("LA SIZE E' "+examService.getUserExams((User) session.getAttribute("aUser")).size());
+		
+		model.addAttribute("examInList", examService.getUserExams((User) session.getAttribute("aUser")));
+		
+		return "dennisList";
+	}
+	
 }

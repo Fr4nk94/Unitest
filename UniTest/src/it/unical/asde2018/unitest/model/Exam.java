@@ -46,7 +46,7 @@ public class Exam {
 
 //	An Exam is available whether it can be choosed by students
 	@Column(name = "available")
-	private boolean available = false;
+	private boolean available;
 	
 //	An exam has a time in which it must be submitted
 	@Column(name = "timeAvailable")

@@ -49,12 +49,12 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		
 		if(user.getRoles().iterator().next().getAuthority().equals("ROLE_Professor")) {
 			System.out.println("SEI PROFESSOREEEEE");
-			hql = "from Exam "; // TODO connect with the professor that create the exam
+			hql = "from Exam WHERE user = "+user.getId(); 
 			
 		}
 		else if(user.getRoles().iterator().next().getAuthority().equals("ROLE_Student")) {
 			System.out.println("SEI STUDENTEEEE");
-			hql = "from Exam WHERE available = true"; //TODO Check if it's correct
+			//TODO LOAD ONLY AVAILABLE EXAMS
 			
 		}
 		
@@ -64,4 +64,6 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		session.close();
 		return results;
 	}
+
+	
 }

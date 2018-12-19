@@ -91,6 +91,7 @@ public class ExamService {
 		Exam e = new Exam(professor, examName, new Date(), timeAvailable);
 
 		e.setInternalID(getNextExamID());
+		e.setAvailable(isAvailable);
 
 		exams.put(e.getInternalID(), e);
 
@@ -120,7 +121,17 @@ public class ExamService {
 		return examDAO.getById(long1);
 	}
 	
-	public void getUserExams(User user) {
-		examDAO.getUserExams(user);
+	public List<Exam> getUserExams(User user) {
+		return examDAO.getUserExams(user);
+	}
+
+	public String changeAvailability(long examID) {
+		Exam e = examDAO.getById(examID);
+		System.out.println("===================================================EXAM SERVICE IS AVAILABLE EXAM BEFORE = "+e.isAvailable());
+		e.setAvailable(e.isAvailable() ? false : true);
+		System.out.println("===================================================EXAM SERVICE IS AVAILABLE EXAM AFTER = "+e.isAvailable());
+		examDAO.update(e);
+		
+		return examID+"-"+e.isAvailable();
 	}
 }
