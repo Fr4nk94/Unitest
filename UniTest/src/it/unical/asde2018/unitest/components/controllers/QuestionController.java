@@ -1,13 +1,9 @@
 package it.unical.asde2018.unitest.components.controllers;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,12 +22,8 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import it.unical.asde2018.unitest.components.services.ExamService;
 import it.unical.asde2018.unitest.components.services.QuestionService;
-import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
-import it.unical.asde2018.unitest.model.Question;
-import it.unical.asde2018.unitest.model.Student_Answer;
 import it.unical.asde2018.unitest.model.Student_Exam;
-import it.unical.asde2018.unitest.model.Student_Question;
 import it.unical.asde2018.unitest.model.User;
 
 @Controller
@@ -70,9 +62,8 @@ public class QuestionController {
 	public String redirectExam(Model model, HttpSession session) {
 		System.out.println("Session ExamID " + (String) session.getAttribute("examID"));
 
-		Exam examTmp = examService.retriveStoredExam((Long.parseLong((String)session.getAttribute("examID"))));
-		
-		
+		Exam examTmp = examService.retriveStoredExam((Long.parseLong((String) session.getAttribute("examID"))));
+
 		model.addAttribute("questions", examTmp.getQuestions());
 		model.addAttribute("totQuestions", examTmp.getQuestions().size());
 		model.addAttribute("timer", session.getAttribute("timer"));
@@ -93,10 +84,9 @@ public class QuestionController {
 		HashMap<String, Object> map = obj.readValue(json, mapType);
 		System.out.println("map size " + map.size());
 		System.out.println("map val size " + map.values().size());
-//		long examID = (long) session.getAttribute("exam");
-//		Student_Exam exam_to_submit = new Student_Exam(new Date(), new User());
+		User user = (User) session.getAttribute("aUser");
+		long examID = Long.parseLong((String) session.getAttribute("examID"));
 		for (String key : map.keySet()) {
-//			Student_Question question = new Student_Question();
 			if (map.get(key) instanceof String) {
 				System.out.println("Stringa");
 				System.out.println(map.get(key));
@@ -109,19 +99,14 @@ public class QuestionController {
 				}
 			}
 		}
-		/*
-		 * Student_Exam exam_to_submit = new Student_Exam((long)
-		 * session.getAttribute("exam"), new Date(),
-		 * (User)session.getAttribute("aUser"));
-		 * 
-		 * 
-		 * for (String key : map.keySet()) { System.out.println("key " + key + " " +
-		 * map.get(key)); Student_Question question = new
-		 * Student_Question(Long.parseLong(key));
-		 * 
-		 * }
-		 */
+
+		System.out.println(examService.automaticCorrectionAndSave(map, examID, user));
 
 		return true;
+	}
+
+	private Student_Exam buildStudenExam(Map<String, Object> ans, Exam exam) {
+
+		return null;
 	}
 }

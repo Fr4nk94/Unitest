@@ -52,11 +52,12 @@
 					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
 							Portfolio</a>
 						<ul class="nav nav-second-level">
-						
-						<!--  MODIFICATO DA DENNIS -->
-							<li><a href="getUserExams">Available Exams</a></li> 
-						<!--  MODIFICATO DA DENNIS -->
-						
+
+							<!--  MODIFICATO DA DENNIS -->
+							<!-- <li><a href="getUserExams">Available Exams</a></li>  -->
+							<li><a href="examList">Available Exams</a></li>
+							<!--  MODIFICATO DA DENNIS -->
+
 							<li><a href="morris.html">Taken Exams</a></li>
 						</ul> <!-- /.nav-second-level --></li>
 				</c:if>
@@ -65,13 +66,13 @@
 							Dashboard</a></li>
 					<li><a><i class="fa fa-bar-chart-o fa-fw"></i> Portfolio<span
 							class="fa arrow"></span></a>
-					<ul class="nav nav-second-level">
+						<ul class="nav nav-second-level">
 
 							<!--  MODIFICATO DA DENNIS -->
-								<li><a href="getUserExams">Created Exams</a></li>
+							<li><a href="getUserExams">Created Exams</a></li>
 							<!--  MODIFICATO DA DENNIS -->
 
-							<li><a href="#">Evaluated Exams</a></li>
+							<li><a href="evaluatedExam">Evaluated Exams</a></li>
 							<li><a href="evalExam">Non evaluated exams</a></li>
 						</ul> <!-- /.nav-second-level --></li>
 					<li><a href="createExam"><i class="fa fa-table fa-fw"></i>

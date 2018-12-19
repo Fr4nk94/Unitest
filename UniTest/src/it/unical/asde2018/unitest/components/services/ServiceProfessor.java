@@ -6,17 +6,23 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.unical.asde2018.unitest.components.persistence.global.Student_ExamDAO;
 import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
 import it.unical.asde2018.unitest.model.Student_Exam;
+import it.unical.asde2018.unitest.model.User;
 import javassist.compiler.ast.NewExpr;
 
 @Service
 public class ServiceProfessor {
+
+	@Autowired
+	private Student_ExamDAO sExamDAO;
 
 	private List<Student_Exam> portfolio;
 ////	private List<Exam> portfolio1;
@@ -59,17 +65,18 @@ public class ServiceProfessor {
 ////		portfolio2.add(new Exam(3, "Prova3", Exam_Type.OPEN_ANSWER, question, new Date(), true));
 	}
 
-	public List<Student_Exam> getPortfolio() {
+	public List<Student_Exam> getProfsExamsEval(User user, boolean correct) {
+		return sExamDAO.getAllStudentExamProf(user, correct);
 
-		return portfolio;
 	}
 
 	public Student_Exam getExam(int id) {
-		for (Student_Exam port : portfolio) {
-			if (port.getStudent_ExamID() == id)
-				return port;
-		}
-		return null;
+		return sExamDAO.getById((long) id);
+
+	}
+
+	public void updateStudent_Exam(Student_Exam sExam) {
+		sExamDAO.update(sExam);
 	}
 
 }
