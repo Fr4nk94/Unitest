@@ -37,6 +37,7 @@ public class ExamController {
 
 		Exam exam = examService.getExamByID(Integer.parseInt(exam_ID));
 
+		System.err.println(exam.getQuestions().toString());
 		examService.storeExam(exam);
 		return "examCreated";
 	}

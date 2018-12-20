@@ -30,7 +30,7 @@
 									<label class="questions">Question:</label>
 
 									<textarea class="insertQuestionsRow insertQuestionsBox"
-										id="questionTitle" name="questionTitle" required></textarea>
+										id="questionTitle" name="questionTitle"></textarea>
 									<br> <select class="btn secondary dropdown-toggle"
 										id="questionType" name="questionType">
 										<option value="OPEN_ANSWER">Open Answer</option>
@@ -39,10 +39,10 @@
 										<option value="ATTACH_FILE">Attach File</option>
 									</select> <label>Correct Answer score : <input
 										class="littleInputBox" id="correctScore" type="number"
-										name="correctScore" step=0.5 min=0 required><br>
+										name="correctScore" step=0.5 min=0 ><br>
 									</label> <label id="wrong">Wrong Answer score : <input
 										class="littleInputBox" id="wrongScore" type="number"
-										name="wrongScore" step=0.5 min=-10 max=0 required><br>
+										name="wrongScore" step=0.5 min=-10 max=0 ><br>
 									</label>
 
 
@@ -51,7 +51,7 @@
 											More Answers</button>
 										<div>
 											<input class="answerInput" id="answer0" type="text"
-												name="answer" required> <input id="isCorrect"
+												name="answer"> <input id="isCorrect"
 												name="isCorrect" value="true-0"> Correct<br>
 										</div>
 									</div>
