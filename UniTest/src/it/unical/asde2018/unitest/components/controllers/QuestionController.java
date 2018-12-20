@@ -93,7 +93,8 @@ public class QuestionController {
 		HashMap<String, Object> map = obj.readValue(json, mapType);
 		System.out.println("map size " + map.size());
 		System.out.println("map val size " + map.values().size());
-		long examID = (long) session.getAttribute("exam");
+		User user = (User) session.getAttribute("aUser");
+		long examID = Long.parseLong((String) session.getAttribute("examID"));
 		for (String key : map.keySet()) {
 			if (map.get(key) instanceof String) {
 				System.out.println("Stringa");
@@ -107,9 +108,9 @@ public class QuestionController {
 				}
 			}
 		}
-		
-		System.out.println(examService.automaticCorrection(map, examID));
-	
-		return true;
+
+		return examService.automaticCorrectionAndSave(map, examID, user);
+
 	}
+
 }

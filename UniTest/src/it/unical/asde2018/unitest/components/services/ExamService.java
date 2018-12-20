@@ -3,7 +3,10 @@ package it.unical.asde2018.unitest.components.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
@@ -11,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unical.asde2018.unitest.components.persistence.global.ExamDAO;
+import it.unical.asde2018.unitest.components.persistence.global.Student_ExamDAO;
 import it.unical.asde2018.unitest.model.Answer;
 import it.unical.asde2018.unitest.model.Exam;
 import it.unical.asde2018.unitest.model.Question;
 import it.unical.asde2018.unitest.model.Question_Type;
+import it.unical.asde2018.unitest.model.Student_Answer;
+import it.unical.asde2018.unitest.model.Student_Exam;
+import it.unical.asde2018.unitest.model.Student_Question;
 import it.unical.asde2018.unitest.model.User;
 
 @Service
@@ -24,6 +31,9 @@ public class ExamService {
 
 	@Autowired
 	private ExamDAO examDAO;
+
+	@Autowired
+	private Student_ExamDAO studentExamDAO;
 
 	// K = InternalID, V = exam
 	private HashMap<Integer, Exam> exams;
@@ -37,7 +47,7 @@ public class ExamService {
 
 	@PostConstruct
 	public void init() {
-		exams = new HashMap<>(); 
+		exams = new HashMap<>();
 //		Answer a1= new Answer("ciccio", false);
 //		Answer a2= new Answer("pluto", false);
 //		Answer a3= new Answer("paperino", false);
@@ -74,7 +84,7 @@ public class ExamService {
 //		exam2.addQuestion(q2);
 //		exam2.addQuestion(q3);
 //		examDAO.update(exam2);
-		
+
 	}
 
 	public int getNextExamID() {
@@ -85,13 +95,16 @@ public class ExamService {
 		return e.getInternalID();
 	}
 
-	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers, boolean isAvailable, float timeAvailable) {
-		
-		System.out.println("EXAM SERVICE CREO ESAM "+professor+" "+ examName+" "+ new Date()+" "+ timeAvailable);
-		
+	public Exam createExam(User professor, String examName, List<Question> questions, List<Answer> answers,
+			boolean isAvailable, float timeAvailable) {
+
+		System.out.println(
+				"EXAM SERVICE CREO ESAM " + professor + " " + examName + " " + new Date() + " " + timeAvailable);
+
 		Exam e = new Exam(professor, examName, new Date(), timeAvailable);
 
 		e.setInternalID(getNextExamID());
+		e.setAvailable(isAvailable);
 
 		exams.put(e.getInternalID(), e);
 
@@ -111,56 +124,119 @@ public class ExamService {
 	public List<Exam> getAllExams() {
 		return examDAO.getAllExams();
 	}
-	
-	public List<Exam> getAPage(int pageNumber,int numExams){
-		int sPos = (pageNumber-1)*numExams;
-		return examDAO.getPage(sPos,numExams);
+
+	public List<Exam> getAPage(int pageNumber, int numExams) {
+		int sPos = (pageNumber - 1) * numExams;
+		return examDAO.getPage(sPos, numExams);
 	}
 
 	public Exam retriveStoredExam(Long long1) {
 		return examDAO.getById(long1);
 	}
-	
-	public int automaticCorrection(HashMap<String, Object> map, long examID) {
-		int partialScore=0;
-		Exam professorExam = retriveStoredExam(examID);
-		for (String studentQuestionID : map.keySet()) {
-			for (Question professorQuestion : professorExam.getQuestions()) {
-				if(professorQuestion.getQuestionID()==Long.parseLong(studentQuestionID)) {
-					if(professorQuestion.getType()==Question_Type.OPEN_ANSWER 
-							|| professorQuestion.getType()==Question_Type.ATTACH_FILE) {
-						//CompletelyCorrect=false;
-					}
-					if(professorQuestion.getType()==Question_Type.SINGLE_CHOICE) {
-						for (Answer professorAnswer : professorQuestion.getAnswers()) {
-							if(((String)map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
-									&& professorAnswer.isCorrect()) {
 
-								partialScore+=professorQuestion.getCorrectScore();
-							}
-							else if(((String)map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
-									&& !professorAnswer.isCorrect()) {
-								partialScore+=professorQuestion.getWrongScore();
+	public List<Exam> getUserExams(User user) {
+		return examDAO.getUserExams(user);
+	}
+
+	public String changeAvailability(long examID) {
+		Exam e = examDAO.getById(examID);
+		System.out.println("===================================================EXAM SERVICE IS AVAILABLE EXAM BEFORE = "
+				+ e.isAvailable());
+		e.setAvailable(e.isAvailable() ? false : true);
+		System.out.println("===================================================EXAM SERVICE IS AVAILABLE EXAM AFTER = "
+				+ e.isAvailable());
+		examDAO.update(e);
+
+		return examID + "-" + e.isAvailable();
+	}
+
+	public boolean automaticCorrectionAndSave(HashMap<String, Object> map, long examId, User user) {
+		int partialScore = 0;
+		Exam professorExam = this.retriveStoredExam(examId);
+
+		// CREATING THE STUDENT EXAM
+		Student_Exam sExam = new Student_Exam();
+		sExam.setExam(professorExam);
+		sExam.setSubmission_date(new Date());
+		Set<Student_Question> sListQuestion = new HashSet<>();
+		boolean openAns = false;
+		try {
+			for (String studentQuestionID : map.keySet()) {
+				for (Question professorQuestion : professorExam.getQuestions()) {
+					if (professorQuestion.getQuestionID() == Long.parseLong(studentQuestionID)) {
+
+						Student_Question sQuestion = new Student_Question();
+						sQuestion.setQuestion(professorQuestion);
+						Set<Student_Answer> sListAnswer = new HashSet<>();
+
+						if (professorQuestion.getType() == Question_Type.OPEN_ANSWER
+								|| professorQuestion.getType() == Question_Type.ATTACH_FILE) {
+							Student_Answer sAnswer = new Student_Answer();
+							sAnswer.setAnswer_given((String) map.get(studentQuestionID));
+							sListAnswer.add(sAnswer);
+							sQuestion.setAnswer_given(sListAnswer);
+							openAns = true;
+						}
+						if (professorQuestion.getType() == Question_Type.SINGLE_CHOICE) {
+							for (Answer professorAnswer : professorQuestion.getAnswers()) {
+								if (((String) map.get(studentQuestionID)).equals(professorAnswer.getAnswer_body())
+										&& professorAnswer.isCorrect()) {
+
+									partialScore += professorQuestion.getCorrectScore();
+
+									Student_Answer sAnswer = new Student_Answer();
+									sAnswer.setAnswer_given((String) map.get(studentQuestionID));
+									sListAnswer.add(sAnswer);
+									sQuestion.setAnswer_given(sListAnswer);
+								} else if (((String) map.get(studentQuestionID))
+										.equals(professorAnswer.getAnswer_body()) && !professorAnswer.isCorrect()) {
+									partialScore += professorQuestion.getWrongScore();
+
+									Student_Answer sAnswer = new Student_Answer();
+									sAnswer.setAnswer_given((String) map.get(studentQuestionID));
+									sListAnswer.add(sAnswer);
+									sQuestion.setAnswer_given(sListAnswer);
+								}
 							}
 						}
-					}
-					if(professorQuestion.getType()==Question_Type.MULTIPLE_CHOICE) {
-						for (Answer professorAnswer : professorQuestion.getAnswers()) {
-							for (String studentAnswer : (ArrayList<String>)map.get(studentQuestionID)) {
-								if(studentAnswer.equals(professorAnswer.getAnswer_body()) && professorAnswer.isCorrect()) {
-									partialScore+=professorQuestion.getCorrectScore();
-								}
-								if(studentAnswer.equals(professorAnswer.getAnswer_body()) && !professorAnswer.isCorrect()) {
-									partialScore+=professorQuestion.getWrongScore();
-								}
-							}
+						if (professorQuestion.getType() == Question_Type.MULTIPLE_CHOICE) {
+							for (Answer professorAnswer : professorQuestion.getAnswers()) {
+								for (String studentAnswer : (ArrayList<String>) map.get(studentQuestionID)) {
+									if (studentAnswer.equals(professorAnswer.getAnswer_body())
+											&& professorAnswer.isCorrect()) {
+										partialScore += professorQuestion.getCorrectScore();
 
+										Student_Answer sAnswer = new Student_Answer();
+										sAnswer.setAnswer_given(studentAnswer);
+										sListAnswer.add(sAnswer);
+										sQuestion.setAnswer_given(sListAnswer);
+									}
+									if (studentAnswer.equals(professorAnswer.getAnswer_body())
+											&& !professorAnswer.isCorrect()) {
+										partialScore += professorQuestion.getWrongScore();
+
+										Student_Answer sAnswer = new Student_Answer();
+										sAnswer.setAnswer_given(studentAnswer);
+										sListAnswer.add(sAnswer);
+										sQuestion.setAnswer_given(sListAnswer);
+									}
+								}
+
+							}
 						}
+						sListQuestion.add(sQuestion);
 					}
 				}
 			}
+			sExam.setGiven_question(sListQuestion);
+			sExam.setStudent_score(partialScore);
+			sExam.setCorrect(!openAns);
+			sExam.setUser(user);
+			studentExamDAO.save(sExam);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-		return partialScore;
+		return true;
 	}
-	
 }

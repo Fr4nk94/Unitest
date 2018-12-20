@@ -50,20 +50,29 @@
 				<c:if test="${role == 'ROLE_Student'}">			
 
 					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
-							Portfolio</a> <ul class="nav nav-second-level">
-						<li><a href="examList">Available Exams</a></li>
-						<li><a href="morris.html">Taken Exams</a></li>
-					</ul> 
-					<!-- /.nav-second-level --></li>
+							Portfolio</a>
+						<ul class="nav nav-second-level">
+
+							<!--  MODIFICATO DA DENNIS -->
+							<!-- <li><a href="getUserExams">Available Exams</a></li>  -->
+							<li><a href="examList">Available Exams</a></li>
+							<!--  MODIFICATO DA DENNIS -->
+
+							<li><a href="morris.html">Taken Exams</a></li>
+						</ul> <!-- /.nav-second-level --></li>
 				</c:if>
 				<c:if test="${role == 'ROLE_Professor'}">
-					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i>
-							Portfolio<span class="fa arrow"></span></a><ul class="nav nav-second-level">
-						<li><a href="#">Created Exams</a></li>
-						<li><a href="#">Evaluated Exams</a></li>
-						<li><a href="evalExam">Non evaluated exams</a></li>
-					</ul> 
-					  <!-- /.nav-second-level --></li>
+					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i> Portfolio<span
+							class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+
+							<!--  MODIFICATO DA DENNIS -->
+							<li><a href="getUserExams">Created Exams</a></li>
+							<!--  MODIFICATO DA DENNIS -->
+
+							<li><a href="evaluatedExam">Evaluated Exams</a></li>
+							<li><a href="evalExam">Non evaluated exams</a></li>
+						</ul> <!-- /.nav-second-level --></li>
 					<li><a href="createExam"><i class="fa fa-table fa-fw"></i>
 							Create Exam</a></li>
 					<!-- <li><a href="#"><i class="fa fa-edit fa-fw"></i> Forms</a></li> -->
