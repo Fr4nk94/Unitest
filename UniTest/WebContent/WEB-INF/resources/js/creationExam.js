@@ -3,6 +3,10 @@
 $(document).ready(function() {
 	$("#done").hide();
 	
+	$("#questionTitle").on('click',function(){
+		$("#done").hide();
+	});
+	
 	$("#wrong").hide();
 	$(".input_fields_wrap").hide();
 	
