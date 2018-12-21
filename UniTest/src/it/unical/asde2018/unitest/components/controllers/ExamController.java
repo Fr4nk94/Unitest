@@ -32,7 +32,8 @@ public class ExamController {
 		return "createExam";
 	}
 
-	@PostMapping("/examCreated")
+	@PostMapping("examCreated")
+	@ResponseBody
 	public String examCreated(HttpSession session, Model model, @RequestParam String exam_ID) {
 
 		Exam exam = examService.getExamByID(Integer.parseInt(exam_ID));
