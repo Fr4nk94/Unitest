@@ -120,7 +120,6 @@
 							<thead>
 								<tr>
 									<th>Name</th>
-									<th>Professor</th>
 									<th>Start Date</th>
 									<th>Available Time</th>
 									<th></th>
@@ -130,7 +129,6 @@
 								<c:forEach var="exam" items="${examInList}">
 									<tr examID="${ exam.examID }" class="odd gradeX">
 										<td>${ exam.name }</td>
-										<td>${ exam.user.fullName }</td>
 										<td>${ exam.creation_date }</td>
 										<td class="center">${ exam.timeAvailable }</td>
 										<td id="putButton" class="center">

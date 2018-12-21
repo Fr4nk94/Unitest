@@ -348,8 +348,8 @@ function storeOnTheDB()
 	 var examID=$("#exam_ID").val();
 	 
     $.ajax({
-        url : 'examCreated',
-        type : 'POST',
+        url : "examCreated",
+        type : "POST",
         data : {
          "exam_ID" : examID
         },
