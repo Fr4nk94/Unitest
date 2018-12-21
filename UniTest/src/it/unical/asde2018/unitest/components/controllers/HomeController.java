@@ -75,18 +75,19 @@ public class HomeController {
 	@GetMapping("/examList")
 	public String examList(HttpSession session, Model model) {
 		//int numExams = examService.getAllExams().size();
-		int numExams = examService.getUserExams((User) session.getAttribute("aUser")).size();
-		int numberOfPages = 0;
-		
-		if(numExams%5==0) {
-			numberOfPages=numExams/5;
-		}else
-		{
-			numberOfPages = (numExams/5)+1;
-		}
+//		int numExams = examService.getUserExams((User) session.getAttribute("aUser")).size();
+//		int numberOfPages = 0;
+//		
+//		if(numExams%5==0) {
+//			numberOfPages=numExams/5;
+//		}else
+//		{
+//			numberOfPages = (numExams/5)+1;
+//		}
 
-		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("page",examService.getAPage(1, 5));
+//		model.addAttribute("numberOfPages", numberOfPages);
+//		model.addAttribute("page",examService.getAPage(1, 5));
+		model.addAttribute("page",examService.getUserExams((User) session.getAttribute("aUser")));
 
 		return "examList";
 	}

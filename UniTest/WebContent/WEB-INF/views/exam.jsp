@@ -14,7 +14,7 @@
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<div class="privew">
 		<p id="timer">${timer}</p>
-		<p id="timeAvailable">${timeAvailable}</p>
+		<p id="timeAvailable" hidden>${timeAvailable}</p>
 		
 		<c:set var="count" value="0" scope="page" />
 		<c:set var="dario" value="0" scope="page" />
@@ -119,16 +119,16 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Are you sure to submit the exam?</h4>
+							<h4 class="modal-title">UniTest</h4>
 						</div>
 						<div class="modal-body">
-							<p>Sei sicuro</p>
+							<p>Are you sure to submit the exam?</p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-success"
 								data-dismiss="modal" onclick="submitExam()">Yes</button>
 							<button type="button" class="btn btn-primary"
-								data-dismiss="modal">Close</button>
+								data-dismiss="modal">No</button>
 
 						</div>
 					</div>

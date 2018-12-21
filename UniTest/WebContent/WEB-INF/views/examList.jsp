@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Bootstrap Admin Theme</title>
+<title>UniTest - Exams Available</title>
 
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
 
@@ -43,20 +43,20 @@
 			</div>
 			<!-- /.row -->
 
-			<div id="page-navigation">
+			<!--<div id="page-navigation">
 				<div class="row">
 					<div class="pagination">
 						<!-- <a href="#">&laquo;</a> <a href="paging?pageNumber=1">1</a> <a
 							class="active" href="paging?pageNumber=2">2</a> <a
 							href="paging?pageNumber=3">3</a> <a href="paging?pageNumber=4">4</a>
 						<a href="paging?pageNumber=5">5</a> <a href="paging?pageNumber=6">6</a>
-						<a href="paging?pageNumber=1">&raquo;</a> -->
+						<a href="paging?pageNumber=1">&raquo;</a> 
 						<c:forEach begin="1" end="${numberOfPages}" varStatus="loop">
 							<a href="examList?pageNumber=${loop.index}">${loop.index}</a>
 						</c:forEach>
 					</div>
 				</div>
-			</div>
+			</div>-->
 
 			<!--	<div id="exams-list">
 				<div class="row">

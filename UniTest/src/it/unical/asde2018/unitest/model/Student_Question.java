@@ -1,11 +1,13 @@
 package it.unical.asde2018.unitest.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table
@@ -28,23 +26,23 @@ public class Student_Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "Student_QuestionID")
 	private long Student_QuestionID;
-	
+
 //	Reference to Question given by the professor
 	@OneToOne
 	@JoinColumn(name = "questionID")
 	private Question question;
 
 //	Given answer for the Question
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Student_QuestionID")
-	private List<Student_Answer> answer_given;
+	private Set<Student_Answer> answer_given;
 
 	public Student_Question() {
 	}
 
 	public Student_Question(long questionID) {
 		super();
-		this.answer_given = new ArrayList<>();
+		this.answer_given = new HashSet<>();
 	}
 
 	public Question getQuestion() {
@@ -63,17 +61,16 @@ public class Student_Question {
 		Student_QuestionID = student_QuestionID;
 	}
 
-	public List<Student_Answer> getAnswer_given() {
+	public Set<Student_Answer> getAnswer_given() {
 		return answer_given;
 	}
 
-	public void setAnswer_given(List<Student_Answer> answer_given) {
+	public void setAnswer_given(Set<Student_Answer> answer_given) {
 		this.answer_given = answer_given;
 	}
 
 	public void addAnswer(Student_Answer answer) {
 		this.answer_given.add(answer);
 	}
-
 
 }

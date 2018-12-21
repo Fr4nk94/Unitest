@@ -56,7 +56,7 @@
 						<form role="form" action="loginAction" method="post">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control" placeholder="E-mail"
+									<input class="form-control" placeholder="Username"
 										name="username" type="text" autofocus>
 								</div>
 								<div class="form-group">
@@ -84,8 +84,8 @@
 					<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						You have been forcibly logged out due to multiplesessions on the
-						same account (only one activesession per user is allowed).
+						You have been forcibly logged out due to multiple sessions on the
+						same account (only one active session per user is allowed).
 					</div>
 				</c:if>
 				<c:if test="${param.error != null}">
