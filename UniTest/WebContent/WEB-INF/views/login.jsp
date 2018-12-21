@@ -84,7 +84,7 @@
 					<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-hidden="true">&times;</button>
-						You have been forcibly logged out due to multiple sessions on the
+						You have been forcibly logged out due to multiple 	sessions on the
 						same account (only one active session per user is allowed).
 					</div>
 				</c:if>
