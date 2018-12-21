@@ -50,7 +50,9 @@ public class Student_Exam {
 	private boolean correct;
 
 //	Student that submits the Exam
-	@Transient // Temporary annotation
+//	@Transient // Temporary annotation
+	@OneToOne
+	@JoinColumn(name="id")
 	private User user;
 
 //	List of the Question given by the Student

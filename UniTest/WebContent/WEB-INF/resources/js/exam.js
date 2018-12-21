@@ -20,6 +20,7 @@ function showExam() {
 						var answers = questions[i].answers;
 						var question = questions[i];
 						console.log(i);
+						$(".page-header").text(data.user + " exam");	
 
 						// str += "<table width=\"100%\"class=\"table
 						// table-striped table-bordered table-hover\"
@@ -91,7 +92,7 @@ function showExam() {
 }
 
 function setScore() {
-	console.log("Sommo " + sum);
+//	console.log("Sommo " + sum);
 	$.ajax({
 		type : "GET",
 		url : "setScore",
@@ -100,7 +101,7 @@ function setScore() {
 			"idExam" : idExam
 		},
 		success : function(data) {
-			window.location.href = "./";
+			window.location.href = "./evalExam";
 		},
 		error : function(jqXHR, exception) {
 			console.log("ERRORE");

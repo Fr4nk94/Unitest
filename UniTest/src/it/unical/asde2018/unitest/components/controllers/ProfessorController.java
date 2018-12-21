@@ -121,6 +121,7 @@ public class ProfessorController {
 			}
 		}
 		examJSON.put("questions", questionArrayJSON);
+		examJSON.put("user", exam.getUser().getFullName());
 		return examJSON;
 
 	}
@@ -141,6 +142,7 @@ public class ProfessorController {
 				examJSON.put("nameExam", exam.getExam().getName());
 				examJSON.put("dateExam", exam.getSubmission_date().toString());
 				examJSON.put("idExam", exam.getStudent_ExamID());
+				examJSON.put("user", exam.getUser().getFullName());
 //			for (Question question : exam.getQuestions()) {
 //				JSONObject objectQuestion = new JSONObject();
 //				objectQuestion.put("question", question.getQuestion_title());
