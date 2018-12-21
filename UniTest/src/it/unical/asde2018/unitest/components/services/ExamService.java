@@ -134,6 +134,7 @@ public class ExamService {
 		return examDAO.getById(long1);
 	}
 
+
 	public List<Exam> getUserExams(User user) {
 		return examDAO.getUserExams(user);
 	}

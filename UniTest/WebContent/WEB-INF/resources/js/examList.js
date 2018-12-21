@@ -1,4 +1,9 @@
 // BUTTON FOR THE STUDENT PART
+$(document).ready(function() {
+	
+	updateListExam()
+});
+
 
 function goToExam(id) {
 	console.log("function gotoexam");
@@ -52,4 +57,14 @@ function changeAvailability(id) {
 
 		}
 	});
+}
+	
+	
+	
+
+function updateListExam()
+{
+	setTimeout(() => {
+		location.reload();
+	}, 3000);
 }

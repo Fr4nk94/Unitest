@@ -86,7 +86,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("page",examService.getAPage(1, 5));
+//		model.addAttribute("page",examService.getAPage(1, 5));
+		model.addAttribute("page",examService.getUserExams((User) session.getAttribute("aUser")));
 
 		return "examList";
 	}

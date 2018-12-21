@@ -62,8 +62,7 @@
 						</ul> <!-- /.nav-second-level --></li>
 				</c:if>
 				<c:if test="${role == 'ROLE_Professor'}">
-					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i> Portfolio<span
-							class="fa arrow"></span></a>
+					<li class="active"><a><i class="fa fa-bar-chart-o fa-fw"></i> Portfolio<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 
 							<!--  MODIFICATO DA DENNIS -->
