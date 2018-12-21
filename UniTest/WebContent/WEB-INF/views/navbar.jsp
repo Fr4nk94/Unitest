@@ -14,7 +14,7 @@
 	style="margin-bottom: 0">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="#">UniTest v1.0 Beta</a>
-		<a class="navbar-brand" href="#"><strong>${aUser.username}'sExam</strong></a>
+		<a class="navbar-brand" href="#"><strong>${aUser.fullName}'s Exam</strong></a>
 	</div>
 	<!-- /.navbar-header -->
 

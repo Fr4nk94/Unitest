@@ -34,7 +34,7 @@
 <script type="text/javascript" src="resources/js/exam.js"></script>
 </head>
 <body>
-	<h1>CIAO</h1>
+	
 
 	<div class="panel-body prova" id="exam-question"></div>
 	<button type="button" id="premo" class="btn btn-success">Success</button>

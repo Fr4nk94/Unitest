@@ -3,6 +3,10 @@
 $(document).ready(function() {
 	$("#done").hide();
 	
+	$("#questionTitle").on('click',function(){
+		$("#done").hide();
+	});
+	
 	$("#wrong").hide();
 	$(".input_fields_wrap").hide();
 	
@@ -13,6 +17,7 @@ $(document).ready(function() {
     window.questionType = "OPEN_ANSWER";		//The type of the question (Open, Multiple, Single)..Set to default value
     
     var x = 0; //initial text box count
+	
 	
 	
     var max_fields      = 10; //maximum input boxes allowed

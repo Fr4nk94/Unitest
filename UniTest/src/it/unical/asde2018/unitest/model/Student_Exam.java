@@ -2,7 +2,9 @@ package it.unical.asde2018.unitest.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,11 +40,11 @@ public class Student_Exam {
 //	Date of the taken Exam
 	@Column(nullable = false)
 	private Date submission_date;
-	
+
 // The score given by the system and the professor
 	@Column(name = "student_score")
 	private float student_score = 0;
-	
+
 //	Indicates if the exam is completely corrected or not
 	@Column(name = "correct")
 	private boolean correct;
@@ -52,9 +54,9 @@ public class Student_Exam {
 	private User user;
 
 //	List of the Question given by the Student
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Student_ExamID")
-	private List<Student_Question> given_question;
+	private Set<Student_Question> given_question;
 
 	public Student_Exam() {
 	}
@@ -63,7 +65,7 @@ public class Student_Exam {
 		super();
 		this.submission_date = submission_date;
 		this.user = user;
-		this.given_question = new ArrayList<>();
+		this.given_question = new HashSet<>();
 		this.correct = false;
 	}
 
@@ -99,11 +101,11 @@ public class Student_Exam {
 		this.user = user;
 	}
 
-	public List<Student_Question> getGiven_question() {
+	public Set<Student_Question> getGiven_question() {
 		return given_question;
 	}
 
-	public void setGiven_question(List<Student_Question> given_question) {
+	public void setGiven_question(Set<Student_Question> given_question) {
 		this.given_question = given_question;
 	}
 
@@ -126,5 +128,5 @@ public class Student_Exam {
 	public void setCorrect(boolean correct) {
 		this.correct = correct;
 	}
-	
+
 }
