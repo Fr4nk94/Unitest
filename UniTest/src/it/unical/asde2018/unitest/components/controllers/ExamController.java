@@ -34,13 +34,13 @@ public class ExamController {
 
 	@PostMapping("examCreated")
 	@ResponseBody
-	public String examCreated(HttpSession session, Model model, @RequestParam String exam_ID) {
+	public boolean examCreated(HttpSession session, Model model, @RequestParam String exam_ID) {
 
 		Exam exam = examService.getExamByID(Integer.parseInt(exam_ID));
 
-		System.err.println(exam.getQuestions().toString());
+		//System.err.println(exam.getQuestions().toString());
 		examService.storeExam(exam);
-		return "examCreated";
+		return true;//"examCreated";
 	}
 
 	@PostMapping("createExam")

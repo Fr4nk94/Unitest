@@ -119,9 +119,10 @@ function showListEvaluated() {
 				var questions = data[o].listQuestion;
 				var answers = data[o].listAnswer;
 				var currentExam = data[o].idExam;
+				var student = data[o].user;
 				str += "<tr class=\"odd gradeX\"><td id=" + currentExam + ">"
 						+ nameExam
-						+ "</td><td>Nome Studente quando arriva</td><td>"
+						+ "</td><td>"+ student +"</td><td>"
 						+ score + "</td><td class=\"center\">" + date
 						+ "</td></tr>";
 
