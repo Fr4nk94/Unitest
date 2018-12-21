@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 
-<title>UniTest Index</title>
+<title>UniTest - Evaluated Exams</title>
 <jsp:include page="commons/headInclude.jsp"></jsp:include>
 <script type="text/javascript">
 	var ctx = "${pageContext.request.contextPath}"
@@ -20,23 +20,25 @@
 				<div class="row">
 					<div id="main-container" class="col-lg-12">
 
-						<h1>Exams</h1>
-						<div class="panel-body">
-							<table width="100%"
-								class="table table-striped table-bordered table-hover"
-								id="dataTables-example">
-								<thead>
-									<tr>
-										<th>Exam Name</th>
-										<th>Student Name</th>
-										<th>Score</th>
-										<th>Exam Date</th>
-									</tr>
-								</thead>
-								<tbody id="examEvaulated-container">
-
-								</tbody>
-							</table>
+						<h1 class="page-header">Evaluated Exams</h1>
+						<div class="row">
+							<div class="col-md-12">
+								<table width="100%"
+									class="table table-striped table-bordered table-hover"
+									id="dataTables-example">
+									<thead>
+										<tr>
+											<th>Exam Name</th>
+											<th>Student Name</th>
+											<th>Score</th>
+											<th>Exam Date</th>
+										</tr>
+									</thead>
+									<tbody id="examEvaulated-container">
+	
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 					<!-- /.col-lg-12 -->
