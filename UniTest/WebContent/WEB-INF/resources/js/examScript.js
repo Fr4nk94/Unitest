@@ -54,7 +54,12 @@ function submitExam() {
 		},
 		success : function(result) {
 			if (result) {
-				alert("esame sottomesso");
+				$("#okButtonSuccess").click(function() {
+					window.location = "./";
+				});
+				$("#modalSuccess").modal("show");
+				
+//				alert("esame sottomesso");
 				localStorage.clear();
 				// window.location();
 			}

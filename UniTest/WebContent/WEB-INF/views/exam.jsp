@@ -15,7 +15,7 @@
 	<div class="privew">
 		<p id="timer">${timer}</p>
 		<p id="timeAvailable" hidden>${timeAvailable}</p>
-		
+
 		<c:set var="count" value="0" scope="page" />
 		<c:set var="dario" value="0" scope="page" />
 		<c:forEach items="${questions}" var="element">
@@ -30,7 +30,8 @@
 							<c:forEach var="i" begin="0"
 								end="${fn:length(element.answers)-1}">
 
-								<label> <input type="radio" name="answerG${element.questionID}"
+								<label> <input type="radio"
+									name="answerG${element.questionID}"
 									value="${element.answers[i].answer_body}"> <c:out
 										value="${element.answers[i].answer_body}"></c:out>
 								</label>
@@ -81,14 +82,16 @@
 				</c:when>
 				<c:when test="${element.type=='MULTIPLE_CHOICE' }">
 					<div class="questionsBox">
-						<div class="questions multipleQuestionCorrect" id="${element.questionID}">
+						<div class="questions multipleQuestionCorrect"
+							id="${element.questionID}">
 							<c:out value="${element.question_body}"></c:out>
 						</div>
 						<div class="answerList">
 							<c:forEach var="i" begin="0"
 								end="${fn:length(element.answers)-1}">
 
-								<label> <input type="checkbox" name="answerG${element.questionID}"
+								<label> <input type="checkbox"
+									name="answerG${element.questionID}"
 									value="${element.answers[i].answer_body}"> <c:out
 										value="${element.answers[i].answer_body}"></c:out>
 								</label>
@@ -104,7 +107,7 @@
 					</div>
 				</c:when>
 			</c:choose>
-			
+
 		</c:forEach>
 		<div id="divSubmit">
 			<button id="buttonSubmit" type="button" data-toggle="modal"
@@ -130,6 +133,28 @@
 							<button type="button" class="btn btn-primary"
 								data-dismiss="modal">No</button>
 
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Modal -->
+			<div class="modal fade" id="modalSuccess" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">UniTest</h4>
+						</div>
+						<div class="modal-body">
+							<p>The exam was saved successfully</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success"
+								data-dismiss="modal" id="okButtonSuccess">Ok</button>
 						</div>
 					</div>
 
