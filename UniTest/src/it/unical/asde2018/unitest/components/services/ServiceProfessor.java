@@ -66,7 +66,7 @@ public class ServiceProfessor {
 	}
 
 	public List<Student_Exam> getProfsExamsEval(User user, boolean correct) {
-		return sExamDAO.getAllStudentExamProf(user, correct);
+		return sExamDAO.getAllStudentExam(user, correct);
 
 	}
 

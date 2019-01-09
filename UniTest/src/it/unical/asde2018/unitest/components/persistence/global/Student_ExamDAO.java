@@ -9,6 +9,6 @@ public interface Student_ExamDAO extends BaseDAO<Student_Exam, Long> {
 	
 //	method for retrieve all submitted exam for a given ExamID
 	public List<Student_Exam> getAllStudentExam(long examID);
-	public List<Student_Exam> getAllStudentExamProf(User user, boolean correct);
+	public List<Student_Exam> getAllStudentExam(User user, boolean correct);
 
 }

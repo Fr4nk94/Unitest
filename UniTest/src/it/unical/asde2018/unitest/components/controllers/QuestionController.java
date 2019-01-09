@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -111,6 +112,14 @@ public class QuestionController {
 
 		return examService.automaticCorrectionAndSave(map, examID, user);
 
+	}
+	
+	@GetMapping("/takenExams")
+	public String takenExams(Model model, HttpSession session) {		
+		User student = (User)session.getAttribute("aUser");
+		List<Student_Exam> exams = examService.getStudentTakenExams(student);
+		model.addAttribute("exams", exams);		
+		return "takenExams";		
 	}
 
 }

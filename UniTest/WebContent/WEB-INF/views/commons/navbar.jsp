@@ -58,7 +58,7 @@
 							<li><a href="examList">Available Exams</a></li>
 							<!--  MODIFICATO DA DENNIS -->
 
-							<li><a href="morris.html">Taken Exams</a></li>
+							<li><a href="takenExams">Taken Exams</a></li>
 						</ul> <!-- /.nav-second-level --></li>
 				</c:if>
 				<c:if test="${role == 'ROLE_Professor'}">

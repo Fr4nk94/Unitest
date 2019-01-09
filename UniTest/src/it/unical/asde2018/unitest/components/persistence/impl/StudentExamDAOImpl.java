@@ -26,7 +26,7 @@ public class StudentExamDAOImpl extends AbstractBaseDAO<Student_Exam, Long> impl
 	}
 
 	@Override
-	public List<Student_Exam> getAllStudentExamProf(User user, boolean correct) {
+	public List<Student_Exam> getAllStudentExam(User user, boolean correct) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		String hql = "";
@@ -34,6 +34,8 @@ public class StudentExamDAOImpl extends AbstractBaseDAO<Student_Exam, Long> impl
 //			System.out.println("SEI PROFESSOREEEEE");
 			hql = "from Student_Exam WHERE correct = :bool and exam.user.id = :id";
 
+		}else if(user.getRoles().iterator().next().getAuthority().equals("ROLE_Student")) {
+			hql = "from Student_Exam WHERE correct = :bool and user.id = :id";
 		} 
 
 		Query query = session.createQuery(hql);

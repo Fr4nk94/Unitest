@@ -240,4 +240,10 @@ public class ExamService {
 		}
 		return true;
 	}
+	
+	public List<Student_Exam> getStudentTakenExams(User student){
+		
+		return studentExamDAO.getAllStudentExam(student, true);
+		
+	}
 }
