@@ -116,6 +116,12 @@ $(document).ready(function() {
             alert('Insert the score of the correct answer');
             return false;
         }
+        
+        // Check if the wrong score is correct
+        if (wrongScore > 0) {
+        	alert("Insert a value less than 0 for the wrong score");
+        	return false;
+        	}
     	
     	
     	
