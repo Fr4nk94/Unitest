@@ -125,7 +125,6 @@ $(document).ready(function() {
     	
     	
     	
-    	
     	if(questionType == "OPEN_ANSWER" || questionType == "ATTACH_FILE"){
     		console.log("you are submitting a OPEN question");
     		
