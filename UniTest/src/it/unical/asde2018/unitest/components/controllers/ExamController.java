@@ -22,6 +22,7 @@ import it.unical.asde2018.unitest.model.User;
 @org.springframework.stereotype.Controller
 public class ExamController {
 
+	
 	@Autowired
 	ExamService examService;
 
