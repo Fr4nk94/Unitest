@@ -44,7 +44,7 @@
 	<div class="container">
 		<div class="row text-center">
 			<h1>UNITEST</h1>
-			<h3>A description of the product</h3>
+			<h3>Online Examination System</h3>
 		</div>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">

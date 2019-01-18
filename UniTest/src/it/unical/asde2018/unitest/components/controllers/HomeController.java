@@ -30,17 +30,21 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String index(Model model, Principal principal, Authentication authentication, HttpSession session) {
+		
 		if (authentication != null) {
-			authentication.getAuthorities().forEach(grant -> {
+			authentication.getAuthorities().forEach(grant -> {				
 				session.setAttribute("role", grant.getAuthority());
 			});
 			session.setAttribute("aUser", ((UserPrincipal) authentication.getPrincipal()).getUser());
 		}
-		if (model != null && principal != null) {
-			model.addAttribute("message",
-					"You are logged in as " + ((UserPrincipal) authentication.getPrincipal()).getUser().getUsername());
+//		if (model != null && principal != null) {
+//			model.addAttribute("message",
+//					"You are logged in as " + ((UserPrincipal) authentication.getPrincipal()).getUser().getUsername());
+//		}
+		if(session.getAttribute("role").equals("ROLE_Professor")) {
+			return "redirect:getUserExams";
 		}
-		return "index";
+		return "redirect:examList";
 	}
 
 	@GetMapping("/login")

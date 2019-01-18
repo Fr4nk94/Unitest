@@ -74,7 +74,8 @@ public class ExamDAOImpl extends AbstractBaseDAO<Exam, Long> implements ExamDAO 
 		else if(user.getRoles().iterator().next().getAuthority().equals("ROLE_Student")) {
 			System.out.println("SEI STUDENTEEEE");
 			//TODO LOAD ONLY AVAILABLE EXAMS
-			hql = "from Exam WHERE available=true"; 
+			hql = "from Exam WHERE available=true and examID not in "
+					+ "(select exam.examID from Student_Exam where user ="+user.getId()+ ")"; 
 		}
 		
 		Query query = session.createQuery(hql);
